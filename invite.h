@@ -16,7 +16,7 @@ class invite
     QString sexe;
 public:
     invite();
-    invite(int,QString,QString,int,QString,QString);
+    invite(int c,QString n, QString p,int a, QDate d, QString m, QString s):cin(c),nom(n),prenom(p),age(a),date_naissance(d),mail(m),sexe(s){}
     int get_cin(){return cin;}
     QString get_nom(){return nom;}
     QString get_prenom(){return prenom;}

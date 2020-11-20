@@ -32,3 +32,10 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/'../Nouveau dossier (5)/build-qt-material-widgets-Desktop_Qt_5_9_9_MinGW_32bit-Debug/components/release/' -lcomponents
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/'../Nouveau dossier (5)/build-qt-material-widgets-Desktop_Qt_5_9_9_MinGW_32bit-Debug/components/debug/' -lcomponents
+else:unix: LIBS += -L$$PWD/'../Nouveau dossier (5)/build-qt-material-widgets-Desktop_Qt_5_9_9_MinGW_32bit-Debug/components/' -lcomponents
+
+INCLUDEPATH += $$PWD/'../Nouveau dossier (5)/build-qt-material-widgets-Desktop_Qt_5_9_9_MinGW_32bit-Debug/components/debug'
+DEPENDPATH += $$PWD/'../Nouveau dossier (5)/build-qt-material-widgets-Desktop_Qt_5_9_9_MinGW_32bit-Debug/components/debug'

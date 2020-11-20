@@ -6,22 +6,44 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>935</width>
-    <height>550</height>
+    <width>1038</width>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">MainWindow:
+{
+background-color:rgb(0, 0, 0);
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget_invites">
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">QTabWidget:pane {
+border:4px;
+background-color:rgb(90, 90, 90);
+
+
+}
+
+QTabBar::tab:selected {
+color:  rgb(255, 255, 255);
+background-color: rgb(90, 90, 90);
+}
+
+QTabBar::tab:!selected {
+color: rgb(255,255,255);
+background-color:  rgb(107, 107, 107);
+
+}
+
+
+</string>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -35,6 +57,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QGroupBox" name="groupBox">
+            <property name="styleSheet">
+             <string notr="true">color:rgb(255,255,255);</string>
+            </property>
             <property name="title">
              <string>Ajouter Invité</string>
             </property>
@@ -59,7 +84,8 @@
                  <item row="1" column="0">
                   <widget class="QLabel" name="cINLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>CIN</string>
@@ -71,13 +97,10 @@
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
-padding-left:20px;
-padding-right:20px;
-border-radius:20px;
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
+
 }</string>
                    </property>
                   </widget>
@@ -85,7 +108,8 @@ border-radius:20px;
                  <item row="2" column="0">
                   <widget class="QLabel" name="nomLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>Nom</string>
@@ -97,10 +121,10 @@ border-radius:20px;
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
+
+color:tgb(0,0,0);
 }</string>
                    </property>
                   </widget>
@@ -108,7 +132,8 @@ background-color: rgb(34,36,42);
                  <item row="3" column="0">
                   <widget class="QLabel" name="prNomLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>Prénom</string>
@@ -120,10 +145,9 @@ background-color: rgb(34,36,42);
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
 }</string>
                    </property>
                   </widget>
@@ -131,7 +155,8 @@ background-color: rgb(34,36,42);
                  <item row="4" column="0">
                   <widget class="QLabel" name="dateDeNaissanceLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>Date de Naissance</string>
@@ -143,10 +168,9 @@ background-color: rgb(34,36,42);
                    <property name="styleSheet">
                     <string notr="true">QDateEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
 }</string>
                    </property>
                   </widget>
@@ -154,7 +178,8 @@ background-color: rgb(34,36,42);
                  <item row="5" column="0">
                   <widget class="QLabel" name="eMailLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>E-mail</string>
@@ -166,10 +191,9 @@ background-color: rgb(34,36,42);
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
 }</string>
                    </property>
                   </widget>
@@ -177,7 +201,8 @@ background-color: rgb(34,36,42);
                  <item row="6" column="0">
                   <widget class="QLabel" name="sexeLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>Sexe</string>
@@ -189,10 +214,9 @@ background-color: rgb(34,36,42);
                    <property name="styleSheet">
                     <string notr="true">QComboBox
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
 }</string>
                    </property>
                    <item>
@@ -210,7 +234,8 @@ background-color: rgb(34,36,42);
                  <item row="7" column="0">
                   <widget class="QLabel" name="ageLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
                     <string>Age</string>
@@ -222,10 +247,9 @@ background-color: rgb(34,36,42);
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
 }</string>
                    </property>
                   </widget>
@@ -265,7 +289,22 @@ background-color: rgb(34,36,42);
                <item>
                 <widget class="QPushButton" name="pushButton_reset">
                  <property name="styleSheet">
-                  <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
                  </property>
                  <property name="text">
                   <string>Reset</string>
@@ -275,7 +314,22 @@ background-color: rgb(34,36,42);
                <item>
                 <widget class="QPushButton" name="pushButton_ajouter">
                  <property name="styleSheet">
-                  <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
                  </property>
                  <property name="text">
                   <string>Ajouter</string>
@@ -289,6 +343,9 @@ background-color: rgb(34,36,42);
           </item>
           <item>
            <widget class="QGroupBox" name="groupBox_2">
+            <property name="styleSheet">
+             <string notr="true">color:rgb(255,255,255);</string>
+            </property>
             <property name="title">
              <string>Afficher Invités</string>
             </property>
@@ -302,16 +359,32 @@ background-color: rgb(34,36,42);
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
+
+background-color: rgb(255,255,255);
 }</string>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <widget class="QPushButton" name="pushButton_recherche">
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                   </property>
                    <property name="text">
                     <string>Recherche</string>
                    </property>
@@ -319,6 +392,24 @@ background-color: rgb(34,36,42);
                  </item>
                  <item>
                   <widget class="QPushButton" name="pushButton_stats">
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                   </property>
                    <property name="text">
                     <string>Stats</string>
                    </property>
@@ -327,55 +418,70 @@ background-color: rgb(34,36,42);
                 </layout>
                </item>
                <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Filtre</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboBox_filtre">
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(90,90,90);</string>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>CIN</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Nom</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Date Naissance</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Sexe</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item>
                 <widget class="QTableView" name="tableView">
                  <property name="styleSheet">
-                  <string notr="true">QTableView
-{
-border:2px solid rgb(37,39,48);
-border-radius: 20px;
-color:#FFF;
-background-color: rgb(34,36,42);
-}</string>
+                  <string notr="true">color:tgb(0,0,0);</string>
                  </property>
                 </widget>
                </item>
                <item>
                 <layout class="QVBoxLayout" name="verticalLayout_4">
                  <item>
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>Filtre</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="comboBox_filtre">
-                   <item>
-                    <property name="text">
-                     <string>CIN</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Nom</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Date Naissance</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Sexe</string>
-                    </property>
-                   </item>
-                  </widget>
-                 </item>
-                 <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_15">
                    <item>
                     <widget class="QPushButton" name="pushButton_supprimer">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                     </property>
                      <property name="text">
                       <string>Supprimer</string>
                      </property>
@@ -383,6 +489,24 @@ background-color: rgb(34,36,42);
                    </item>
                    <item>
                     <widget class="QPushButton" name="pushButton_modifier">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                     </property>
                      <property name="text">
                       <string>Modifier</string>
                      </property>
@@ -393,6 +517,24 @@ background-color: rgb(34,36,42);
                    </item>
                    <item>
                     <widget class="QPushButton" name="pushButton_details">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                     </property>
                      <property name="text">
                       <string>Détails</string>
                      </property>
@@ -400,6 +542,24 @@ background-color: rgb(34,36,42);
                    </item>
                    <item>
                     <widget class="QPushButton" name="pushButton_notifier">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                     </property>
                      <property name="text">
                       <string>Notifier</string>
                      </property>
@@ -407,6 +567,24 @@ background-color: rgb(34,36,42);
                    </item>
                    <item>
                     <widget class="QPushButton" name="pushButton_envoyer">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton:!hover{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+
+}</string>
+                     </property>
                      <property name="text">
                       <string>Envoyer</string>
                      </property>
@@ -444,8 +622,8 @@ background-color: rgb(34,36,42);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>935</width>
-     <height>21</height>
+     <width>1038</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>

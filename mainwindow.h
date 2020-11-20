@@ -50,5 +50,6 @@ private:
     };
 
     invite tmpinvite;
+    QRegExp mail_regex;
 };
 #endif // MAINWINDOW_H

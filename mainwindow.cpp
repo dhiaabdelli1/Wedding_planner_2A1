@@ -2,11 +2,18 @@
 #include "ui_mainwindow.h"
 #include "dialog.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    mail_regex=QRegExp("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$");
+
+
     ui->setupUi(this);
+
+    this->setStyleSheet("background-color: rgb(97, 97, 97);");
 
 
     ui->cINLineEdit->setMaxLength(8);
@@ -33,13 +40,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_ajouter_clicked()
 {
-
+    bool mail_verif = mail_regex.exactMatch(ui->eMailLineEdit->text());
 
     if ( ui->cINLineEdit->text()!= "" &&
          ui->nomLineEdit->text()!="" &&
          ui->prNomLineEdit->text() != "" &&
          ui->eMailLineEdit->text()!= "")
     {
+        if (!mail_verif)
+        {
+            QMessageBox::warning(this,"Erreur lors de l'ajout","E-mail invalid");
+        }
+        else
+        {
 
             int cin = ui->cINLineEdit->text().toInt();
             QString nom= ui->nomLineEdit->text();
@@ -47,10 +60,11 @@ void MainWindow::on_pushButton_ajouter_clicked()
             int age = ui->ageLineEdit->text().toInt();
             QString mail= ui->eMailLineEdit->text();
             QString sexe = ui->sexeComboBox->currentText();
+            QDate date_naissance = ui->dateDeNaissanceDateEdit->date();
 
 
 
-            invite inv(cin,nom,prenom,age,mail,sexe);
+            invite inv(cin,nom,prenom,age,date_naissance,mail,sexe);
 
             bool test=inv.ajouter();
 
@@ -63,6 +77,7 @@ void MainWindow::on_pushButton_ajouter_clicked()
             ui->nomLineEdit->setText("");
             ui->prNomLineEdit->setText("");
             ui->eMailLineEdit->setText("");*/
+        }
 
 
     }

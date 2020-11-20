@@ -4,10 +4,8 @@ invite::invite()
 {
 
 }
-invite::invite(int c,QString n, QString p,int a,QString m, QString s):cin(c),nom(n),prenom(p),age(a),mail(m),sexe(s)
-{
 
-}
+
 bool invite::ajouter()
 {
     QSqlQuery query;
