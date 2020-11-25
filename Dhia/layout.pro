@@ -1,4 +1,4 @@
-QT       += core gui sql serialport
+QT       += core gui sql serialport printsupport network charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,18 +15,25 @@ SOURCES += \
     dialog.cpp \
     invite.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    smtp.cpp \
+    staats.cpp \
+    stats.cpp
 
 HEADERS += \
     arduino.h \
     connexion.h \
     dialog.h \
     invite.h \
-    mainwindow.h
+    mainwindow.h \
+    smtp.h \
+    staats.h \
+    stats.h
 
 FORMS += \
     dialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    stats.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
