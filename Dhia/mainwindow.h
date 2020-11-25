@@ -8,9 +8,16 @@
 #include <QItemSelectionModel>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include "qtmaterialraisedbutton.h"
+#include <qtextbrowser.h>
 
 
 #include "invite.h"
+#include "stats.h"
+#include "staats.h"
 
 
 
@@ -26,6 +33,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private slots:
 
 
@@ -40,6 +48,18 @@ private slots:
     void on_pushButton_supprimer_clicked();
 
     void on_tableView_activated(const QModelIndex &index);
+
+    void on_pushButton_recherche_clicked();
+
+    void on_pushButton_notifier_clicked();
+
+    void on_pushButton_stats_clicked();
+
+    void on_pushButton_envoyer_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;

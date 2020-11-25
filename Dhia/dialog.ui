@@ -21,74 +21,57 @@
        <item row="0" column="0">
         <widget class="QLabel" name="cINLabel">
          <property name="text">
-          <string>CIN</string>
+          <string>Smtp-server</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="cINLineEdit"/>
+        <widget class="QLineEdit" name="server"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="nomLabel">
          <property name="text">
-          <string>Nom</string>
+          <string>Username</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="nomLineEdit"/>
+        <widget class="QLineEdit" name="uname"/>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="prenomLabel">
          <property name="text">
-          <string>Prenom</string>
+          <string>Password</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="prenomLineEdit"/>
+        <widget class="QLineEdit" name="passwd"/>
        </item>
        <item row="3" column="0">
-        <widget class="QLabel" name="ageLabel">
+        <widget class="QLabel" name="serverPortLabel">
          <property name="text">
-          <string>Age</string>
+          <string>Server port</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLineEdit" name="ageLineEdit"/>
+        <widget class="QLineEdit" name="port"/>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="dateNaissanceLabel">
+        <widget class="QLabel" name="recipientLabel">
          <property name="text">
-          <string>Date Naissance</string>
+          <string>Recipient</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QDateEdit" name="dateNaissanceDateEdit"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="emailLabel">
-         <property name="text">
-          <string>Email</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLineEdit" name="emailLineEdit"/>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="sexeLabel">
-         <property name="text">
-          <string>Sexe</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="1">
-        <widget class="QComboBox" name="sexeComboBox"/>
+        <widget class="QLineEdit" name="recipient"/>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="message"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -121,7 +104,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_2">
          <property name="text">
-          <string>Valider</string>
+          <string>Envoyer</string>
          </property>
         </widget>
        </item>
@@ -139,5 +122,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>522</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>613</x>
+     <y>13</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
