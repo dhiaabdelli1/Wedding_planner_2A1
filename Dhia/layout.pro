@@ -17,7 +17,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     smtp.cpp \
-    staats.cpp \
     stats.cpp
 
 HEADERS += \
@@ -27,7 +26,6 @@ HEADERS += \
     invite.h \
     mainwindow.h \
     smtp.h \
-    staats.h \
     stats.h
 
 FORMS += \

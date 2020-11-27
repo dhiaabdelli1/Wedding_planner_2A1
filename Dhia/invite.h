@@ -49,8 +49,7 @@ public:
 
     void exporter(QTableView *table);
 
-    QSqlQueryModel *trier_date();
-    QSqlQueryModel *trier_nom();
+    QSqlQueryModel *trier(QString,QString);
 
 };
 

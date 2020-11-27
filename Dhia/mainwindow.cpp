@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setStyleSheet("background-color: rgb(97, 97, 97);");
 
+    ui->groupBox->setMaximumWidth(100);
+
 
     ui->cINLineEdit->setMaxLength(8);
 
@@ -28,6 +30,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+
+    contract_animation = new QPropertyAnimation(ui->groupBox,"maximumWidth");
+    contract_animation->setDuration(400);
+    contract_animation->setStartValue(300); //find how to get get default value
+    contract_animation->setEndValue(100);
+
+    expand_animation = new QPropertyAnimation(ui->groupBox,"maximumWidth");
+    expand_animation->setDuration(400);
+    expand_animation->setStartValue(100); //find how to get get default value
+    expand_animation->setEndValue(300);
+
+    ui->pushButton_3->setText("Contract");
+
+    expand_animation->start();
 }
 
 MainWindow::~MainWindow()
@@ -274,9 +291,11 @@ void MainWindow::on_pushButton_envoyer_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     if (ui->comboBox->currentIndex()==2)
-        ui->tableView->setModel(tmpinvite.trier_date());
+        ui->tableView->setModel(tmpinvite.trier("date_naissance",ui->comboBox_2->currentText()));
     else if (ui->comboBox->currentIndex()==4)
-        ui->tableView->setModel(tmpinvite.trier_nom());
+        ui->tableView->setModel(tmpinvite.trier("nom",ui->comboBox_2->currentText()));
+    else if (ui->comboBox->currentIndex()==3)
+        ui->tableView->setModel(tmpinvite.trier("nom, date_naissance",ui->comboBox_2->currentText()));
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -286,4 +305,21 @@ void MainWindow::on_pushButton_2_clicked()
     stats_window.show();
     stats_window.exec();
     QDialog d;
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    static int turn=1;
+    if (turn==1)
+    {
+        contract_animation->start();
+        ui->pushButton_2->setText("Expand");
+    }
+
+    else
+    {
+        expand_animation->start();
+        ui->pushButton_2->setText("Contract");
+    }
+    turn*=-1;
 }

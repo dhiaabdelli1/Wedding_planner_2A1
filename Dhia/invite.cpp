@@ -153,26 +153,16 @@ void invite::exporter(QTableView *table)
 }
 
 
-QSqlQueryModel *invite::trier_date()
-{
-    QSqlQuery *qry=new QSqlQuery();
-    QSqlQueryModel *model= new QSqlQueryModel();
-    qry->prepare("select * from invites order by date_naissance ASC");
-    qry->exec();
-    model->setQuery(*qry);
-    return model;
-}
 
-QSqlQueryModel *invite::trier_nom()
+QSqlQueryModel *invite::trier(QString crit,QString ordre)
 {
     QSqlQuery *qry=new QSqlQuery();
     QSqlQueryModel *model=new QSqlQueryModel();
-    qry->prepare("select * from invites order by nom ASC");
+    qry->prepare("select * from invites order by "+crit+" "+ordre);
     qry->exec();
     model->setQuery(*qry);
     return model;
 }
-
 
 
 
