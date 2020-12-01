@@ -10,11 +10,12 @@ bool invite::ajouter()
 {
     QSqlQuery query;
 
-    QString res= QString::number(cin);
+
 
     query.prepare("INSERT INTO Invites (cin, nom, prenom,date_naissance,mail,sexe)"
                   "VALUES (:cin,:nom,:prenom,:date_naissance,:mail,:sexe)");
-    query.bindValue(":cin",res);
+
+    query.bindValue(":cin",cin);
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
     query.bindValue(":date_naissance",date_naissance);
@@ -31,7 +32,7 @@ QSqlQueryModel * invite::afficher()
 
     model->setQuery("select * from Invites");
 
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("CIN"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("Prenom"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Date de Naissance"));
@@ -42,35 +43,17 @@ QSqlQueryModel * invite::afficher()
 }
 
 
-bool invite::supprimer(int cin)
+bool invite::supprimer(QString cin)
 {
     QSqlQuery qry;
-    QString mat = QString::number(cin);
+    //QString mat = QString::number(cin);
     qry.prepare("Delete from INVITES where CIN = :CIN");
-    qry.bindValue(":CIN",mat);
+    qry.bindValue(":CIN",cin);
     return qry.exec();
 }
 
 
-QSqlQueryModel * invite::rechercher_cin(int cin)
-{
-    QSqlQuery qry;
-    qry.prepare("select * from invites where cin = :cin");
-    qry.bindValue(":cin",cin);
-    qry.exec();
 
-    QSqlQueryModel *model= new QSqlQueryModel;
-    model->setQuery(qry);
-
-    QSqlRecord rec=model->record(0);
-
-    int c=rec.value("cin").toInt();
-
-    if (c==cin)
-        return model;
-    return nullptr;
-
-}
 
 QSqlQueryModel * invite::rechercher_sexe(QString sexe)
 {
@@ -83,10 +66,36 @@ QSqlQueryModel * invite::rechercher_sexe(QString sexe)
     model->setQuery(qry);
 
 
-   return model;
+    return model;
 
 
 }
+
+QSqlQueryModel *invite::rechercher_nom(QString nom)
+{
+
+    QSqlQueryModel *model= new QSqlQueryModel;
+    model->setQuery("select * from invites where nom like'"+nom+"%'");
+
+    return model;
+}
+
+QSqlQueryModel * invite::rechercher_cin(QString cin)
+{
+    QSqlQueryModel *model= new QSqlQueryModel;
+    model->setQuery("select * from invites where cin like'"+cin+"%'");
+
+    return model;
+}
+
+QSqlQueryModel * invite::rechercher_email(QString email)
+{
+    QSqlQueryModel *model= new QSqlQueryModel;
+    model->setQuery("select * from invites where mail like'"+email+"%'");
+
+    return model;
+}
+
 
 QSqlQueryModel * invite::rechercher_date(QDate date)
 {
@@ -101,7 +110,7 @@ QSqlQueryModel * invite::rechercher_date(QDate date)
     return model;
 }
 
-QSqlQueryModel * invite::rechercher_combinaison(QString nom,QString sexe,QDate date)
+QSqlQueryModel * invite::rechercher_combinaison_all(QString nom,QString sexe,QDate date)
 {
     QSqlQuery *qry=new QSqlQuery();
     qry->prepare("select * from invites where nom=:nom and sexe=:sexe and date_naissance=:date_naissance");
@@ -115,12 +124,52 @@ QSqlQueryModel * invite::rechercher_combinaison(QString nom,QString sexe,QDate d
     return model;
 }
 
+QSqlQueryModel * invite::rechercher_combinaison_nom_date(QString nom, QDate date)
+{
+    QSqlQuery *qry=new QSqlQuery();
+    qry->prepare("select * from invites where nom=:nom and date_naissance=:date_naissance");
+    qry->bindValue(":nom",nom);
+    qry->bindValue(":date_naissance",date);
+    qry->exec();
+
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery(*qry);
+    return model;
+}
+
+QSqlQueryModel * invite::rechercher_combinaison_sexe_date(QString sexe, QDate date)
+{
+    QSqlQuery *qry=new QSqlQuery();
+    qry->prepare("select * from invites where sexe=:sexe and date_naissance=:date_naissance");
+    qry->bindValue(":sexe",sexe);
+    qry->bindValue(":date_naissance",date);
+    qry->exec();
+
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery(*qry);
+    return model;
+}
+
+QSqlQueryModel * invite::rechercher_combinaison_nom_sexe(QString nom, QString sexe)
+{
+    QSqlQuery *qry=new QSqlQuery();
+    qry->prepare("select * from invites where nom=:nom and sexe=:sexe");
+    qry->bindValue(":nom",nom);
+    qry->bindValue(":sexe",sexe);
+    qry->exec();
+
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery(*qry);
+    return model;
+}
+
 void invite::exporter(QTableView *table)
 {
+
     QString filters("CSV files (*.csv);;All files (*.*)");
     QString defaultFilter("CSV files (*.csv)");
     QString fileName = QFileDialog::getSaveFileName(0, "Save file", QCoreApplication::applicationDirPath(),
-                                                        filters, &defaultFilter);
+                                                    filters, &defaultFilter);
     QFile file(fileName);
     QAbstractItemModel *model =  table->model();
     if (file.open(QFile::WriteOnly | QFile::Truncate))
@@ -133,10 +182,10 @@ void invite::exporter(QTableView *table)
                 strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
             else
                 strList.append("");
-         }
-         data << strList.join(";") << "\n";
-         for (int i = 0; i < model->rowCount(); i++)
-         {
+        }
+        data << strList.join(";") << "\n";
+        for (int i = 0; i < model->rowCount(); i++)
+        {
             strList.clear();
             for (int j = 0; j < model->columnCount(); j++)
             {
@@ -145,11 +194,11 @@ void invite::exporter(QTableView *table)
                     strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
                 else
                     strList.append("");
-             }
-                data << strList.join(";") + "\n";
             }
-            file.close();
+            data << strList.join(";") + "\n";
         }
+        file.close();
+    }
 }
 
 
@@ -163,6 +212,41 @@ QSqlQueryModel *invite::trier(QString crit,QString ordre)
     model->setQuery(*qry);
     return model;
 }
+
+
+int invite::count(QString etat)
+{
+    QSqlQuery query;
+    query.prepare("select * from invites where sexe=:etat");
+    query.bindValue(":etat",etat);
+
+    query.exec();
+    int total=0;
+    while(query.next()){
+        total++;
+    }
+
+    return total;
+
+}
+
+int invite::count_date(QDate date_1,QDate date_2,QString sexe)
+{
+    QSqlQuery query;
+    query.prepare("select * from invites where date_naissance between :date_1 AND :date_2  AND sexe=:sexe");
+    query.bindValue(":date_1",date_1);
+    query.bindValue(":date_2",date_2);
+    query.bindValue(":sexe",sexe);
+
+    query.exec();
+    int total=0;
+    while(query.next()){
+        total++;
+    }
+
+    return total;
+}
+
 
 
 

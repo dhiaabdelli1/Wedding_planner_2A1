@@ -22,6 +22,8 @@
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
 
+#include "invite.h"
+
 // Define the scope for your variables and functions
 QT_CHARTS_USE_NAMESPACE
 
@@ -39,6 +41,7 @@ public:
 
 private:
     Ui::stats *ui;
+    invite tmpinvite;
 };
 
 #endif // STATS_H

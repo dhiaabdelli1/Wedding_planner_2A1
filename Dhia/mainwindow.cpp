@@ -70,13 +70,12 @@ void MainWindow::on_pushButton_ajouter_clicked()
         else
         {
 
-            int cin = ui->cINLineEdit->text().toInt();
+            QString cin=ui->cINLineEdit->text();
             QString nom= ui->nomLineEdit->text();
             QString prenom= ui->prNomLineEdit->text();
             QString mail= ui->eMailLineEdit->text();
             QString sexe = ui->sexeComboBox->currentText();
             QDate date_naissance = ui->dateDeNaissanceDateEdit->date();
-
 
 
             invite inv(cin,nom,prenom,date_naissance,mail,sexe);
@@ -114,14 +113,39 @@ void MainWindow::on_pushButton_reset_clicked()
 
 void MainWindow::on_pushButton_details_clicked()
 {
-    tmpinvite.exporter(ui->tableView);
+
+    QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
+    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_invites.pdf"); }
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(fileName);
+
+    QTextDocument doc;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM invites ");
+    q.exec();
+    QString pdf="<br> <img src='D:/Users/dhiaa/Desktop/gestion_invités/logo.png' height='42' width='144'/> <h1  style='color:red'>       LISTE DES INVITES  <br></h1>\n <br> <table>  <tr>  <th> CIN </th> <th> NOM </th> <th> PRENOM </th> <th> DATE NAISSANCE  </th> <th>E-MAIL </th>  </tr>" ;
+
+
+    while ( q.next()) {
+
+        pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+"       </td>" ;
+
+    }
+    doc.setHtml(pdf);
+    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+    doc.print(&printer);
+
+
 }
 
 void MainWindow::on_pushButton_modifier_clicked()
 {
     if (ui->pushButton_modifier->isChecked())
     {
-        ui->pushButton_modifier->setDisabled(true);
+
         ui->pushButton_modifier->setText("Modifiable");
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("INVITES");
@@ -143,70 +167,98 @@ void MainWindow::on_pushButton_supprimer_clicked()
 
     QItemSelectionModel *select = ui->tableView->selectionModel();
 
-    int cin =select->selectedRows(0).value(0).data().toInt();
+    QString cin =select->selectedRows(0).value(0).data().toString();
 
     if(tmpinvite.supprimer(cin))
     {
         ui->tableView->setModel(tmpinvite.afficher());
         ui->statusbar->showMessage("Invité supprimé");
-     }
+    }
 
 
 }
 
 void MainWindow::on_pushButton_recherche_clicked()
 {
-    if (ui->comboBox->currentIndex()==0)
+
+    QString nom=ui->lineEdit_recherche->text();
+    QDate date=ui->dateEdit->date();
+    QString sexe;
+    QString email=ui->lineEdit_recherche->text();
+    if (ui->radioButton->isChecked())
+        sexe=ui->radioButton->text();
+    else if (ui->radioButton_2->isChecked())
+        sexe=ui->radioButton_2->text();
+
+
+
+
+    if (ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
     {
-        int cin=ui->lineEdit_recherche->text().toInt();
-        QSqlQueryModel *verif_cin=tmpinvite.rechercher_cin(cin);
-        if (verif_cin!=nullptr)
+
+        QSqlQueryModel *verif_combinaison=tmpinvite.rechercher_combinaison_all(nom,sexe,date);
+        if (verif_combinaison!=nullptr)
         {
-            ui->tableView->setModel(verif_cin);
+            ui->tableView->setModel(verif_combinaison);
         }
+
     }
-    else if (ui->comboBox->currentIndex()==1)
+    else if (!ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
     {
-        QString sexe;
-        if (ui->radioButton->isChecked())
-            sexe=ui->radioButton->text();
-        else if (ui->radioButton_2->isChecked())
-            sexe=ui->radioButton_2->text();
         QSqlQueryModel *verif_sexe=tmpinvite.rechercher_sexe(sexe);
         if (verif_sexe!=nullptr)
         {
             ui->tableView->setModel(verif_sexe);
         }
     }
-    else if (ui->comboBox->currentIndex()==2)
+    else if (!ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
     {
-        QDate date=ui->dateEdit->date();
         QSqlQueryModel *verif_date=tmpinvite.rechercher_date(date);
         if (verif_date!=nullptr)
         {
             ui->tableView->setModel(verif_date);
         }
     }
-    else if (ui->comboBox->currentIndex()==3)
+    else if (ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
     {
-        QString nom=ui->lineEdit_recherche->text();
-        QDate date=ui->dateEdit->date();
-        QString sexe;
-        if (nom!="")
+        QSqlQueryModel *verif_nom=tmpinvite.rechercher_nom(nom);
+        if (verif_nom!=nullptr)
         {
-            if (ui->radioButton->isChecked())
-                sexe=ui->radioButton->text();
-            else if (ui->radioButton_2->isChecked())
-                sexe=ui->radioButton_2->text();
-            QSqlQueryModel *verif_combinaison=tmpinvite.rechercher_combinaison(nom,sexe,date);
-            if (verif_combinaison!=nullptr)
-            {
-                ui->tableView->setModel(verif_combinaison);
-            }
+            ui->tableView->setModel(verif_nom);
         }
-        else
-            QMessageBox::warning(this,"Erreur lors de la recherche","Champs nom vide");
+    }
+    else if (ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
+    {
+        QSqlQueryModel *verif_nom_sexe=tmpinvite.rechercher_combinaison_nom_sexe(nom,sexe);
+        if (verif_nom_sexe!=nullptr)
+        {
+            ui->tableView->setModel(verif_nom_sexe);
+        }
+    }
+    else if (!ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
+    {
+        QSqlQueryModel *verif_sexe_date=tmpinvite.rechercher_combinaison_sexe_date(sexe,date);
+        if (verif_sexe_date!=nullptr)
+        {
+            ui->tableView->setModel(verif_sexe_date);
+        }
+    }
+    else if (ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
+    {
+        QSqlQueryModel *verif_nom_date=tmpinvite.rechercher_combinaison_nom_date(nom,date);
+        if (verif_nom_date!=nullptr)
+        {
+            ui->tableView->setModel(verif_nom_date);
+        }
+    }
 
+    else if (!ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked() && ui->checkBox_mail)
+    {
+        QSqlQueryModel *verif_mail=tmpinvite.rechercher_email(email);
+        if (verif_mail!=nullptr)
+        {
+            ui->tableView->setModel(verif_mail);
+        }
     }
 
 }
@@ -226,12 +278,12 @@ void MainWindow::on_pushButton_notifier_clicked()
     const int columnCount = ui->tableView->model()->columnCount();
 
     out <<  "<html>\n"
-        "<head>\n"
-        "<meta Content=\"Text/html; charset=Windows-1251\">\n"
-        <<  QString("<title>%1</title>\n").arg("Title")
-        <<  "</head>\n"
-        "<body bgcolor=#ffffff link=#5000A0>\n"
-        "<table border=1 cellspacing=0 cellpadding=2>\n";
+            "<head>\n"
+            "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+         <<  QString("<title>%1</title>\n").arg("Title")
+          <<  "</head>\n"
+              "<body bgcolor=#ffffff link=#5000A0>\n"
+              "<table border=1 cellspacing=0 cellpadding=2>\n";
 
     // headers
     out << "<thead><tr bgcolor=#f0f0f0>";
@@ -252,8 +304,8 @@ void MainWindow::on_pushButton_notifier_clicked()
         out << "</tr>\n";
     }
     out <<  "</table>\n"
-        "</body>\n"
-        "</html>\n";
+            "</body>\n"
+            "</html>\n";
 
     QTextDocument *document = new QTextDocument();
     document->setHtml(strStream);
@@ -276,6 +328,7 @@ void MainWindow::on_pushButton_stats_clicked()
 void MainWindow::on_pushButton_envoyer_clicked()
 {
     QItemSelectionModel *select = ui->tableView->selectionModel();
+
     QString email_recipient =select->selectedRows(4).value(0).data().toString();
     QString nom_recipient =select->selectedRows(1).value(0).data().toString();
     QString sexe_recipient =select->selectedRows(5).value(0).data().toString();
@@ -290,12 +343,21 @@ void MainWindow::on_pushButton_envoyer_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-    if (ui->comboBox->currentIndex()==2)
-        ui->tableView->setModel(tmpinvite.trier("date_naissance",ui->comboBox_2->currentText()));
-    else if (ui->comboBox->currentIndex()==4)
+    if (ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
         ui->tableView->setModel(tmpinvite.trier("nom",ui->comboBox_2->currentText()));
-    else if (ui->comboBox->currentIndex()==3)
+    else if (!ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("sexe",ui->comboBox_2->currentText()));
+    else if (!ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("date_naissance",ui->comboBox_2->currentText()));
+    else if (ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("nom, sexe",ui->comboBox_2->currentText()));
+    else if (ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
         ui->tableView->setModel(tmpinvite.trier("nom, date_naissance",ui->comboBox_2->currentText()));
+    else if (!ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("sexe, date_naissance",ui->comboBox_2->currentText()));
+    else if (ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("nom, sexe, date_naissance",ui->comboBox_2->currentText()));
+
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -310,6 +372,9 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {
     static int turn=1;
+
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/wiou.wav");
+
     if (turn==1)
     {
         contract_animation->start();
@@ -322,4 +387,12 @@ void MainWindow::on_pushButton_3_clicked()
         ui->pushButton_2->setText("Contract");
     }
     turn*=-1;
+}
+
+void MainWindow::on_lineEdit_recherche_textChanged(const QString &arg1)
+{
+    if (!ui->checkBox_cin->isChecked() && ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked() && !ui->checkBox_mail->isChecked())
+        ui->tableView->setModel(tmpinvite.rechercher_nom(arg1));
+    else if (ui->checkBox_cin->isChecked() && !ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked() && !ui->checkBox_mail->isChecked())
+        ui->tableView->setModel(tmpinvite.rechercher_cin(arg1));
 }
