@@ -10,6 +10,12 @@ Dialog::Dialog(QWidget *parent) :
     ui->server->setText("smtp.gmail.com");
     ui->port->setText("465");
 
+    QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
+
 }
 Dialog::Dialog(QString e,QString n,QString s,QWidget *parent) :
     QDialog(parent),

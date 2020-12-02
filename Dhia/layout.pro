@@ -17,7 +17,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     smtp.cpp \
-    stats.cpp
+    stats.cpp \
+    table.cpp
 
 HEADERS += \
     arduino.h \
@@ -26,7 +27,8 @@ HEADERS += \
     invite.h \
     mainwindow.h \
     smtp.h \
-    stats.h
+    stats.h \
+    table.h
 
 FORMS += \
     dialog.ui \

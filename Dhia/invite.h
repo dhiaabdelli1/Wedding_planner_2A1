@@ -23,12 +23,13 @@ class invite
     QDate date_naissance;
     QString mail;
     QString sexe;
+    QString telephone;
     int nb_femmes;
     int nb_hommes;
 
 public:
     invite();
-    invite(QString c,QString n, QString p, QDate d, QString m, QString s):cin(c),nom(n),prenom(p),date_naissance(d),mail(m),sexe(s){}
+    invite(QString c,QString n, QString p, QDate d, QString m, QString s,QString t):cin(c),nom(n),prenom(p),date_naissance(d),mail(m),sexe(s),telephone(t){}
     //int get_cin(){return cin;}
     QString get_cin(){return cin;}
     QString get_nom(){return nom;}

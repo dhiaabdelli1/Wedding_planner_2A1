@@ -26,21 +26,26 @@ background-color:rgb(0, 0, 0);
       <property name="styleSheet">
        <string notr="true">QTabWidget:pane {
 border:4px;
-background-color:rgb(90, 90, 90);
+background-color:rgb(255, 134, 223);
 
 
 }
 
 QTabBar::tab:selected {
 color:  rgb(255, 255, 255);
-background-color: rgb(90, 90, 90);
+background-color: rgb(255, 70, 230);
+font: 8pt &quot;Forte&quot;;
 }
 
 QTabBar::tab:!selected {
 color: rgb(255,255,255);
-background-color:  rgb(107, 107, 107);
+background-color:  rgb(255, 70, 230);
+font: 8pt &quot;Forte&quot;;
 
 }
+
+
+
 
 
 </string>
@@ -58,7 +63,8 @@ background-color:  rgb(107, 107, 107);
           <item>
            <widget class="QGroupBox" name="groupBox">
             <property name="styleSheet">
-             <string notr="true">color:rgb(255,255,255);</string>
+             <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
             </property>
             <property name="title">
              <string>Ajouter Invité</string>
@@ -84,7 +90,7 @@ background-color:  rgb(107, 107, 107);
                  <item row="1" column="0">
                   <widget class="QLabel" name="cINLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
@@ -108,7 +114,7 @@ color:tgb(0,0,0);
                  <item row="2" column="0">
                   <widget class="QLabel" name="nomLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
@@ -132,7 +138,7 @@ color:tgb(0,0,0);
                  <item row="3" column="0">
                   <widget class="QLabel" name="prNomLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
@@ -155,7 +161,7 @@ color:tgb(0,0,0);
                  <item row="4" column="0">
                   <widget class="QLabel" name="dateDeNaissanceLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
@@ -178,7 +184,7 @@ color:tgb(0,0,0);
                  <item row="5" column="0">
                   <widget class="QLabel" name="eMailLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
@@ -201,7 +207,7 @@ color:tgb(0,0,0);
                  <item row="6" column="0">
                   <widget class="QLabel" name="sexeLabel">
                    <property name="styleSheet">
-                    <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
                    </property>
                    <property name="text">
@@ -215,7 +221,9 @@ color:rgb(255,255,255);</string>
                     <string notr="true">QComboBox
 {
 
-background-color: rgb(0,0,0);
+background-color: rgb(127, 60, 55);
+color:rgb(0,0,0);
+	alternate-background-color: rgb(85, 85, 127);
 
 }</string>
                    </property>
@@ -229,6 +237,29 @@ background-color: rgb(0,0,0);
                      <string>Femme</string>
                     </property>
                    </item>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="tLPhoneLabel">
+                   <property name="styleSheet">
+                    <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
+                   </property>
+                   <property name="text">
+                    <string>Téléphone</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="1">
+                  <widget class="QLineEdit" name="tLPhoneLineEdit">
+                   <property name="styleSheet">
+                    <string notr="true">QLineEdit
+{
+
+background-color: rgb(255,255,255);
+color:tgb(0,0,0);
+}</string>
+                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -267,21 +298,31 @@ background-color: rgb(0,0,0);
                 <widget class="QPushButton" name="pushButton_3">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                  </property>
                  <property name="text">
                   <string>Contract</string>
@@ -292,21 +333,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                 <widget class="QPushButton" name="pushButton_reset">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                  </property>
                  <property name="text">
                   <string>Reset</string>
@@ -317,21 +368,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                 <widget class="QPushButton" name="pushButton_ajouter">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                  </property>
                  <property name="text">
                   <string>Ajouter</string>
@@ -346,7 +407,8 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
           <item>
            <widget class="QGroupBox" name="groupBox_2">
             <property name="styleSheet">
-             <string notr="true">color:rgb(255,255,255);</string>
+             <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
             </property>
             <property name="title">
              <string>Afficher Invités</string>
@@ -382,21 +444,31 @@ color:rgb(0,0,0);
                   <widget class="QPushButton" name="pushButton_recherche">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                    </property>
                    <property name="text">
                     <string>Recherche</string>
@@ -407,21 +479,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                   <widget class="QPushButton" name="pushButton_stats">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                    </property>
                    <property name="text">
                     <string>Afficher tout</string>
@@ -432,21 +514,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                   <widget class="QPushButton" name="pushButton">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                    </property>
                    <property name="text">
                     <string>Trier</string>
@@ -456,7 +548,7 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                  <item>
                   <widget class="QComboBox" name="comboBox_2">
                    <property name="styleSheet">
-                    <string notr="true"/>
+                    <string notr="true">background-color:rgb(127, 60, 55);;</string>
                    </property>
                    <item>
                     <property name="text">
@@ -474,6 +566,10 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                </item>
                <item>
                 <widget class="QGroupBox" name="groupBox_3">
+                 <property name="styleSheet">
+                  <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
+                 </property>
                  <property name="title">
                   <string>Sexe</string>
                  </property>
@@ -501,6 +597,10 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                </item>
                <item>
                 <widget class="QGroupBox" name="groupBox_4">
+                 <property name="styleSheet">
+                  <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
+                 </property>
                  <property name="title">
                   <string>Filtre</string>
                  </property>
@@ -562,21 +662,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                     <widget class="QPushButton" name="pushButton_supprimer">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                      </property>
                      <property name="text">
                       <string>Supprimer</string>
@@ -587,21 +697,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                     <widget class="QPushButton" name="pushButton_modifier">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                      </property>
                      <property name="text">
                       <string>Modifier</string>
@@ -615,21 +735,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                     <widget class="QPushButton" name="pushButton_details">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                      </property>
                      <property name="text">
                       <string>Exporter</string>
@@ -640,21 +770,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                     <widget class="QPushButton" name="pushButton_2">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                      </property>
                      <property name="text">
                       <string>Stats</string>
@@ -665,21 +805,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                     <widget class="QPushButton" name="pushButton_notifier">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                      </property>
                      <property name="text">
                       <string>Imprimer</string>
@@ -690,21 +840,31 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
                     <widget class="QPushButton" name="pushButton_envoyer">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
-background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color:rgb(127, 60, 55);
+
 
 }
 
 QPushButton:hover{
 background-color:rgb(107, 107, 107);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+
 
 }
 QPushButton:click{
 background-color:rgb(90, 90, 90);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
 
-}</string>
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
                      </property>
                      <property name="text">
                       <string>Envoyer</string>
@@ -730,7 +890,445 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4"/>
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="styleSheet">
+           <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
+          </property>
+          <property name="title">
+           <string>Ajouter</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0">
+                <widget class="QLabel" name="nombrePlacesLabel">
+                 <property name="text">
+                  <string>Nombre places</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="nombrePlacesLineEdit">
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(255,255,255);
+color:rgb(0,0,0);</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="nomServeurLabel">
+                 <property name="text">
+                  <string>Nom serveur</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="nomServeurLineEdit">
+                 <property name="styleSheet">
+                  <string notr="true">background-color:rgb(255,255,255);
+color:rgb(0,0,0);</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
+               <item>
+                <widget class="QPushButton" name="pushButton_4">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Reset</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_5">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Ajouter</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="styleSheet">
+             <string notr="true">font: 8pt &quot;Forte&quot;;
+color:rgb(255,255,255);</string>
+            </property>
+            <property name="title">
+             <string>Afficher</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_14">
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit">
+                   <property name="styleSheet">
+                    <string notr="true">QLineEdit
+{
+
+background-color: rgb(255,255,255);
+color:rgb(0,0,0);
+}</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_9">
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                   </property>
+                   <property name="text">
+                    <string>Recherche</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_10">
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                   </property>
+                   <property name="text">
+                    <string>Afficher tout</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_11">
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                   </property>
+                   <property name="text">
+                    <string>Trier</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_tables">
+                   <property name="styleSheet">
+                    <string notr="true">background-color:rgb(127, 60, 55);;</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>ASC</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>DESC</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_7">
+               <property name="title">
+                <string>Filtre</string>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_19">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_18">
+                  <item>
+                   <widget class="QCheckBox" name="checkBox_numero">
+                    <property name="text">
+                     <string>Numéro</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_nombre">
+                  <property name="text">
+                   <string>Nombre places</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_nomserv">
+                  <property name="text">
+                   <string>Nom serveur</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <item>
+                <widget class="QTableView" name="tableView_2">
+                 <property name="styleSheet">
+                  <string notr="true">color:tgb(0,0,0);</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_17">
+               <item>
+                <widget class="QPushButton" name="pushButton_7">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Supprimer</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_6">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Modifier</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_8">
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Ajouter</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>

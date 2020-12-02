@@ -12,8 +12,8 @@ bool invite::ajouter()
 
 
 
-    query.prepare("INSERT INTO Invites (cin, nom, prenom,date_naissance,mail,sexe)"
-                  "VALUES (:cin,:nom,:prenom,:date_naissance,:mail,:sexe)");
+    query.prepare("INSERT INTO Invites (cin, nom, prenom,date_naissance,mail,sexe,telephone)"
+                  "VALUES (:cin,:nom,:prenom,:date_naissance,:mail,:sexe,:telephone)");
 
     query.bindValue(":cin",cin);
     query.bindValue(":nom",nom);
@@ -21,6 +21,7 @@ bool invite::ajouter()
     query.bindValue(":date_naissance",date_naissance);
     query.bindValue(":mail",mail);
     query.bindValue(":sexe",sexe);
+    query.bindValue(":telephone",telephone);
 
     return query.exec();
 }
@@ -46,13 +47,10 @@ QSqlQueryModel * invite::afficher()
 bool invite::supprimer(QString cin)
 {
     QSqlQuery qry;
-    //QString mat = QString::number(cin);
     qry.prepare("Delete from INVITES where CIN = :CIN");
     qry.bindValue(":CIN",cin);
     return qry.exec();
 }
-
-
 
 
 QSqlQueryModel * invite::rechercher_sexe(QString sexe)
@@ -67,8 +65,6 @@ QSqlQueryModel * invite::rechercher_sexe(QString sexe)
 
 
     return model;
-
-
 }
 
 QSqlQueryModel *invite::rechercher_nom(QString nom)

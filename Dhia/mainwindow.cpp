@@ -9,15 +9,29 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     mail_regex=QRegExp("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$");
+    cin_regex=QRegExp("[0-9]{8}$");
+    chaine_regex=QRegExp("[a-zA-Z]{2,20}$");
+    telephone_regex=cin_regex=QRegExp("[0-9]{8}$");
 
     ui->setupUi(this);
 
-    this->setStyleSheet("background-color: rgb(97, 97, 97);");
+
+    ui->dateDeNaissanceDateEdit->setMaximumDate(QDate::currentDate().addYears(-18));
+    ui->dateEdit->setMaximumDate(QDate::currentDate().addYears(-18));
 
     ui->groupBox->setMaximumWidth(100);
 
+    QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
+    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
+
+
+
 
     ui->cINLineEdit->setMaxLength(8);
+    ui->tLPhoneLineEdit->setMaxLength(8);
 
     ui->cINLineEdit->setPlaceholderText("CIN ...");
     ui->nomLineEdit->setPlaceholderText("Nom ...");
@@ -26,20 +40,24 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->tableView->setModel(tmpinvite.afficher());
+    ui->tableView_2->setModel(tmptable.afficher());
 
 
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    ui->tableView_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_2->setSelectionMode(QAbstractItemView::SingleSelection);
+
 
     contract_animation = new QPropertyAnimation(ui->groupBox,"maximumWidth");
     contract_animation->setDuration(400);
-    contract_animation->setStartValue(300); //find how to get get default value
+    contract_animation->setStartValue(300);
     contract_animation->setEndValue(100);
 
     expand_animation = new QPropertyAnimation(ui->groupBox,"maximumWidth");
     expand_animation->setDuration(400);
-    expand_animation->setStartValue(100); //find how to get get default value
+    expand_animation->setStartValue(100);
     expand_animation->setEndValue(300);
 
     ui->pushButton_3->setText("Contract");
@@ -57,6 +75,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_ajouter_clicked()
 {
     bool mail_verif = mail_regex.exactMatch(ui->eMailLineEdit->text());
+    bool cin_verif=cin_regex.exactMatch(ui->cINLineEdit->text());
+    bool nom_verif=chaine_regex.exactMatch(ui->nomLineEdit->text());
+    bool prenom_verif=chaine_regex.exactMatch(ui->prNomLineEdit->text());
+    bool telephone_verif=telephone_regex.exactMatch(ui->tLPhoneLineEdit->text());
+
+
 
     if ( ui->cINLineEdit->text()!= "" &&
          ui->nomLineEdit->text()!="" &&
@@ -67,6 +91,22 @@ void MainWindow::on_pushButton_ajouter_clicked()
         {
             QMessageBox::warning(this,"Erreur lors de l'ajout","E-mail invalid");
         }
+        else if (!cin_verif)
+        {
+            QMessageBox::warning(this,"Erreur lors de l'ajout","CIN invalid");
+        }
+        else if (!telephone_verif)
+        {
+            QMessageBox::warning(this,"Erreur lors de l'ajout","Téléphone invalid");
+        }
+        else if (!nom_verif)
+        {
+            QMessageBox::warning(this,"Erreur lors de l'ajout","Nom invalid");
+        }
+        else if (!prenom_verif)
+        {
+            QMessageBox::warning(this,"Erreur lors de l'ajout","Prénom invalid");
+        }
         else
         {
 
@@ -76,15 +116,15 @@ void MainWindow::on_pushButton_ajouter_clicked()
             QString mail= ui->eMailLineEdit->text();
             QString sexe = ui->sexeComboBox->currentText();
             QDate date_naissance = ui->dateDeNaissanceDateEdit->date();
+            QString telephone=ui->tLPhoneLineEdit->text();
 
 
-            invite inv(cin,nom,prenom,date_naissance,mail,sexe);
+            invite inv(cin,nom,prenom,date_naissance,mail,sexe,telephone);
 
             bool test=inv.ajouter();
 
             if (test)
                 ui->tableView->setModel(tmpinvite.afficher());
-
 
 
             ui->cINLineEdit->setText("");
@@ -357,6 +397,10 @@ void MainWindow::on_pushButton_clicked()
         ui->tableView->setModel(tmpinvite.trier("sexe, date_naissance",ui->comboBox_2->currentText()));
     else if (ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && ui->checkBox_date->isChecked())
         ui->tableView->setModel(tmpinvite.trier("nom, sexe, date_naissance",ui->comboBox_2->currentText()));
+    else if (ui->checkBox_cin->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("cin",ui->comboBox_2->currentText()));
+    else if (ui->checkBox_mail->isChecked())
+        ui->tableView->setModel(tmpinvite.trier("mail",ui->comboBox_2->currentText()));
 
 }
 
@@ -395,4 +439,88 @@ void MainWindow::on_lineEdit_recherche_textChanged(const QString &arg1)
         ui->tableView->setModel(tmpinvite.rechercher_nom(arg1));
     else if (ui->checkBox_cin->isChecked() && !ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked() && !ui->checkBox_mail->isChecked())
         ui->tableView->setModel(tmpinvite.rechercher_cin(arg1));
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    int nb=ui->nombrePlacesLineEdit->text().toInt();
+    QString nom=ui->nomServeurLineEdit->text();
+    table table(nb,nom);
+
+    bool nom_verif=chaine_regex.exactMatch(ui->nomServeurLineEdit->text());
+    bool nombre_verif=ui->nombrePlacesLineEdit->text().toInt()<7 && ui->nombrePlacesLineEdit->text().toInt()>0;
+
+    if (ui->nombrePlacesLineEdit->text()!="" && ui->nomServeurLineEdit->text()!="")
+    {
+        if (!nom_verif)
+            QMessageBox::warning(this,"Erreur lors de l'ajout","Nom invalid");
+        else if (!nombre_verif)
+            QMessageBox::warning(this,"Erreur lors de l'ajout","Nombre invalid");
+        else
+        {
+            bool test=table.ajouter();
+
+            if (test)
+                ui->tableView_2->setModel(tmptable.afficher());
+        }
+    }
+    else
+        QMessageBox::warning(this,"Erreur lors de l'ajout","Veuillez remplir tous les champs");
+
+
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    if (ui->pushButton_6->isChecked())
+    {
+
+        ui->pushButton_6->setText("Modifiable");
+        QSqlTableModel *tableModel_2= new QSqlTableModel();
+        tableModel_2->setTable("TABLES");
+        tableModel_2->select();
+        ui->tableView_2->setModel(tableModel_2);
+    }
+    else
+    {
+        ui->pushButton_6->setText("Modifier");
+        ui->tableView_2->setModel(tmptable.afficher());
+
+    }
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    QItemSelectionModel *select_2 = ui->tableView_2->selectionModel();
+
+    int cin =select_2->selectedRows(0).value(0).data().toInt();
+
+    if(tmptable.supprimer(cin))
+    {
+        ui->tableView_2->setModel(tmptable.afficher());
+        ui->statusbar->showMessage("Table supprimée");
+    }
+}
+
+void MainWindow::on_lineEdit_textChanged(const QString &arg1)
+{
+    ui->tableView_2->setModel(tmptable.recherche(arg1));
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    if (ui->checkBox_numero->isChecked() && !ui->checkBox_nombre->isChecked() && !ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("numero",ui->comboBox_tables->currentText()));
+    else if (!ui->checkBox_numero->isChecked() && ui->checkBox_nombre->isChecked() && !ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("nb_places",ui->comboBox_tables->currentText()));
+    else if (!ui->checkBox_numero->isChecked() && !ui->checkBox_nombre->isChecked() && ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("nom_serveur",ui->comboBox_tables->currentText()));
+    else if (ui->checkBox_numero->isChecked() && ui->checkBox_nombre->isChecked() && !ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("numero, nb_places",ui->comboBox_tables->currentText()));
+    else if (ui->checkBox_numero->isChecked() && !ui->checkBox_nombre->isChecked() && ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("numero, nom_serveur",ui->comboBox_tables->currentText()));
+    else if (!ui->checkBox_numero->isChecked() && ui->checkBox_nombre->isChecked() && ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("nb_places, nom_serveur",ui->comboBox_tables->currentText()));
+    else if (ui->checkBox_numero->isChecked() && ui->checkBox_nombre->isChecked() && ui->checkBox_nomserv->isChecked())
+        ui->tableView_2->setModel(tmptable.trier("numero, nb_places, nom_serveur",ui->comboBox_tables->currentText()));
 }

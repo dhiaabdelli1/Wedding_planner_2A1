@@ -18,6 +18,7 @@
 #include <QSound>
 
 #include "invite.h"
+#include "table.h"
 #include "stats.h"
 
 
@@ -67,12 +68,26 @@ private slots:
 
     void on_lineEdit_recherche_textChanged(const QString &arg1);
 
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_pushButton_11_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 
     invite tmpinvite;
+    table tmptable;
     QRegExp mail_regex;
+    QRegExp cin_regex;
+    QRegExp chaine_regex;
+    QRegExp telephone_regex;
     QPropertyAnimation *contract_animation;
     QPropertyAnimation *expand_animation;
 };
