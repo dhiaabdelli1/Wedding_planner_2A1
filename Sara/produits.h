@@ -10,34 +10,44 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QDir>
+#include <QComboBox>
 #include <QApplication>
+#include <QWidget>
+#include <QSound>
 
 class produits
-{ qreal prix;
-  QString reference;
-  QDate date;
+{ int reference;
+  int quantite;
+  QString type;
+  qreal prix;
+  QDate datee;
 
 
 public:
     produits();
-    produits(qreal p,QString r,QDate d):prix(p),reference(r),date(d){}
+    produits(int r,int q,QString t,qreal p,QDate d):reference(r),quantite (q),type (t),prix(p),datee(d){}
+
+    int get_reference(){return reference;}
+    int get_quantite(){return quantite;}
     qreal get_prix(){return prix;}
-    QString get_reference(){return reference;}
-    QDate get_date(){return date;}
+    QString get_type(){return type;}
+    QDate get_datee(){return datee;}
+
+
+    void set_reference(int r){reference=r;}
+    void set_quantite(int q){quantite=q;}
     void set_prix(qreal p){prix=p;}
-    void set_reference(QString r){reference=r;}
-    void set_date(QDate d){date=d;}
+    void set_type(QString t){type=t;}
+    void set_date(QDate d){datee=d;}
 
     bool ajouter();
     QSqlQueryModel * afficher();
 
-    bool modifier();
-
     bool supprimer(int);
-    QSqlQueryModel *rechercher_prix(qreal);
-    QSqlQueryModel *rechercher_date(QDate);
-    QSqlQueryModel *rechercher_reference(QString);
-    QSqlQueryModel *rechercher_critere(qreal,QString,QDate);
+    QSqlQueryModel *rechercher_reference(int);
+    QSqlQueryModel *rechercher_type(QString);
+    QSqlQueryModel *rechercher_datee(QDate);
+    QSqlQueryModel *rechercher_critere(int,QString,QDate);
 
 };
 

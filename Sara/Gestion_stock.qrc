@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/sound">
+        <file>music.wav</file>
+    </qresource>
+    <qresource prefix="/icone"/>
+</RCC>
