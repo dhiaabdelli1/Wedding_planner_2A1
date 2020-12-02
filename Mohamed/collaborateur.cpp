@@ -53,17 +53,17 @@ QSqlQueryModel * collaborateur::afficher()
    return model;
 
 }
-bool collaborateur::supprimer(QString reference)
+ bool collaborateur::supprimer(QString reference)
 {
-    QSqlQuery query ;
+    QSqlQuery qry;
 
-    query.prepare("delete from collaborateur where reference=:reference");
+    qry.prepare("delete from collaborateur where reference=:reference");
 
-    query.bindValue(":reference",reference);
+    qry.bindValue(":reference",reference);
 
-        return query.exec();
+        return qry.exec();
 }
-bool collaborateur::modifier(QString nom,int telephone,QString email,int rib,QString reference,QString service)
+ bool collaborateur::modifier(QString nom,int telephone,QString email,int rib,QString reference,QString service)
 {
     QSqlQuery query;
     query.prepare("UPDATE collaborateur SET nom= :nom,telephone= :telephone,email=:email,rib= :rib,reference=:reference,service=:service WHERE reference = :reference");
@@ -75,21 +75,150 @@ bool collaborateur::modifier(QString nom,int telephone,QString email,int rib,QSt
     query.bindValue(":service", service);
     return    query.exec();
 }
-QSqlQueryModel * collaborateur::rechercher_collaborateur(QString r)
+ QSqlQueryModel * collaborateur::rechercher_rib(int rib)
+ {
+     QSqlQuery qry;
+     qry.prepare("select * from collaborateur where rib=:rib");
+     qry.bindValue(":rib",rib);
+     qry.exec();
+
+     QSqlQueryModel *model= new QSqlQueryModel;
+     model->setQuery(qry);
+
+
+    return model;
+
+
+ }
+ QSqlQueryModel * collaborateur::rechercher_ref(QString reference)
+ {
+     QSqlQuery qry;
+     qry.prepare("select * from collaborateur where reference=:reference");
+     qry.bindValue(":reference",reference);
+     qry.exec();
+
+     QSqlQueryModel *model= new QSqlQueryModel;
+     model->setQuery(qry);
+
+
+    return model;
+
+
+ }
+ QSqlQueryModel * collaborateur::rechercher_service(QString service)
+ {
+     QSqlQuery qry;
+     qry.prepare("select * from collaborateur where service=:service");
+     qry.bindValue(":service",service);
+     qry.exec();
+
+     QSqlQueryModel *model= new QSqlQueryModel;
+     model->setQuery(qry);
+
+
+    return model;
+
+
+ }
+ QSqlQueryModel * collaborateur::rechercher_RibRef(int rib, QString reference)
+ {
+     QSqlQuery *qry= new QSqlQuery();
+     qry->prepare("select * from collaborateur where rib=:rib and reference=:reference");
+     qry->bindValue(":rib",rib);
+     qry->bindValue(":reference",reference);
+     qry->exec();
+
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+        model->setQuery(*qry);
+         return model;
+
+
+ }
+ QSqlQueryModel * collaborateur::rechercher_RibSer(int rib, QString service)
+ {
+     QSqlQuery *qry= new QSqlQuery();
+     qry->prepare("select * from collaborateur where rib=:rib and service=:service");
+     qry->bindValue(":rib",rib);
+     qry->bindValue(":service",service);
+     qry->exec();
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+        model->setQuery(*qry);
+         return model;
+
+
+ }
+ QSqlQueryModel * collaborateur::rechercher_RefSer(QString reference, QString service)
+ {
+     QSqlQuery *qry= new QSqlQuery();
+     qry->prepare("select * from collaborateur where reference=:reference and service=:service");
+     qry->bindValue(":reference",reference);
+     qry->bindValue(":service",service);
+     qry->exec();
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+        model->setQuery(*qry);
+         return model;
+
+
+ }
+
+
+
+QSqlQueryModel * collaborateur::rechercher_tous(int rib,QString reference,QString service)
 {
-    QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("select * from collaborateur where upper(email) like upper('%"+r+"%') or upper(rib) like upper('%"+r+"%') or upper(reference) like upper('%"+r+"%')");
+    QSqlQuery *qry= new QSqlQuery();
+    qry->prepare("select * from collaborateur where rib=:rib and reference=:reference and service=:service");
+    qry->bindValue(":rib",rib);
+    qry->bindValue(":reference",reference);
+    qry->bindValue(":service",service);
+    qry->exec();
 
-
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("nom"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("telephone"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("email"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("rib"));
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("reference"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("service"));
-
+       QSqlQueryModel *model = new QSqlQueryModel();
+       model->setQuery(*qry);
         return model;
+
 }
+
+void collaborateur::exporter(QTableView *table)
+{
+
+    QString filters("CSV files (*.csv);;All files (*.*)");
+    QString defaultFilter("CSV files (*.csv)");
+    QString fileName = QFileDialog::getSaveFileName(0, "Save file", QCoreApplication::applicationDirPath(),
+                                                    filters, &defaultFilter);
+    QFile file(fileName);
+    QAbstractItemModel *model =  table->model();
+    if (file.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        QTextStream data(&file);
+        QStringList strList;
+        for (int i = 0; i < model->columnCount(); i++)
+        {
+            if (model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString().length() > 0)
+                strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
+            else
+                strList.append("");
+        }
+        data << strList.join(";") << "\n";
+        for (int i = 0; i < model->rowCount(); i++)
+        {
+            strList.clear();
+            for (int j = 0; j < model->columnCount(); j++)
+            {
+
+                if (model->data(model->index(i, j)).toString().length() > 0)
+                    strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
+                else
+                    strList.append("");
+            }
+            data << strList.join(";") + "\n";
+        }
+        file.close();
+    }
+}
+
 
 
 

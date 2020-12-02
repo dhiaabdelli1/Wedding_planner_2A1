@@ -35,7 +35,6 @@ private slots:
 
     void on_resetS_clicked();
 
-    void on_lineEdit_rechC_textChanged(const QString &arg1);
 
 
 
@@ -44,6 +43,29 @@ private slots:
     void on_checkBox_6_clicked();
 
     void on_checkBox_5_clicked();
+
+
+
+
+    void on_rechercher_colab_clicked();
+
+    void on_reafficher_colab_clicked();
+
+
+
+    //void on_envoyer_clicked();
+
+    void on_exporter_clicked();
+
+    void on_envoyer_clicked();
+
+
+
+    void on_radioButton_triType_clicked();
+
+    void on_radioButton_triPrix_clicked();
+
+    void on_radioButton_triDate_clicked();
 
 private:
     Ui::MainWindow *ui;

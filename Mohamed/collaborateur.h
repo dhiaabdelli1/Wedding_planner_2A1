@@ -4,6 +4,15 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QSqlRecord>
+#include <QTableView>
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QDir>
+#include <QApplication>
+#include <QPrinter>
+#include <QTextDocument>
 
 class collaborateur
 {
@@ -21,7 +30,16 @@ public:
     QSqlQueryModel * afficher();
     bool supprimer(QString);
     bool modifier(QString,int,QString,int,QString,QString);
-    QSqlQueryModel * rechercher_collaborateur(QString);
+     QSqlQueryModel * rechercher_rib(int);
+     QSqlQueryModel * rechercher_ref(QString);
+     QSqlQueryModel * rechercher_service(QString);
+     QSqlQueryModel * rechercher_RibRef(int,QString);
+     QSqlQueryModel * rechercher_RibSer(int,QString);
+     QSqlQueryModel * rechercher_RefSer(QString,QString);
+     QSqlQueryModel * rechercher_tous(int,QString,QString);
+     void exporter(QTableView *table);
+
+
 
 
 private :

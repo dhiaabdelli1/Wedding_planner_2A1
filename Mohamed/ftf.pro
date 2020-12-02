@@ -1,8 +1,13 @@
+QT       += core gui sql serialport printsupport network
 QT       += core gui sql
+
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+
 CONFIG += c++11
+CONFIG +=console
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -11,17 +16,22 @@ CONFIG += c++11
 SOURCES += \
     collaborateur.cpp \
     connection.cpp \
+    dialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    service.cpp
+    service.cpp \
+    smtp.cpp
 
 HEADERS += \
     collaborateur.h \
     connection.h \
+    dialog.h \
     mainwindow.h \
-    service.h
+    service.h \
+    smtp.h
 
 FORMS += \
+    dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

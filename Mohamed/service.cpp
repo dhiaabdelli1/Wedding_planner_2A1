@@ -5,10 +5,10 @@ service::service()
 {
 
 }
-service::service (QString type,QDate dat,float prix,QString proprietaire)
+service::service (QString type,QDate date_service,int prix,QString proprietaire)
 {
 this->type=type;
-this->dat=dat;
+this->date_service=date_service;
 this->prix=prix;
 this->proprietaire=proprietaire;
 
@@ -19,10 +19,10 @@ bool service::ajouter_service()
 {
     QSqlQuery query ;
 
-    query.prepare("INSERT INTO service (type,dat,prix,proprietaire)"
-                  "Values(:type,:dat,:prix,:proprietaire)");
+    query.prepare("INSERT INTO service (type,date_service,prix,proprietaire)"
+                  "Values(:type,:date_service,:prix,:proprietaire)");
     query.bindValue(":type",type);
-    query.bindValue(":dat",dat);
+    query.bindValue(":date_service",date_service);
     query.bindValue(":prix",prix);
     query.bindValue(":proprietaire",proprietaire);
 
@@ -35,7 +35,7 @@ QSqlQueryModel * service::afficher_service()
    QSqlQueryModel * model = new QSqlQueryModel();
    model->setQuery("select * from service");
    model->setHeaderData(0,Qt::Horizontal,QObject::tr("type"));
-   model->setHeaderData(1,Qt::Horizontal,QObject::tr("dat"));
+   model->setHeaderData(1,Qt::Horizontal,QObject::tr("date_service"));
    model->setHeaderData(2,Qt::Horizontal,QObject::tr("prix"));
    model->setHeaderData(3,Qt::Horizontal,QObject::tr("proprietaire"));
 
@@ -53,12 +53,12 @@ bool service::supprimer_service(QString type)
 
         return query.exec();
 }
-bool service::modifier_service(QString type,QDate dat,float prix,QString proprietaire)
+bool service::modifier_service(QString type,QDate date_service,int prix,QString proprietaire)
 {
     QSqlQuery query;
-    query.prepare("UPDATE service SET type= :type,dat= :dat,prix=:prix,proprietaire=:proprietaire WHERE type = :type");
+    query.prepare("UPDATE service SET type= :type,date_service= :date_service,prix=:prix,proprietaire=:proprietaire WHERE type = :type");
     query.bindValue(":type", type);
-    query.bindValue(":dat", dat);
+    query.bindValue(":date_service", date_service);
     query.bindValue(":prix", prix);
     query.bindValue(":proprietaire", proprietaire);
 
