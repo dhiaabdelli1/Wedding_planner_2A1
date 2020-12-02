@@ -1,3 +1,4 @@
+QT       += core gui sql network multimedia multimediawidgets charts printsupport
 QT       += core gui sql
     quick
 
@@ -13,15 +14,22 @@ SOURCES += \
     client.cpp \
     connection.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    reservation.cpp \
+    smtp.cpp \
+    stat_combo.cpp
 
 HEADERS += \
     client.h \
     connection.h \
-    mainwindow.h
+    mainwindow.h \
+    reservation.h \
+    smtp.h \
+    stat_combo.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    stat_combo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
