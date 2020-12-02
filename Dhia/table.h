@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
+#include "invite.h"
 
 class table
 {
@@ -16,6 +17,9 @@ public:
     bool supprimer(int);
     QSqlQueryModel *recherche(QString);
     QSqlQueryModel *trier(QString,QString);
+    bool invite_existe(int);
+    bool get_nb_max(int);
+
 };
 
 #endif // TABLE_H

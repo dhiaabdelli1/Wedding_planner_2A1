@@ -16,6 +16,7 @@
 
 #include <QPropertyAnimation>
 #include <QSound>
+#include <QInputDialog>
 
 #include "invite.h"
 #include "table.h"
@@ -78,6 +79,10 @@ private slots:
 
     void on_pushButton_11_clicked();
 
+    void on_pushButton_12_clicked();
+
+    void on_pushButton_13_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -90,5 +95,7 @@ private:
     QRegExp telephone_regex;
     QPropertyAnimation *contract_animation;
     QPropertyAnimation *expand_animation;
+    QPropertyAnimation *contract_animation_2;
+    QPropertyAnimation *expand_animation_2;
 };
 #endif // MAINWINDOW_H

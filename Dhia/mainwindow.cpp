@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->dateEdit->setMaximumDate(QDate::currentDate().addYears(-18));
 
     ui->groupBox->setMaximumWidth(100);
+    ui->groupBox_6->setMaximumWidth(400);
 
     QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -62,7 +63,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pushButton_3->setText("Contract");
 
+
+    contract_animation_2 = new QPropertyAnimation(ui->groupBox_6,"maximumWidth");
+    contract_animation_2->setDuration(400);
+    contract_animation_2->setStartValue(300);
+    contract_animation_2->setEndValue(100);
+
+    expand_animation_2 = new QPropertyAnimation(ui->groupBox_6,"maximumWidth");
+    expand_animation_2->setDuration(400);
+    expand_animation_2->setStartValue(100);
+    expand_animation_2->setEndValue(300);
+
+    ui->pushButton_13->setText("Contract");
+
     expand_animation->start();
+    expand_animation_2->start();
 }
 
 MainWindow::~MainWindow()
@@ -74,6 +89,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_ajouter_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     bool mail_verif = mail_regex.exactMatch(ui->eMailLineEdit->text());
     bool cin_verif=cin_regex.exactMatch(ui->cINLineEdit->text());
     bool nom_verif=chaine_regex.exactMatch(ui->nomLineEdit->text());
@@ -145,6 +161,7 @@ void MainWindow::on_pushButton_ajouter_clicked()
 
 void MainWindow::on_pushButton_reset_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     ui->cINLineEdit->setText("");
     ui->nomLineEdit->setText("");
     ui->prNomLineEdit->setText("");
@@ -153,7 +170,7 @@ void MainWindow::on_pushButton_reset_clicked()
 
 void MainWindow::on_pushButton_details_clicked()
 {
-
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
     if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_invites.pdf"); }
 
@@ -183,6 +200,7 @@ void MainWindow::on_pushButton_details_clicked()
 
 void MainWindow::on_pushButton_modifier_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     if (ui->pushButton_modifier->isChecked())
     {
 
@@ -204,7 +222,7 @@ void MainWindow::on_pushButton_modifier_clicked()
 void MainWindow::on_pushButton_supprimer_clicked()
 {
 
-
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     QItemSelectionModel *select = ui->tableView->selectionModel();
 
     QString cin =select->selectedRows(0).value(0).data().toString();
@@ -220,7 +238,7 @@ void MainWindow::on_pushButton_supprimer_clicked()
 
 void MainWindow::on_pushButton_recherche_clicked()
 {
-
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     QString nom=ui->lineEdit_recherche->text();
     QDate date=ui->dateEdit->date();
     QString sexe;
@@ -311,6 +329,7 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
 
 void MainWindow::on_pushButton_notifier_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     QString strStream;
     QTextStream out(&strStream);
 
@@ -362,11 +381,13 @@ void MainWindow::on_pushButton_notifier_clicked()
 
 void MainWindow::on_pushButton_stats_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     ui->tableView->setModel(tmpinvite.afficher());
 }
 
 void MainWindow::on_pushButton_envoyer_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     QItemSelectionModel *select = ui->tableView->selectionModel();
 
     QString email_recipient =select->selectedRows(4).value(0).data().toString();
@@ -383,6 +404,7 @@ void MainWindow::on_pushButton_envoyer_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     if (ui->checkBox_nom->isChecked() && !ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
         ui->tableView->setModel(tmpinvite.trier("nom",ui->comboBox_2->currentText()));
     else if (!ui->checkBox_nom->isChecked() && ui->checkBox_sexe->isChecked() && !ui->checkBox_date->isChecked())
@@ -406,6 +428,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     stats stats_window(this);
     stats_window.setModal(true);
     stats_window.show();
@@ -417,20 +440,21 @@ void MainWindow::on_pushButton_3_clicked()
 {
     static int turn=1;
 
-    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/wiou.wav");
+
 
     if (turn==1)
     {
         contract_animation->start();
-        ui->pushButton_2->setText("Expand");
+        ui->pushButton_3->setText("Expand");
     }
 
     else
     {
         expand_animation->start();
-        ui->pushButton_2->setText("Contract");
+        ui->pushButton_3->setText("Contract");
     }
     turn*=-1;
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
 }
 
 void MainWindow::on_lineEdit_recherche_textChanged(const QString &arg1)
@@ -443,6 +467,7 @@ void MainWindow::on_lineEdit_recherche_textChanged(const QString &arg1)
 
 void MainWindow::on_pushButton_5_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     int nb=ui->nombrePlacesLineEdit->text().toInt();
     QString nom=ui->nomServeurLineEdit->text();
     table table(nb,nom);
@@ -472,6 +497,7 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_pushButton_6_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     if (ui->pushButton_6->isChecked())
     {
 
@@ -491,24 +517,35 @@ void MainWindow::on_pushButton_6_clicked()
 
 void MainWindow::on_pushButton_7_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     QItemSelectionModel *select_2 = ui->tableView_2->selectionModel();
 
-    int cin =select_2->selectedRows(0).value(0).data().toInt();
-
-    if(tmptable.supprimer(cin))
+    int num =select_2->selectedRows(0).value(0).data().toInt();
+    bool existe=tmptable.invite_existe(num);
+    if (!existe)
     {
-        ui->tableView_2->setModel(tmptable.afficher());
-        ui->statusbar->showMessage("Table supprimée");
+        bool test=tmptable.supprimer(num);
+        if (test)
+        {
+
+            ui->tableView_2->setModel(tmptable.afficher());
+            ui->statusbar->showMessage("Table supprimée");
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this,"Erreur lors de la suppression","Table Contient des invites");
     }
 }
-
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     ui->tableView_2->setModel(tmptable.recherche(arg1));
 }
 
 void MainWindow::on_pushButton_11_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     if (ui->checkBox_numero->isChecked() && !ui->checkBox_nombre->isChecked() && !ui->checkBox_nomserv->isChecked())
         ui->tableView_2->setModel(tmptable.trier("numero",ui->comboBox_tables->currentText()));
     else if (!ui->checkBox_numero->isChecked() && ui->checkBox_nombre->isChecked() && !ui->checkBox_nomserv->isChecked())
@@ -523,4 +560,45 @@ void MainWindow::on_pushButton_11_clicked()
         ui->tableView_2->setModel(tmptable.trier("nb_places, nom_serveur",ui->comboBox_tables->currentText()));
     else if (ui->checkBox_numero->isChecked() && ui->checkBox_nombre->isChecked() && ui->checkBox_nomserv->isChecked())
         ui->tableView_2->setModel(tmptable.trier("numero, nb_places, nom_serveur",ui->comboBox_tables->currentText()));
+}
+
+void MainWindow::on_pushButton_12_clicked()
+{
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+
+
+    QItemSelectionModel *select_affect = ui->tableView->selectionModel();
+    QString cin =select_affect->selectedRows(0).value(0).data().toString();
+
+
+    int nb_table= QInputDialog::getText(this, "Affectation de table", "Saisir le numéro de la table?").toInt();
+    int test=tmpinvite.affecter_table(cin,nb_table,7);
+    if (!test)
+        ui->tableView->setModel(tmpinvite.afficher());
+    else if (test==1)
+        QMessageBox::warning(this,"Erreur lors de l'affectation","Table Inéxistante");
+    else if (test==2)
+        QMessageBox::warning(this,"Erreur lors de l'affectation","Table Pleine");
+
+}
+
+void MainWindow::on_pushButton_13_clicked()
+{
+    static int turn=1;
+
+
+
+    if (turn==1)
+    {
+        contract_animation_2->start();
+        ui->pushButton_13->setText("Expand");
+    }
+
+    else
+    {
+        expand_animation_2->start();
+        ui->pushButton_13->setText("Contract");
+    }
+    turn*=-1;
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
 }

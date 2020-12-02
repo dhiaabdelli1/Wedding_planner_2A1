@@ -39,6 +39,7 @@ QSqlQueryModel * invite::afficher()
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Date de Naissance"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Mail"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Sexe"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Numéro table"));
 
     return model;
 }
@@ -244,7 +245,48 @@ int invite::count_date(QDate date_1,QDate date_2,QString sexe)
 }
 
 
+int invite::affecter_table(QString cin, int num,int nb_max)
+{
+    QSqlQuery query;
 
+    query.prepare("select * from tables where numero=:num");
+    query.bindValue(":num",num);
+
+    query.exec();
+
+    int total=0;
+    while(query.next()){
+        total++;
+    }
+
+    if (!total)
+    {
+        return 1;
+    }
+
+    query.prepare("select * from invites where num_table=:num");
+    query.bindValue(":num",num);
+
+    query.exec();
+
+    total=0;
+    while(query.next()){
+        total++;
+    }
+    if (total>=nb_max)
+    {
+        return 2;
+    }
+
+    qDebug() << total;
+
+    query.prepare("update invites set num_table=:num where cin=:cin");
+    query.bindValue(":num",num);
+    query.bindValue(":cin",cin);
+
+
+    return !query.exec();
+}
 
 
 

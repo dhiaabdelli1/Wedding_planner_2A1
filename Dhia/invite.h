@@ -13,6 +13,11 @@
 #include <QApplication>
 #include <QPrinter>
 #include <QTextDocument>
+#include <QDebug>
+#include <QSqlTableModel>
+#include "table.h"
+#include <QMessageBox>
+
 class invite
 {
 
@@ -26,6 +31,7 @@ class invite
     QString telephone;
     int nb_femmes;
     int nb_hommes;
+    int num_table;
 
 public:
     invite();
@@ -70,6 +76,8 @@ public:
 
 
     QSqlQueryModel *trier(QString,QString);
+
+    int affecter_table(QString,int,int);
 
 };
 

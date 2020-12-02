@@ -65,3 +65,31 @@ QSqlQueryModel *table::trier(QString crit,QString ordre)
     return model;
 }
 
+bool table::invite_existe(int num)
+{
+    QSqlQuery query;
+    query.prepare("select * from invites where num_table=:num");
+    query.bindValue(":num",num);
+
+    query.exec();
+
+    int total=0;
+    while(query.next()){
+        total++;
+    }
+    if (total)
+    {
+        return true;
+    }
+    return false;
+}
+
+
+bool get_nb_max(int num)
+{
+    QSqlQuery qry;
+    qry.prepare("select * from tables where num=:num");
+    qry.bindValue(":num",num);
+
+}
+

@@ -7,8 +7,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    ui->server->setText("smtp.gmail.com");
-    ui->port->setText("465");
+
 
     QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -23,8 +22,7 @@ Dialog::Dialog(QString e,QString n,QString s,QWidget *parent) :
 {
     QString contenu="Contenu";
     ui->setupUi(this);
-    ui->server->setText("smtp.gmail.com");
-    ui->port->setText("465");
+
     ui->recipient->setText(e);
     ui->uname->setText("dhia.abdelli1@esprit.tn");
     ui->passwd->setText("Dpstream1");
@@ -48,9 +46,9 @@ Dialog::~Dialog()
 
 void Dialog::on_pushButton_2_clicked()
 {
-    Smtp* smtp = new Smtp(ui->uname->text(), ui->passwd->text(), ui->server->text(), ui->port->text().toInt());
+    Smtp* smtp = new Smtp(ui->uname->text(), ui->passwd->text(), "smtp.gmail.com", 465);
 
-    smtp->sendMail(ui->uname->text(), ui->recipient->text() , "subject" ,ui->message->toPlainText());
+    smtp->sendMail(ui->uname->text(), ui->recipient->text() , ui->subjectLineEdit->text() ,ui->message->toPlainText());
 
     /*if(status == "Message sent")
         QMessageBox::warning( 0, tr( "Qt Simple SMTP client" ), tr( "Message sent!\n\n" ) );*/
