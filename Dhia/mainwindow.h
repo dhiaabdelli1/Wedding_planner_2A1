@@ -14,10 +14,12 @@
 #include "qtmaterialraisedbutton.h"
 #include <qtextbrowser.h>
 
+#include <QPropertyAnimation>
+#include <QSound>
 
 #include "invite.h"
 #include "stats.h"
-#include "staats.h"
+
 
 
 
@@ -61,15 +63,17 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
+    void on_lineEdit_recherche_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 
-    enum column
-    {
-        CIN,NOM,PRENOM
-    };
 
     invite tmpinvite;
     QRegExp mail_regex;
+    QPropertyAnimation *contract_animation;
+    QPropertyAnimation *expand_animation;
 };
 #endif // MAINWINDOW_H

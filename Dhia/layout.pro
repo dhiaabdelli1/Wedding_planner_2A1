@@ -1,4 +1,4 @@
-QT       += core gui sql serialport printsupport network charts
+QT       += core gui sql serialport printsupport network charts multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,7 +17,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     smtp.cpp \
-    staats.cpp \
     stats.cpp
 
 HEADERS += \
@@ -27,7 +26,6 @@ HEADERS += \
     invite.h \
     mainwindow.h \
     smtp.h \
-    staats.h \
     stats.h
 
 FORMS += \

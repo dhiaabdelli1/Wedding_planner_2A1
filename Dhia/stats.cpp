@@ -1,5 +1,6 @@
 #include "stats.h"
 #include "ui_stats.h"
+#include <QDebug>
 
 stats::stats(QWidget *parent) :
     QDialog(parent),
@@ -9,72 +10,78 @@ stats::stats(QWidget *parent) :
 
 
 
-//    QBarSet *set0=new QBarSet("Dhia");
-//    QBarSet *set1=new QBarSet("Nour");
-//    QBarSet *set2=new QBarSet("Mouna");
-//    QBarSet *set3=new QBarSet("Mosbah");
-
-//    *set0 << 283 << 341 << 313 << 334 << 346 <<335;
-//    *set1 << 253 << 241 << 313 << 352 << 346 <<335;
-//    *set2 << 263 << 141 << 313 << 238 << 346 <<325;
-//    *set3 << 283 << 341 << 313 << 118 << 146 <<335;
-
-//    QBarSeries *series= new QBarSeries();
-//    series->append(set0);
-//    series->append(set1);
-//    series->append(set2);
-//    series->append(set3);
-
-//    QChart *chart=new QChart();
-//    chart->addSeries(series);
-//    chart->setTitle("hello");
-
-//    chart->setAnimationOptions(QChart::AllAnimations);
-
-//    QStringList categories;
-//    categories << "2013" << "2014" << "2015" << "2016" << "2017" << "2018";
-//    QBarCategoryAxis *axis= new QBarCategoryAxis();
-//    axis->append(categories);
-//    chart->createDefaultAxes();
-//    chart->setAxisX(axis,series);
-//    chart->legend()->setVisible(true);
-//    chart->legend()->setAlignment(Qt::AlignBottom);
-
-//    QChartView *chartView= new QChartView(chart);
-//    chartView->setRenderHint(QPainter::Antialiasing);
+    QBarSet *set0=new QBarSet("Homme");
+    QBarSet *set1=new QBarSet("Femme");
 
 
-    /*QPalette pal = qApp->palette();
-    pal.setColor(QPalette::Window,QRgb(0xffffff));
-    pal.setColor(QPalette::WindowText,QRgb(0x404040));
-
-    qApp->setPalette(pal);*/
-
-    QPieSeries *series = new QPieSeries();
-
-            series->append("C++", 80);
-            series->append("Python", 70);
-            series->append("Java", 50);
-            series->append("C#", 40);
-            series->append("PHP", 30);
+    QDate date_1950(1950,01,01);
+    QDate date_1960(1960,01,01);
+    QDate date_1970(1970,01,01);
+    QDate date_1980(1980,01,01);
+    QDate date_1990(1990,01,01);
+    QDate date_2000(2000,01,01);
 
 
-            QPieSlice *slice = series->slices().at(1);
-            slice->setExploded(true);
-            slice->setLabelVisible(true);
-            slice->setPen(QPen(Qt::darkGreen, 2));
-            slice->setBrush(Qt::green);
 
 
-            QChart *chart = new QChart();
-            chart->addSeries(series);
-            chart->setTitle("Qt5 Pie Chart Example");
+    *set0 << tmpinvite.count_date(date_1950,date_1960,"Homme") << tmpinvite.count_date(date_1960,date_1970,"Homme") << tmpinvite.count_date(date_1970,date_1980,"Homme") << tmpinvite.count_date(date_1990,date_1990,"Homme") << tmpinvite.count_date(date_1990,date_2000,"Homme");
+    *set1 << tmpinvite.count_date(date_1950,date_1960,"Femme") << tmpinvite.count_date(date_1960,date_1970,"Femme") << tmpinvite.count_date(date_1970,date_1980,"Femme") << tmpinvite.count_date(date_1980,date_1990,"Femme") << tmpinvite.count_date(date_1990,date_2000,"Femme");
 
 
-            QChartView *chartview = new QChartView(chart);
-            chartview->setParent(ui->testPie);
+    qDebug()<< tmpinvite.count_date(date_1950,date_2000,"Homme");
+    qDebug()<< tmpinvite.count_date(date_1950,date_2000,"Femme");
 
 
+
+    QBarSeries *series= new QBarSeries();
+    series->append(set0);
+    series->append(set1);
+
+
+    QChart *chart=new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Stats sur l'âge");
+
+    chart->setAnimationOptions(QChart::AllAnimations);
+
+    QStringList categories;
+    categories << "1950-1960" << "1960-1970" << "1970-1980" << "1980-1990" << "1990-2000";
+    QBarCategoryAxis *axis= new QBarCategoryAxis();
+    axis->append(categories);
+    chart->createDefaultAxes();
+    chart->setAxisX(axis,series);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    QChartView *chartView= new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    //PIE
+
+    QPieSeries *series_pie = new QPieSeries();
+
+    series_pie->append("Homme",tmpinvite.count("Homme"));
+    series_pie->append("Femme", tmpinvite.count("Femme"));
+
+
+    QPieSlice *slice = series_pie->slices().at(1);
+    slice->setExploded(true);
+    slice->setLabelVisible(true);
+    slice->setPen(QPen(Qt::darkGreen, 2));
+    slice->setBrush(Qt::green);
+
+
+    QChart *chart_pie = new QChart();
+    chart_pie->addSeries(series_pie);
+    chart_pie->setTitle("Stats sur le sexe");
+
+
+    QChartView *chartview_pie = new QChartView(chart_pie);
+
+
+
+    chartView->setParent(ui->horizontalFrame_sticks);
+    chartview_pie->setParent(ui->horizontalFrame_pie);
 
 }
 
