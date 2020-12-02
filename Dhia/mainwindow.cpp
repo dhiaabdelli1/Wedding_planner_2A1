@@ -183,7 +183,7 @@ void MainWindow::on_pushButton_details_clicked()
     QSqlQuery q;
     q.prepare("SELECT * FROM invites ");
     q.exec();
-    QString pdf="<br> <img src='D:/Users/dhiaa/Desktop/gestion_invités/logo.png' height='42' width='144'/> <h1  style='color:red'>       LISTE DES INVITES  <br></h1>\n <br> <table>  <tr>  <th> CIN </th> <th> NOM </th> <th> PRENOM </th> <th> DATE NAISSANCE  </th> <th>E-MAIL </th>  </tr>" ;
+    QString pdf="<br> <img src='D:/Users/dhiaa/Desktop/gestion_invités/background.jpeg' height='84' width='288'/> <h1  style='color:red'>       LISTE DES INVITES  <br></h1>\n <br> <table>  <tr>  <th> CIN </th> <th> NOM </th> <th> PRENOM </th> <th> DATE NAISSANCE  </th> <th>E-MAIL </th>  </tr>" ;
 
 
     while ( q.next()) {
