@@ -15,11 +15,32 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
-    <widget class="QTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="tabWidget_pie">
      <property name="styleSheet">
-      <string notr="true">background-color: #DEA5A4;
+      <string notr="true">QTabWidget:pane {
+border:4px;
+background-color:#DEA5A4;
+
+
+}
+
+QTabBar::tab:selected {
+color:  rgb(255, 255, 255);
+background-color:rgb(127, 60, 55);
 font: 8pt &quot;Forte&quot;;
-color:rgb(0,0,0);
+}
+
+QTabBar::tab:!selected {
+color: rgb(255,255,255);
+background-color:  rgb(255, 117, 117);
+font: 8pt &quot;Forte&quot;;
+
+}
+
+
+
+
+
 </string>
      </property>
      <property name="currentIndex">
@@ -27,7 +48,7 @@ color:rgb(0,0,0);
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Tab 1</string>
+       <string>Sticks</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
@@ -39,7 +60,7 @@ color:rgb(0,0,0);
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Tab 2</string>
+       <string>Pie Chart</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>

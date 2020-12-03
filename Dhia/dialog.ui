@@ -118,14 +118,14 @@ color:rgb(0,0,0);
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="envoyer_dialog">
          <property name="text">
           <string>Envoyer</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="annuler_mail">
          <property name="text">
           <string>Annuler</string>
          </property>
@@ -140,7 +140,7 @@ color:rgb(0,0,0);
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton</sender>
+   <sender>annuler_mail</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>reject()</slot>

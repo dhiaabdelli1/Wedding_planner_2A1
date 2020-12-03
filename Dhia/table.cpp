@@ -85,11 +85,5 @@ bool table::invite_existe(int num)
 }
 
 
-bool get_nb_max(int num)
-{
-    QSqlQuery qry;
-    qry.prepare("select * from tables where num=:num");
-    qry.bindValue(":num",num);
 
-}
 

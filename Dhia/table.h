@@ -12,14 +12,15 @@ class table
 public:
     table();
     table(int nb,QString no):nb_places(nb),nom_serveur(no){};
+    //CRUD
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(int);
+    //FCTS métiers
     QSqlQueryModel *recherche(QString);
     QSqlQueryModel *trier(QString,QString);
+    //FCTS supp
     bool invite_existe(int);
-    bool get_nb_max(int);
-
 };
 
 #endif // TABLE_H

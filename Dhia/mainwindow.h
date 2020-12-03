@@ -41,47 +41,55 @@ public:
 private slots:
 
 
-    void on_pushButton_ajouter_clicked();
+    void on_ajouter_invite_clicked();
 
-    void on_pushButton_reset_clicked();
+    void on_reset_invite_clicked();
 
-    void on_pushButton_details_clicked();
+    void on_exporter_invite_clicked();
 
-    void on_pushButton_modifier_clicked();
+    void on_modifier_invite_clicked();
 
-    void on_pushButton_supprimer_clicked();
+    void on_supprimer_invite_clicked();
 
-    void on_tableView_activated(const QModelIndex &index);
+    void on_recherche_invite_clicked();
 
-    void on_pushButton_recherche_clicked();
+    void on_imrprimer_clicked();
 
-    void on_pushButton_notifier_clicked();
+    void on_affichier_tout_invite_clicked();
 
-    void on_pushButton_stats_clicked();
+    void on_envoyer_clicked();
 
-    void on_pushButton_envoyer_clicked();
+    void on_trier_invite_clicked();
 
-    void on_pushButton_clicked();
+    void on_stats_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_contract_invite_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_lineEdit_recherche_invite_textChanged(const QString &arg1);
 
-    void on_lineEdit_recherche_textChanged(const QString &arg1);
+    void on_ajouter_table_clicked();
 
-    void on_pushButton_5_clicked();
+    void on_modifier_table_clicked();
 
-    void on_pushButton_6_clicked();
-
-    void on_pushButton_7_clicked();
+    void on_supprimer_table_clicked();
 
     void on_lineEdit_textChanged(const QString &arg1);
 
-    void on_pushButton_11_clicked();
+    void on_trier_table_clicked();
 
-    void on_pushButton_12_clicked();
+    void on_affecter_table_clicked();
 
-    void on_pushButton_13_clicked();
+    void on_contract_table_clicked();
+
+    void on_imprimer_clicked();
+
+    void on_afficher_tout_invite_clicked();
+
+    void on_reset_table_clicked();
+
+    void on_aucun_clicked();
+
+    void on_aucun_table_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -89,10 +97,12 @@ private:
 
     invite tmpinvite;
     table tmptable;
+    //Regex
     QRegExp mail_regex;
     QRegExp cin_regex;
     QRegExp chaine_regex;
     QRegExp telephone_regex;
+    //Animation
     QPropertyAnimation *contract_animation;
     QPropertyAnimation *expand_animation;
     QPropertyAnimation *contract_animation_2;

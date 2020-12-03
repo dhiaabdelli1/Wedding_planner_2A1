@@ -51,7 +51,7 @@ font: 8pt &quot;Forte&quot;;
 </string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -61,7 +61,7 @@ font: 8pt &quot;Forte&quot;;
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QGroupBox" name="groupBox">
+           <widget class="QGroupBox" name="groupBox_ajouter_invites">
             <property name="styleSheet">
              <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
@@ -170,7 +170,7 @@ color:rgb(255,255,255);</string>
                   </widget>
                  </item>
                  <item row="4" column="1">
-                  <widget class="QDateEdit" name="dateDeNaissanceDateEdit">
+                  <widget class="QDateEdit" name="dateDeNaissanceDateEdit_invite">
                    <property name="styleSheet">
                     <string notr="true">QDateEdit
 {
@@ -288,7 +288,7 @@ color:tgb(0,0,0);
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_3">
+                <widget class="QPushButton" name="contract_invite">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -323,7 +323,7 @@ font: 8pt &quot;Forte&quot;;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_reset">
+                <widget class="QPushButton" name="reset_invite">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -358,7 +358,7 @@ font: 8pt &quot;Forte&quot;;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_ajouter">
+                <widget class="QPushButton" name="ajouter_invite">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -398,7 +398,7 @@ font: 8pt &quot;Forte&quot;;
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_2">
+           <widget class="QGroupBox" name="groupBox_afficher_invites">
             <property name="styleSheet">
              <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
@@ -412,7 +412,7 @@ color:rgb(255,255,255);</string>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_7">
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_recherche">
+                  <widget class="QLineEdit" name="lineEdit_recherche_invite">
                    <property name="styleSheet">
                     <string notr="true">QLineEdit
 {
@@ -424,7 +424,7 @@ color:rgb(0,0,0);
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDateEdit" name="dateEdit">
+                  <widget class="QDateEdit" name="date_recherche_invite">
                    <property name="styleSheet">
                     <string notr="true">QDateEdit
 {
@@ -434,7 +434,7 @@ color:rgb(0,0,0);
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_recherche">
+                  <widget class="QPushButton" name="recherche_invite">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -469,7 +469,7 @@ font: 8pt &quot;Forte&quot;;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_stats">
+                  <widget class="QPushButton" name="afficher_tout_invite">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -504,7 +504,7 @@ font: 8pt &quot;Forte&quot;;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton">
+                  <widget class="QPushButton" name="trier_invite">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -539,7 +539,7 @@ font: 8pt &quot;Forte&quot;;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_2">
+                  <widget class="QComboBox" name="ordre_invite">
                    <property name="styleSheet">
                     <string notr="true">background-color:rgb(127, 60, 55);;</string>
                    </property>
@@ -568,7 +568,7 @@ color:rgb(255,255,255);</string>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_9">
                   <item>
-                   <widget class="QRadioButton" name="radioButton">
+                   <widget class="QRadioButton" name="radio_button_homme">
                     <property name="text">
                      <string>Homme</string>
                     </property>
@@ -577,7 +577,7 @@ color:rgb(255,255,255);</string>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_8">
                     <item>
-                     <widget class="QRadioButton" name="radioButton_2">
+                     <widget class="QRadioButton" name="radio_button_femme">
                       <property name="text">
                        <string>Femme</string>
                       </property>
@@ -635,13 +635,48 @@ color:rgb(255,255,255);</string>
                       </property>
                      </widget>
                     </item>
+                    <item>
+                     <widget class="QPushButton" name="aucun">
+                      <property name="styleSheet">
+                       <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                      </property>
+                      <property name="text">
+                       <string>Aucun</string>
+                      </property>
+                     </widget>
+                    </item>
                    </layout>
                   </item>
                  </layout>
                 </widget>
                </item>
                <item>
-                <widget class="QTableView" name="tableView">
+                <widget class="QTableView" name="tableView_invite">
                  <property name="styleSheet">
                   <string notr="true">color:tgb(0,0,0);</string>
                  </property>
@@ -652,7 +687,7 @@ color:rgb(255,255,255);</string>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_15">
                    <item>
-                    <widget class="QPushButton" name="pushButton_12">
+                    <widget class="QPushButton" name="affecter_table">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -687,7 +722,7 @@ font: 8pt &quot;Forte&quot;;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_supprimer">
+                    <widget class="QPushButton" name="supprimer_invite">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -722,7 +757,7 @@ font: 8pt &quot;Forte&quot;;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_modifier">
+                    <widget class="QPushButton" name="modifier_invite">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -760,7 +795,7 @@ font: 8pt &quot;Forte&quot;;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_details">
+                    <widget class="QPushButton" name="exporter_invite">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -795,7 +830,7 @@ font: 8pt &quot;Forte&quot;;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_2">
+                    <widget class="QPushButton" name="stats">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -830,7 +865,7 @@ font: 8pt &quot;Forte&quot;;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_notifier">
+                    <widget class="QPushButton" name="imprimer">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -860,12 +895,12 @@ font: 8pt &quot;Forte&quot;;
 </string>
                      </property>
                      <property name="text">
-                      <string>Imprimer</string>
+                      <string>imprimer</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_envoyer">
+                    <widget class="QPushButton" name="envoyer">
                      <property name="styleSheet">
                       <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -918,7 +953,7 @@ font: 8pt &quot;Forte&quot;;
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QGroupBox" name="groupBox_6">
+         <widget class="QGroupBox" name="groupBox_ajouter_table">
           <property name="styleSheet">
            <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
@@ -927,6 +962,19 @@ color:rgb(255,255,255);</string>
            <string>Ajouter</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <spacer name="verticalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
@@ -961,6 +1009,19 @@ color:rgb(0,0,0);</string>
                  </property>
                 </widget>
                </item>
+               <item row="2" column="1">
+                <spacer name="verticalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
               </layout>
              </item>
              <item>
@@ -979,7 +1040,7 @@ color:rgb(0,0,0);</string>
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_13">
+                <widget class="QPushButton" name="contract_table">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1014,7 +1075,7 @@ font: 8pt &quot;Forte&quot;;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_4">
+                <widget class="QPushButton" name="reset_table">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1049,7 +1110,7 @@ font: 8pt &quot;Forte&quot;;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_5">
+                <widget class="QPushButton" name="ajouter_table">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1093,7 +1154,7 @@ font: 8pt &quot;Forte&quot;;
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QGroupBox" name="groupBox_5">
+           <widget class="QGroupBox" name="groupBox_afficher_table">
             <property name="styleSheet">
              <string notr="true">font: 8pt &quot;Forte&quot;;
 color:rgb(255,255,255);</string>
@@ -1119,7 +1180,7 @@ color:rgb(0,0,0);
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_9">
+                  <widget class="QPushButton" name="recherche_table">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1154,7 +1215,7 @@ font: 8pt &quot;Forte&quot;;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_10">
+                  <widget class="QPushButton" name="afficher_tout_table">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1189,7 +1250,7 @@ font: 8pt &quot;Forte&quot;;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_11">
+                  <widget class="QPushButton" name="trier_table">
                    <property name="styleSheet">
                     <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1224,7 +1285,7 @@ font: 8pt &quot;Forte&quot;;
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox_tables">
+                  <widget class="QComboBox" name="ordre_table">
                    <property name="styleSheet">
                     <string notr="true">background-color:rgb(127, 60, 55);;</string>
                    </property>
@@ -1275,13 +1336,48 @@ font: 8pt &quot;Forte&quot;;
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="aucun_table">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton:!hover{
+background-color:rgb(127, 60, 55);
+
+
+}
+
+QPushButton:hover{
+background-color:rgb(107, 107, 107);
+
+
+}
+QPushButton:click{
+background-color:rgb(90, 90, 90);
+
+
+}
+
+
+QPushButton:hover{
+font: 8pt &quot;Forte&quot;;
+}
+
+QPushButton:!hover{
+font: 8pt &quot;Forte&quot;;
+}
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Aucun</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_16">
                <item>
-                <widget class="QTableView" name="tableView_2">
+                <widget class="QTableView" name="tableView_table">
                  <property name="styleSheet">
                   <string notr="true">color:tgb(0,0,0);</string>
                  </property>
@@ -1292,7 +1388,7 @@ font: 8pt &quot;Forte&quot;;
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_17">
                <item>
-                <widget class="QPushButton" name="pushButton_7">
+                <widget class="QPushButton" name="supprimer_table">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1327,7 +1423,7 @@ font: 8pt &quot;Forte&quot;;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_6">
+                <widget class="QPushButton" name="modifier_table">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);
@@ -1365,7 +1461,7 @@ font: 8pt &quot;Forte&quot;;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_8">
+                <widget class="QPushButton" name="ajouter_table_2">
                  <property name="styleSheet">
                   <string notr="true">QPushButton:!hover{
 background-color:rgb(127, 60, 55);

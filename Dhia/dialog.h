@@ -18,7 +18,7 @@ public:
     void set_tmpemail(QString e){tmpemail=e;}
 
 private slots:
-    void on_pushButton_2_clicked();
+    void on_envoyer_dialog_clicked();
 
 private:
     Ui::Dialog *ui;

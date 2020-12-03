@@ -44,7 +44,7 @@ Dialog::~Dialog()
 
 }
 
-void Dialog::on_pushButton_2_clicked()
+void Dialog::on_envoyer_dialog_clicked()
 {
     Smtp* smtp = new Smtp(ui->uname->text(), ui->passwd->text(), "smtp.gmail.com", 465);
 
