@@ -1,6 +1,9 @@
-QT       += core gui sql
+QT       += core gui sql printsupport
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4):
+QT += widgets multimedia
+TARGET=Gestion_stock
+TEMPLATE=app
 
 CONFIG += c++11
 
@@ -17,12 +20,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     connexion.cpp \
+    fournisseurs.cpp \
     main.cpp \
     mainwindow.cpp \
     produits.cpp
 
 HEADERS += \
     connexion.h \
+    fournisseurs.h \
     mainwindow.h \
     produits.h
 
@@ -33,3 +38,8 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Gestion_stock.qrc
+
+DISTFILES +=

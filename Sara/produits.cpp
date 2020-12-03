@@ -7,92 +7,78 @@ produits::produits()
 
 bool produits::ajouter()
 {
-    QSqlQuery query;
+    QString res= QString::number(reference);
 
-    query.prepare("INSERT INTO PRODUCT (reference, prix,date)"
-                  "VALUES (:reference,:prix,:date)");
+    QSqlQuery query;
+    query.prepare("insert into produits (reference,quantite,type,prix,datee)"
+                  "values (:reference,:quantite,:type,:prix,:datee)");
     query.bindValue(":reference",reference);
+    query.bindValue(":quantite",quantite);
+    query.bindValue(":type",type);
     query.bindValue(":prix",prix);
-    query.bindValue(":date",date);
+    query.bindValue(":datee",datee);
+
     return query.exec();
-}
-bool produits::modifier()
-{
-
-    QSqlQuery query;
-
-
-    query.prepare(" UPDATE  REFERENCE= :reference ,PRIX= :prix ,COMBO= :combo,PRIX= :prix ,DATE= :date ");
-    query.bindValue(":reference",reference); //remplir la valeur d'une maniere securisée
-    query.bindValue(":prix", prix);
-    query.bindValue(":date", date);
-
-    return    query.exec();
-
 }
 
 QSqlQueryModel * produits::afficher()
 {
     QSqlQueryModel *model= new QSqlQueryModel();
 
-    model->setQuery("SELECT * FROM PRODUCTS");
+    model->setQuery("SELECT * FROM produits");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Reference"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Prix"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Date"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Quantite"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Type"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Prix"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Date"));
     return model;
 }
 
 bool produits::supprimer(int reference)
 {
     QSqlQuery query;
-    QString r = QString::number(reference);
-    query.prepare("Produits avec reference = :reference");
-    query.bindValue(":reference",r);
+    QString res = QString::number(reference);
+    query.prepare("Delete from produits where reference = :reference");
+    query.bindValue(":reference",res);
     return query.exec();
+
 }
 
-QSqlQueryModel * produits::rechercher_reference(QString reference)
+
+QSqlQueryModel * produits::rechercher_reference(int reference)
 {
     QSqlQuery qry;
-    qry.prepare("Produits dont la reference = :reference");
+    qry.prepare("SELECT * FROM produits WHERE reference = :reference");
     qry.bindValue(":reference",reference);
     qry.exec();
-
     QSqlQueryModel *model= new QSqlQueryModel;
     model->setQuery(qry);
-
     QSqlRecord rec=model->record(0);
-
-    QString r=rec.value("reference").toChar();
-
+    int r=rec.value("reference").toInt();
     if (r==reference)
         return model;
     return nullptr;
 
 }
 
-QSqlQueryModel * produits::rechercher_prix(qreal prix)
+QSqlQueryModel * produits::rechercher_type(QString type)
 {
     QSqlQuery qry;
-    qry.prepare("Produits dont le prix = :prix");
-    qry.bindValue(":prix",prix);
+    qry.prepare("SELECT * FROM produits WHERE type = :type");
+    qry.bindValue(":type",type);
     qry.exec();
-
     QSqlQueryModel *model= new QSqlQueryModel;
     model->setQuery(qry);
+    return model;
+    }
 
 
-   return model;
-
-
-}
-
-QSqlQueryModel * produits::rechercher_date(QDate date)
+QSqlQueryModel * produits::rechercher_datee(QDate datee)
 {
     QSqlQuery qry;
-    qry.prepare("produits qui datent = :date");
-    qry.bindValue(":date",date);
+    qry.prepare("SELECT * FROM produits WHERE datee =:datee");
+    qry.bindValue(":datee",datee);
     qry.exec();
 
     QSqlQueryModel *model= new QSqlQueryModel;
@@ -101,20 +87,19 @@ QSqlQueryModel * produits::rechercher_date(QDate date)
     return model;
 }
 
-QSqlQueryModel * produits::rechercher_critere(qreal prix,QString reference,QDate date)
+QSqlQueryModel * produits::rechercher_critere(int reference,QString type,QDate datee)
 {
     QSqlQuery *qry=new QSqlQuery();
-    qry->prepare("produits dont le prix=:prix et la reference=:reference et la date=:date");
-    qry->bindValue(":prix",prix);
+    qry->prepare("SELECT * FROM produits WHERE reference =:reference AND type =:type AND datee =:datee ");
     qry->bindValue(":reference",reference);
-    qry->bindValue(":date",date);
+    qry->bindValue(":type",type);
+    qry->bindValue(":datee",datee);
     qry->exec();
 
     QSqlQueryModel *model = new QSqlQueryModel();
     model->setQuery(*qry);
     return model;
 }
-
 
 
 

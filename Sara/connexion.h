@@ -10,7 +10,7 @@ class Connexion
 {private:
 
 public:
-    QSqlDatabase db;
+    QSqlDatabase GestionStock;
     Connexion();
     bool createconnect();
     void closeconnection();
