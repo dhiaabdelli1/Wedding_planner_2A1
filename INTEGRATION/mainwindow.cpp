@@ -59,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_client->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_reservation->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_reservation->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_notifications->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_notifications->setSelectionMode(QAbstractItemView::SingleSelection);
 
     //Animations
     contract_animation = new QPropertyAnimation(ui->groupBox_ajouter_invites,"maximumWidth");
@@ -87,8 +89,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->passwordLineEdit_login->setEchoMode(QLineEdit::Password);
     ui->passwordLineEdit_signup->setEchoMode(QLineEdit::Password);
-}
 
+    int ret=A.connect_arduino();
+    switch (ret)
+    {
+    case 0:
+        qDebug() << "arduino is available and connected to:" << A.getarduino_port_name();
+        break;
+    case 1:
+        qDebug() << "arduino is available but not connected to:" << A.getarduino_port_name();
+        break;
+    case -1:
+        qDebug() << "arduino is not available";
+        break;
+    }
+}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -1075,4 +1090,53 @@ void MainWindow::on_trier_reservation_clicked()
 void MainWindow::on_recherche_reservation_textChanged(const QString &arg1)
 {
     ui->tableView_reservation->setModel(tempreservation.recherchereservation(arg1));
+}
+void MainWindow::update_label()
+{
+    //    data=A.read_from_arduino();
+    //    if (data=="1")
+    //        ui->Arduino_button->setText("1");
+    //    else if (data=="0")
+    //        ui->Arduino_button->setText("0");
+
+}
+void MainWindow::on_refuser_clicked()
+{
+    QItemSelectionModel *select=ui->tableView_notifications->selectionModel();
+    QString cin= select->selectedRows(0).value(0).data().toString();
+
+    A.write_to_arduino("Acces Refuse");
+
+    tmpinvite.update(cin,"permission","refusé");
+
+
+
+    ui->tableView_invite->setModel(tmpinvite.afficher());
+}
+
+
+void MainWindow::on_accepter_clicked()
+{
+    QItemSelectionModel *select=ui->tableView_notifications->selectionModel();
+    QString cin= select->selectedRows(0).value(0).data().toString();
+    QString nom =select->selectedRows(1).value(0).data().toString();
+    QString num_table=select->selectedRows(7).value(0).data().toString();
+    QString msg= "Bonjour,  "+nom+" Votre num de table est: "+num_table;
+
+
+    const char * p= msg.toStdString().c_str();
+
+    A.write_to_arduino(p);
+
+    //tmpinvite.update(cin,"permission","accepté");
+
+    ui->tableView_invite->setModel(tmpinvite.update(cin,"permission","accepté"));
+
+    ui->tableView_invite->setModel(tmpinvite.afficher());
+}
+
+void MainWindow::on_enter_clicked()
+{
+    QString cin= QInputDialog::getText(this, "SAISIE", "Saisir CIN");
+    ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin));
 }

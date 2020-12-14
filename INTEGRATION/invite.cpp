@@ -12,8 +12,8 @@ bool invite::ajouter()
 
 
 
-    query.prepare("INSERT INTO Invites (cin, nom, prenom,date_naissance,mail,sexe,telephone)"
-                  "VALUES (:cin,:nom,:prenom,:date_naissance,:mail,:sexe,:telephone)");
+    query.prepare("INSERT INTO Invites (cin, nom, prenom,date_naissance,mail,sexe,telephone,permission)"
+                  "VALUES (:cin,:nom,:prenom,:date_naissance,:mail,:sexe,:telephone,:permission)");
 
     query.bindValue(":cin",cin);
     query.bindValue(":nom",nom);
@@ -22,6 +22,7 @@ bool invite::ajouter()
     query.bindValue(":mail",mail);
     query.bindValue(":sexe",sexe);
     query.bindValue(":telephone",telephone);
+    query.bindValue(":permission","-");
 
     return query.exec();
 }
@@ -40,6 +41,7 @@ QSqlQueryModel * invite::afficher()
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Mail"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Sexe"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Numéro table"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Permission"));
 
     return model;
 }
@@ -65,6 +67,17 @@ QSqlQueryModel * invite::rechercher_sexe(QString sexe)
     model->setQuery(qry);
 
 
+    return model;
+}
+
+QSqlQueryModel *invite::update(QString cin,QString att,QString val)
+{
+    QSqlQueryModel *model= new QSqlQueryModel;
+    QSqlQuery query;
+    query.prepare("update invites set permission=:permission where cin=:cin");
+    query.bindValue(":permission",val);
+    query.bindValue(":cin",cin);
+    model->setQuery(query);
     return model;
 }
 

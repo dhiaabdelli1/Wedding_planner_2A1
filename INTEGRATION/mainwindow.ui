@@ -180,7 +180,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -189,7 +189,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget">
                     <property name="currentIndex">
-                     <number>0</number>
+                     <number>2</number>
                     </property>
                     <widget class="QWidget" name="tab">
                      <attribute name="title">
@@ -733,6 +733,49 @@
                          </item>
                         </layout>
                        </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="tab_5">
+                     <attribute name="title">
+                      <string>Notifications</string>
+                     </attribute>
+                     <layout class="QHBoxLayout" name="horizontalLayout_38">
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_23">
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_37">
+                          <item>
+                           <widget class="QTableView" name="tableView_notifications"/>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_53">
+                          <item>
+                           <widget class="QPushButton" name="enter">
+                            <property name="text">
+                             <string>Enter</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="accepter">
+                            <property name="text">
+                             <string>Accepter</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="refuser">
+                            <property name="text">
+                             <string>Refuser</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
                       </item>
                      </layout>
                     </widget>

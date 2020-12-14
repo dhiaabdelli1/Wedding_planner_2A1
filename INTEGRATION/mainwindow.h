@@ -24,6 +24,8 @@
 #include "client.h"
 #include "reservation.h"
 #include "login.h"
+
+#include "arduino.h"
 //#include "stats.h"
 //#include "arduino.h"
 
@@ -126,6 +128,20 @@ private slots:
 
     void on_recherche_reservation_textChanged(const QString &arg1);
 
+
+
+
+
+    void update_label();
+
+    void on_refuser_clicked();
+
+
+
+    void on_accepter_clicked();
+
+    void on_enter_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -144,5 +160,9 @@ private:
     QPropertyAnimation *expand_animation;
     QPropertyAnimation *contract_animation_2;
     QPropertyAnimation *expand_animation_2;
+
+    //Arduino
+    QByteArray data; //contient les données reçus
+    Arduino A; //Tmp
 };
 #endif // MAINWINDOW_H
