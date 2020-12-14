@@ -21,6 +21,8 @@
 
 #include "invite.h"
 #include "table.h"
+#include "client.h"
+#include "reservation.h"
 #include "login.h"
 //#include "stats.h"
 //#include "arduino.h"
@@ -98,21 +100,45 @@ private slots:
 
     void on_aucun_table_clicked();
 
-
-
-
     void on_logout_button_clicked();
+
+    void on_ajouter_client_clicked();
+
+    void on_modifier_client_clicked();
+
+    void on_supprimer_client_clicked();
+
+    void on_recherche_client_textChanged(const QString &arg1);
+
+    void on_exporter_client_clicked();
+
+    void on_imprimer_client_clicked();
+
+    void on_trier_client_clicked();
+
+    void on_ajouter_reservation_clicked();
+
+    void on_modifier_reservation_clicked();
+
+    void on_supprimer_reservation_clicked();
+
+    void on_trier_reservation_clicked();
+
+    void on_recherche_reservation_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
 
     invite tmpinvite;
     table tmptable;
+    client tempclient;
+    reservation tempreservation;
     //Regex
     QRegExp mail_regex;
     QRegExp cin_regex;
     QRegExp chaine_regex;
     QRegExp telephone_regex;
+    QRegExp nom_regex,prenom_regex,tel_regex,budget_regex; //IHEB
     //Animation
     QPropertyAnimation *contract_animation;
     QPropertyAnimation *expand_animation;

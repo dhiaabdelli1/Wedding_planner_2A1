@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent)
     chaine_regex=QRegExp("[a-zA-Z]{2,20}$");
     telephone_regex=cin_regex=QRegExp("[0-9]{8}$");
 
+    nom_regex=QRegExp("[a-zA-Z]+$");
+    prenom_regex=QRegExp("[a-zA-Z]+$");
+    budget_regex=QRegExp("([0-9]+)*[.]*[0-9]+$");
+    tel_regex=QRegExp("[0-9]+$");
+
 
 
     //Controle saisie avec LineEdit_invite/Qdate_recherche_invite
@@ -41,12 +46,19 @@ MainWindow::MainWindow(QWidget *parent)
     //Affichage des tableaux au lancement
     ui->tableView_invite->setModel(tmpinvite.afficher());
     ui->tableView_table->setModel(tmptable.afficher());
+    ui->tableView_client->setModel(tempclient.afficher());
+    ui->tableView_reservation->setModel(tempreservation.afficher());
+
 
     //Selection tableView_invite
     ui->tableView_invite->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_invite->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_table->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_table->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_client->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_client->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_reservation->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_reservation->setSelectionMode(QAbstractItemView::SingleSelection);
 
     //Animations
     contract_animation = new QPropertyAnimation(ui->groupBox_ajouter_invites,"maximumWidth");
@@ -444,17 +456,17 @@ void MainWindow::on_afficher_tout_invite_clicked()
 
 void MainWindow::on_envoyer_clicked()
 {
-//    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
-//    QItemSelectionModel *select = ui->tableView_invite->selectionModel();
+    //    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    //    QItemSelectionModel *select = ui->tableView_invite->selectionModel();
 
-//    QString email_recipient =select->selectedRows(4).value(0).data().toString();
-//    QString nom_recipient =select->selectedRows(1).value(0).data().toString();
-//    QString sexe_recipient =select->selectedRows(5).value(0).data().toString();
+    //    QString email_recipient =select->selectedRows(4).value(0).data().toString();
+    //    QString nom_recipient =select->selectedRows(1).value(0).data().toString();
+    //    QString sexe_recipient =select->selectedRows(5).value(0).data().toString();
 
 
-//    QDialog *d=new Dialog(email_recipient,nom_recipient,sexe_recipient,this);
-//    d->show();
-//    d->exec();
+    //    QDialog *d=new Dialog(email_recipient,nom_recipient,sexe_recipient,this);
+    //    d->show();
+    //    d->exec();
 }
 
 
@@ -483,12 +495,12 @@ void MainWindow::on_trier_invite_clicked()
 
 void MainWindow::on_stats_invite_clicked()
 {
-//    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
-//    stats stats_window(this);
-//    stats_window.setModal(true);
-//    stats_window.show();
-//    stats_window.exec();
-//    QDialog d;
+    //    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    //    stats stats_window(this);
+    //    stats_window.setModal(true);
+    //    stats_window.show();
+    //    stats_window.exec();
+    //    QDialog d;
 }
 
 void MainWindow::on_contract_invite_clicked()
@@ -735,3 +747,332 @@ void MainWindow::on_aucun_table_clicked()
 }
 
 
+//IHEB
+
+
+void MainWindow::on_ajouter_client_clicked()
+{
+    MainWindow w;
+
+    bool mail_verif = mail_regex.exactMatch(ui->email_client->text());
+    bool nom_verif=nom_regex.exactMatch(ui->prenom_client->text());
+    bool prenom_verif=prenom_regex.exactMatch((ui->nom_client->text()));
+    bool tel_verif=tel_regex.exactMatch(ui->tel_client->text());
+    bool budget_verif=budget_regex.exactMatch(ui->budget_client->text());
+    bool cin_verif=cin_regex.exactMatch(ui->cin_client->text());
+
+    QString nom;
+    int CIN=ui->cin_client->text().toInt();
+    nom= ui->nom_client->text();
+    bool test2=true;
+    QString prenom= ui->prenom_client->text();
+    QDate date_naissance = ui->date_client->date();
+    QString mail=ui->email_client->text();
+    QString telephone=ui->tel_client->text();
+    float budget=ui->budget_client->text().toFloat();
+    // qDebug()<<CIN<<nom<<prenom<<date_naissance<<mail<<telephone<<budget;
+    if (!mail_verif || !nom_verif || !cin_verif || !budget_verif || !prenom_verif || !tel_verif)
+    {
+        QMessageBox::warning(this,"Erreur lors de l'ajout","format non valide");
+        test2=false;
+
+    }
+    else
+    {
+        /* mail=ui->email_client->text();
+         nom= ui->nom_client->text();*/
+        test2=true;
+
+
+    }
+
+    client c(CIN,nom,prenom,date_naissance,telephone,mail,budget);
+    if(test2)
+    {
+        bool test=c.ajouter();
+        if(test)
+        {
+
+            QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+            ui->tableView_client->setModel(tempclient.afficher());
+
+        }
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("ajout échoué"),
+                              QObject::tr("connection failed.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+}
+
+
+
+void MainWindow::on_modifier_client_clicked()
+{
+
+
+    if (ui->modifier_client->isChecked())
+    {
+        //ui->pushButton_4->setDisabled(true);
+        ui->modifier_client->setText("Modifiable");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("CLIENT");
+
+        tableModel->select();
+        ui->tableView_client->setModel(tableModel);
+
+
+    }
+    else
+    {
+        ui->modifier_client->setText("modifier client");
+        ui->tableView_client->setModel(tempclient.afficher());
+
+    }
+
+
+}
+
+void MainWindow::on_supprimer_client_clicked()
+{
+    QItemSelectionModel *select=ui->tableView_client->selectionModel();
+    int CIN =select->selectedRows(0).value(0).data().toInt();
+    bool test=tempclient.supprimer(CIN);
+
+    if(test)
+    {
+        ui->tableView_client->setModel(tempclient.afficher());
+
+        //w.show();
+        QMessageBox::information(nullptr, QObject::tr("ajout client"),
+                                 QObject::tr("suppression réussie\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("ajout échoué"),
+                              QObject::tr("suppression échouée.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_recherche_client_textChanged(const QString &arg1)
+{
+
+    ui->tableView_client->setModel(tempclient.rechercheclient(arg1));
+
+    //    if (arg1=="")
+    //    {
+    //        ui->tableView_client->setModel(tempclient.afficher());
+    //    }
+    //    else
+    //    {
+    //        ui->tableView_client->setModel(tempclient.rechercheclient(arg1));
+    //    }
+}
+
+
+void MainWindow::on_exporter_client_clicked()
+{
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
+    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_clients.pdf"); }
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(fileName);
+
+    QTextDocument doc;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM CLIENT ");
+    q.exec();
+    QString pdf="<br> <img src='D:/Users/dhiaa/Desktop/gestion_invités/background.jpeg' height='84' width='288'/> <h1  style='color:red'>       LISTE DES CLIENTS  <br></h1>\n <br> <table>  <tr>  <th> CIN </th> <th> NOM </th> <th> PRENOM </th> <th> DATE NAISSANCE  </th> <th>E-MAIL </th>  </tr>  <th>BUDGET </th>  </tr>" ;
+
+
+    while ( q.next()) {
+
+        pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+"       </td>  <td>"+q.value(5).toString()+"       </td>  " ;
+
+    }
+    doc.setHtml(pdf);
+    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+    doc.print(&printer);
+}
+
+void MainWindow::on_imprimer_client_clicked()
+{
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    QString strStream;
+    QTextStream out(&strStream);
+
+    const int rowCount = ui->tableView_client->model()->rowCount();
+    const int columnCount = ui->tableView_client->model()->columnCount();
+
+    out <<  "<html>\n"
+            "<head>\n"
+            "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+         <<  QString("<title>%1</title>\n").arg("Title")
+          <<  "</head>\n"
+              "<body bgcolor=#ffffff link=#5000A0>\n"
+              "<table border=1 cellspacing=0 cellpadding=2>\n";
+
+    // headers
+    out << "<thead><tr bgcolor=#f0f0f0>";
+    for (int column = 0; column < columnCount; column++)
+        if (!ui->tableView_client->isColumnHidden(column))
+            out << QString("<th>%1</th>").arg(ui->tableView_client->model()->headerData(column, Qt::Horizontal).toString());
+    out << "</tr></thead>\n";
+
+    // data table
+    for (int row = 0; row < rowCount; row++) {
+        out << "<tr>";
+        for (int column = 0; column < columnCount; column++) {
+            if (!ui->tableView_client->isColumnHidden(column)) {
+                QString data = ui->tableView_client->model()->data(ui->tableView_client->model()->index(row, column)).toString().simplified();
+                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+            }
+        }
+        out << "</tr>\n";
+    }
+    out <<  "</table>\n"
+            "</body>\n"
+            "</html>\n";
+
+    QTextDocument *document = new QTextDocument();
+    document->setHtml(strStream);
+
+    QPrinter printer;
+
+    QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+    if (dialog->exec() == QDialog::Accepted) {
+        document->print(&printer);
+    }
+
+    delete document;
+}
+
+void MainWindow::on_trier_client_clicked()
+{
+    qDebug() << "clicked";
+    if (ui->checkBox_nom_client->isChecked() && !ui->checkBox_prenom_client->isChecked() && !ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("nom",ui->ordre_client->currentText()));
+    else if (!ui->checkBox_nom_client->isChecked() && ui->checkBox_prenom_client->isChecked() && !ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("prenom",ui->ordre_client->currentText()));
+    else if (!ui->checkBox_nom_client->isChecked() && !ui->checkBox_prenom_client->isChecked() && ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("budget",ui->ordre_client->currentText()));
+    else if (ui->checkBox_nom_client->isChecked() && ui->checkBox_prenom_client->isChecked() && !ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("nom,prenom",ui->ordre_client->currentText()));
+    else if (ui->checkBox_nom_client->isChecked() && !ui->checkBox_prenom_client->isChecked() && ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("nom,budget",ui->ordre_client->currentText()));
+    else if (!ui->checkBox_nom_client->isChecked() && ui->checkBox_prenom_client->isChecked() && ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("prenom,budget",ui->ordre_client->currentText()));
+    else if (ui->checkBox_nom_client->isChecked() && ui->checkBox_prenom_client->isChecked() && ui->checkBox_budget_client->isChecked())
+        ui->tableView_client->setModel(tempclient.trier("nom,prenom,budget",ui->ordre_client->currentText()));
+
+
+}
+
+void MainWindow::on_ajouter_reservation_clicked()
+{
+
+    QString reference= ui->reference_reservation->text();
+    QDate date_reservation = ui->date_reservation->date();
+
+    float prix= ui->prix_reservation->text().toFloat();
+    int nb_invites=ui->nb_invites_reservation->text().toInt();
+
+    QString localisation= ui->localisation_reservation->text();
+
+    qDebug()<<reference<<date_reservation<<prix<<nb_invites<<localisation;
+
+    reservation r(reference,date_reservation,prix,nb_invites,localisation);
+    bool test=r.ajouter();
+    if(test)
+    {
+        QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+        ui->tableView_reservation->setModel(tempreservation.afficher());
+
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("ajout échoué"),
+                              QObject::tr("connection failed.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+
+void MainWindow::on_modifier_reservation_clicked()
+{
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    if (ui->modifier_reservation->isChecked())
+    {
+
+        ui->modifier_reservation->setText("Modifiable");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("RESERVATION");
+        tableModel->select();
+        ui->tableView_reservation->setModel(tableModel);
+    }
+    else
+    {
+        ui->modifier_reservation->setText("Modifier");
+        ui->tableView_reservation->setModel(tempreservation.afficher());
+
+    }
+}
+
+void MainWindow::on_supprimer_reservation_clicked()
+{
+    QItemSelectionModel *select=ui->tableView_reservation->selectionModel();
+    int CIN =select->selectedRows(0).value(0).data().toInt();
+    bool test=tempreservation.supprimer(CIN);
+
+    if(test)
+    {
+        ui->tableView_reservation->setModel(tempreservation.afficher());
+
+        //w.show();
+        QMessageBox::information(nullptr, QObject::tr("ajout client"),
+                                 QObject::tr("suppression réussie\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+
+    }
+    else
+        QMessageBox::critical(nullptr, QObject::tr("ajout échoué"),
+                              QObject::tr("suppression échouée.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_trier_reservation_clicked()
+{
+    qDebug() << "clicked";
+
+    if (ui->checkBox_localisation_reservation->isChecked() && !ui->checkBox_prix_reservation->isChecked() && !ui->checkBox_nb_invites_reservation->isChecked())
+    {
+        ui->tableView_reservation->setModel(tempreservation.trier("localisation",ui->ordre_reservation->currentText()));
+        qDebug() << "if";
+    }
+    else if (!ui->checkBox_localisation_reservation->isChecked() && ui->checkBox_prix_reservation->isChecked() && !ui->checkBox_nb_invites_reservation->isChecked())
+        ui->tableView_reservation->setModel(tempreservation.trier("prix",ui->ordre_reservation->currentText()));
+    else if (!ui->checkBox_localisation_reservation->isChecked() && !ui->checkBox_prix_reservation->isChecked() && ui->checkBox_nb_invites_reservation->isChecked())
+        ui->tableView_reservation->setModel(tempreservation.trier("nb_invites",ui->ordre_reservation->currentText()));
+    else if (ui->checkBox_localisation_reservation->isChecked() && ui->checkBox_prix_reservation->isChecked() && !ui->checkBox_nb_invites_reservation->isChecked())
+        ui->tableView_reservation->setModel(tempreservation.trier("localisation,prix",ui->ordre_reservation->currentText()));
+    else if (ui->checkBox_localisation_reservation->isChecked() && !ui->checkBox_prix_reservation->isChecked() && ui->checkBox_nb_invites_reservation->isChecked())
+        ui->tableView_reservation->setModel(tempreservation.trier("localisation,nb_invites",ui->ordre_reservation->currentText()));
+    else if (!ui->checkBox_localisation_reservation->isChecked() && ui->checkBox_prix_reservation->isChecked() && ui->checkBox_nb_invites_reservation->isChecked())
+        ui->tableView_reservation->setModel(tempreservation.trier("prix,nb_invites",ui->ordre_reservation->currentText()));
+    else if (ui->checkBox_localisation_reservation->isChecked() && ui->checkBox_prix_reservation->isChecked() && ui->checkBox_nb_invites_reservation->isChecked())
+        ui->tableView_reservation->setModel(tempreservation.trier("localisation,prix,nb_invites",ui->ordre_reservation->currentText()));
+}
+
+void MainWindow::on_recherche_reservation_textChanged(const QString &arg1)
+{
+    ui->tableView_reservation->setModel(tempreservation.recherchereservation(arg1));
+}
