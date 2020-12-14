@@ -19,6 +19,21 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QTabWidget" name="tabWidget">
+        <property name="styleSheet">
+         <string notr="true">QTabWidget {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+        </property>
         <property name="currentIndex">
          <number>0</number>
         </property>
@@ -31,6 +46,21 @@
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="1" column="1">
              <widget class="QTabWidget" name="tabWidget_2">
+              <property name="styleSheet">
+               <string notr="true">QTabWidget {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(199,21,133);
+border -left: 1px solid rgb(199,21,133);
+border -right: 1px solid rgb(199,21,133);
+border -bottom: 5px solid rgb(199,21,133);
+}
+
+
+</string>
+              </property>
               <property name="currentIndex">
                <number>1</number>
               </property>
@@ -71,7 +101,7 @@
                                 </widget>
                                </item>
                                <item row="0" column="1">
-                                <widget class="QLineEdit" name="LineEditp1">
+                                <widget class="QLineEdit" name="cin_client">
                                  <property name="echoMode">
                                   <enum>QLineEdit::Normal</enum>
                                  </property>
@@ -88,7 +118,7 @@
                                 </widget>
                                </item>
                                <item row="1" column="1">
-                                <widget class="QLineEdit" name="prNomPartenaire1LineEdit"/>
+                                <widget class="QLineEdit" name="nom_client"/>
                                </item>
                                <item row="2" column="0">
                                 <widget class="QLabel" name="nomPartenaire1Label">
@@ -112,7 +142,7 @@
                                 </widget>
                                </item>
                                <item row="4" column="1">
-                                <widget class="QLineEdit" name="tLPhonePartenaire1LineEdit"/>
+                                <widget class="QLineEdit" name="tel_client"/>
                                </item>
                                <item row="5" column="0">
                                 <widget class="QLabel" name="mailPartenaire1Label">
@@ -122,13 +152,13 @@
                                 </widget>
                                </item>
                                <item row="5" column="1">
-                                <widget class="QLineEdit" name="mailPartenaire1LineEdit"/>
+                                <widget class="QLineEdit" name="email_client"/>
                                </item>
                                <item row="2" column="1">
-                                <widget class="QLineEdit" name="nomPartenaire1LineEdit"/>
+                                <widget class="QLineEdit" name="prenom_client"/>
                                </item>
                                <item row="3" column="1">
-                                <widget class="QDateEdit" name="dateEdit_2"/>
+                                <widget class="QDateEdit" name="date_client"/>
                                </item>
                               </layout>
                              </item>
@@ -167,6 +197,21 @@
                          <property name="enabled">
                           <bool>true</bool>
                          </property>
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+                         </property>
                          <property name="text">
                           <string>ajouter</string>
                          </property>
@@ -195,7 +240,7 @@
                    <item>
                     <layout class="QVBoxLayout" name="verticalLayout_3">
                      <item>
-                      <widget class="QTableView" name="tableView">
+                      <widget class="QTableView" name="tableView_client">
                        <property name="acceptDrops">
                         <bool>false</bool>
                        </property>
@@ -206,8 +251,19 @@
                    <item>
                     <widget class="QPushButton" name="pushButton_3">
                      <property name="styleSheet">
-                      <string notr="true">
-font: 8pt &quot;Sitka Small&quot;;</string>
+                      <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
                      </property>
                      <property name="text">
                       <string>supprimer client</string>
@@ -216,6 +272,22 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                    </item>
                    <item>
                     <widget class="QPushButton" name="pushButton_4">
+                     <property name="styleSheet">
+                      <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+
+</string>
+                     </property>
                      <property name="text">
                       <string>modifier client</string>
                      </property>
@@ -241,6 +313,21 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                      <layout class="QHBoxLayout" name="horizontalLayout_7">
                       <item>
                        <widget class="QComboBox" name="comboBox">
+                        <property name="styleSheet">
+                         <string notr="true">QComboBox {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+                        </property>
                         <item>
                          <property name="text">
                           <string>TRI</string>
@@ -293,7 +380,19 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                    <item>
                     <widget class="QPushButton" name="pushButton_5">
                      <property name="styleSheet">
-                      <string notr="true">background-color::rgb(255, 52, 123);</string>
+                      <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
                      </property>
                      <property name="text">
                       <string>pdf</string>
@@ -312,7 +411,7 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                    <item>
                     <widget class="QGroupBox" name="groupBox_8">
                      <property name="title">
-                      <string>GroupBox</string>
+                      <string>joindre un fichier</string>
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_10">
                       <item>
@@ -326,8 +425,23 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                         </item>
                         <item>
                          <widget class="QPushButton" name="browseBtn">
+                          <property name="styleSheet">
+                           <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+                          </property>
                           <property name="text">
-                           <string>PushButton</string>
+                           <string>attacher fichier</string>
                           </property>
                          </widget>
                         </item>
@@ -379,8 +493,23 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                        </item>
                        <item>
                         <widget class="QPushButton" name="sendBtn">
+                         <property name="styleSheet">
+                          <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+                         </property>
                          <property name="text">
-                          <string>PushButton</string>
+                          <string>envoyer</string>
                          </property>
                         </widget>
                        </item>
@@ -524,6 +653,22 @@ font: 8pt &quot;Sitka Small&quot;;</string>
                       <height>16777215</height>
                      </size>
                     </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+
+</string>
+                    </property>
                     <property name="text">
                      <string>ajouter</string>
                     </property>
@@ -563,12 +708,28 @@ font: 8pt &quot;Sitka Small&quot;;</string>
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_14">
                 <item>
-                 <widget class="QTableView" name="tableView_2"/>
+                 <widget class="QTableView" name="tableView_reservation"/>
                 </item>
                </layout>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_8">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+
+</string>
+                </property>
                 <property name="text">
                  <string>supprimer réservation</string>
                 </property>
@@ -576,6 +737,21 @@ font: 8pt &quot;Sitka Small&quot;;</string>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_9">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+                </property>
                 <property name="text">
                  <string>modifier réservation</string>
                 </property>
@@ -589,6 +765,21 @@ font: 8pt &quot;Sitka Small&quot;;</string>
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_2">
+                <property name="styleSheet">
+                 <string notr="true">QComboBox {
+	font: 87 10pt &quot;Arial Black&quot;;
+background-color: rgb(199,21,133);
+border-style: outset;
+border-width : 5px;
+color: rgb(226,234,216);
+border -left: 1px solid rgb(255,255,255);
+border -right: 1px solid rgb(255,255,255);
+border -bottom: 5px solid rgb(255,255,255);
+}
+
+
+</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>tri</string>

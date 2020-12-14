@@ -45,7 +45,8 @@ QSqlQueryModel * reservation::afficher()
 }
 
 bool reservation::supprimer(int reference)
-{
+{QString ref_string=QString::number(reference);
+    
     QSqlQuery query;
     query.prepare("delete from reservation where reference=:reference");
     query.bindValue(":reference",reference);

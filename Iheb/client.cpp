@@ -5,7 +5,7 @@ client::client()
 {
 
 }
-client::client(int CIN,QString nom,QString prenom,QDate date,QString telephone,QString mail)
+client::client(int CIN,QString nom,QString prenom,QDate date,QString telephone,QString mail,float budget)
 {
     this->CIN=CIN;
     this->nom=nom;
@@ -13,19 +13,22 @@ client::client(int CIN,QString nom,QString prenom,QDate date,QString telephone,Q
     this->date=date;
     this->mail=mail;
     this->telephone=telephone;
+    this->budget=budget;
 
 }
 bool client::ajouter()
 {
     QSqlQuery query;
-    query.prepare("Insert into client(CIN,nom,prenom,DATEDENAISSANCE,telephone,mail)"
-                  "Values(:CIN,:nom,:prenom,:DATEDENAISSANCE,:telephone,:mail)");
+    QString budget_string=QString::number(budget);
+    query.prepare("Insert into client(CIN,nom,prenom,DATEDENAISSANCE,telephone,mail,budget)"
+                  "Values(:CIN,:nom,:prenom,:DATEDENAISSANCE,:telephone,:mail,:budget)");
     query.bindValue(":CIN",CIN);
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
     query.bindValue(":DATEDENAISSANCE",date);
     query.bindValue(":telephone",telephone);
     query.bindValue(":mail",mail);
+    query.bindValue(":budget",budget_string);
     return query.exec();
 
 }

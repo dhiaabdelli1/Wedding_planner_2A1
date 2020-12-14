@@ -8,9 +8,9 @@ class reservation
 {
 public:
     reservation();
- reservation(int,QDate,QString,int,QString);
- int getREFERENCE(){return reference;}
- QString getPRIX(){return prix;}
+ reservation(QString,QDate,float,int,QString);
+ QString getREFERENCE(){return reference;}
+ float getPRIX(){return prix;}
  int getNBINV(){return nb_invites;}
  QString getLOCALISATION(){return localisation;}
  QDate getDATE(){return date_reservation;}
@@ -21,9 +21,9 @@ QSqlQueryModel* trireservation(int);
  QSqlQueryModel * afficher();
  bool supprimer(int);
 private:
- QString prix;
- int nb_invites,reference;
- QString localisation;
+ float prix;
+ int nb_invites;
+ QString localisation,reference;
  QDate date_reservation;
 };
 

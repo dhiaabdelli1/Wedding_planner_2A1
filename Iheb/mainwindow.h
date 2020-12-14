@@ -26,7 +26,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_ajouter_client_clicked();
 
     void on_pushButton_3_clicked();
 
@@ -34,7 +34,7 @@ private slots:
 
     void on_pushButton_4_clicked();
 
-    void on_lineEdit_textChanged(const QString &arg1);
+    void on_recherche_client_textChanged(const QString &arg1);
 
     void on_comboBox_currentIndexChanged(int index);
     void on_actionplay_video_triggered();
@@ -47,7 +47,7 @@ private slots:
 
 
 
-    void on_tableView_activated(const QModelIndex &index);
+    void on_tableView_client_activated(const QModelIndex &index);
 
     void on_tableView_clicked(const QModelIndex &index);
 
@@ -78,6 +78,8 @@ private slots:
 
     void on_pushButton_9_clicked();
 
+    void on_rcpt_cursorPositionChanged(int arg1, int arg2);
+
 private:
     Ui::MainWindow *ui;
     client tempclient;
@@ -87,6 +89,7 @@ private:
  QVideoWidget* vw;
  QPropertyAnimation *anim,*anim2;
  QRegExp mail_regex;
+ QRegExp nom_regex,prenom_regex,cin_regex,tel_regex,budget_regex;
 
 
 };

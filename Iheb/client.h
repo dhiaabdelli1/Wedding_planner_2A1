@@ -8,7 +8,7 @@ class client
 {
 public:
     client();
- client(int,QString,QString,QDate,QString,QString);
+ client(int,QString,QString,QDate,QString,QString,float);
  int getCIN(){return CIN;}
  QString getNOM(){return nom;}
  QString getPRENOM(){return prenom;}
@@ -23,7 +23,7 @@ private:
     int CIN;
     QString nom,prenom,mail,telephone;
     QDate date;
-
+    float budget;
 
 };
 
