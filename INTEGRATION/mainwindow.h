@@ -26,6 +26,9 @@
 #include "login.h"
 
 #include "arduino.h"
+#include "dialog.h"
+#include "smtp.h"
+#include "stats.h"
 //#include "stats.h"
 //#include "arduino.h"
 
@@ -141,6 +144,8 @@ private slots:
     void on_accepter_clicked();
 
     void on_enter_clicked();
+
+    void on_envoyer_invite_clicked();
 
 private:
     Ui::MainWindow *ui;

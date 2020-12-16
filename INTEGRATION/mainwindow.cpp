@@ -512,12 +512,12 @@ void MainWindow::on_trier_invite_clicked()
 
 void MainWindow::on_stats_invite_clicked()
 {
-    //    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
-    //    stats stats_window(this);
-    //    stats_window.setModal(true);
-    //    stats_window.show();
-    //    stats_window.exec();
-    //    QDialog d;
+        QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+        stats stats_window(this);
+        stats_window.setModal(true);
+        stats_window.show();
+        stats_window.exec();
+        QDialog d;
 }
 
 void MainWindow::on_contract_invite_clicked()
@@ -1102,6 +1102,7 @@ void MainWindow::update_label()
     {
         ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
         ui->cin_recu->setText("Nouveau invité à la porte!");
+        cin_recu="";
     }
 
 
@@ -1111,16 +1112,10 @@ void MainWindow::update_label()
 }
 void MainWindow::on_refuser_clicked()
 {
-    QItemSelectionModel *select=ui->tableView_notifications->selectionModel();
-    QString cin= select->selectedRows(0).value(0).data().toString();
+
 
     A.write_to_arduino("Acces Refuse");
 
-    //tmpinvite.update(cin,"permission","refusé");
-
-
-
-    ui->tableView_invite->setModel(tmpinvite.afficher());
 }
 
 
@@ -1130,22 +1125,53 @@ void MainWindow::on_accepter_clicked()
     QString cin= select->selectedRows(0).value(0).data().toString();
     QString nom =select->selectedRows(1).value(0).data().toString();
     QString num_table=select->selectedRows(7).value(0).data().toString();
-    QString msg= "Bonjour, Mme "+nom+" Votre num de table est: "+num_table;
+    QString email_invite=select->selectedRows(4).value(0).data().toString();
+
+    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
+
+    QString sexe=select->selectedRows(5).value(0).data().toString();
+
+    QString msg="";
+
+    if (sexe=="Femme")
+        msg= "Bonjour, Mme. "+nom+" Votre num de table est: "+num_table;
+    else if (sexe=="Homme")
+        msg= "Bonjour, Mr. "+nom+" Votre num de table est: "+num_table;
 
 
     const char * p= msg.toStdString().c_str();
 
+
     A.write_to_arduino(p);
 
-    //tmpinvite.update(cin,"permission","accepté");
 
-    ui->tableView_invite->setModel(tmpinvite.update(cin,"permission","accepté"));
+    //ui->tableView_invite->setModel(tmpinvite.update(cin,"permission","accepté"));
+
+
+
+    smtp->sendMail("dhia.abdelli1@esprit.tn", email_invite , "Notification d'entrée" ,"Bonjour "+nom+",\nBienvenue à la salle. Votre numéro de table est "+num_table+".\nNous vous souhaitons une bonne soirée.\n\nCordialement,\nBoudinar Wedding Planner.\n");
 
     ui->tableView_invite->setModel(tmpinvite.afficher());
+
 }
 
 void MainWindow::on_enter_clicked()
 {
     QString cin= QInputDialog::getText(this, "SAISIE", "Saisir CIN");
     ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin));
+}
+
+void MainWindow::on_envoyer_invite_clicked()
+{
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    QItemSelectionModel *select = ui->tableView_invite->selectionModel();
+
+    QString email_recipient =select->selectedRows(4).value(0).data().toString();
+    QString nom_recipient =select->selectedRows(1).value(0).data().toString();
+    QString sexe_recipient =select->selectedRows(5).value(0).data().toString();
+
+
+    QDialog *d=new Dialog(email_recipient,nom_recipient,sexe_recipient,this);
+    d->show();
+    d->exec();
 }

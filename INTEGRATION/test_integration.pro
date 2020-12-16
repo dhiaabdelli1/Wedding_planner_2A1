@@ -12,25 +12,33 @@ SOURCES += \
     arduino.cpp \
     client.cpp \
     connexion.cpp \
+    dialog.cpp \
     invite.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
     reservation.cpp \
+    smtp.cpp \
+    stats.cpp \
     table.cpp
 
 HEADERS += \
     arduino.h \
     client.h \
     connexion.h \
+    dialog.h \
     invite.h \
     login.h \
     mainwindow.h \
     reservation.h \
+    smtp.h \
+    stats.h \
     table.h
 
 FORMS += \
-    mainwindow.ui
+    dialog.ui \
+    mainwindow.ui \
+    stats.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
