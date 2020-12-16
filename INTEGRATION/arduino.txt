@@ -56,7 +56,17 @@ void loop() {
     {
       lcd.setCursor(4, 1);
       lcd.print("Attendez SVP");
+      cin = "";
+    }
+    else if (customKey == '*')
+    {
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Bienvenue!");
+      lcd.setCursor(0, 1);
+      lcd.print("CIN:");
       cin="";
+      
     }
     else
     {

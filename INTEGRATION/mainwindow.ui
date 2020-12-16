@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1106</width>
+    <width>1184</width>
     <height>602</height>
    </rect>
   </property>
@@ -180,7 +180,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -189,7 +189,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget">
                     <property name="currentIndex">
-                     <number>0</number>
+                     <number>2</number>
                     </property>
                     <widget class="QWidget" name="tab">
                      <attribute name="title">
@@ -764,7 +764,17 @@
                          </layout>
                         </item>
                         <item>
+                         <widget class="QLineEdit" name="enter_cin"/>
+                        </item>
+                        <item>
                          <layout class="QHBoxLayout" name="horizontalLayout_53">
+                          <item>
+                           <widget class="QPushButton" name="entrer">
+                            <property name="text">
+                             <string>Entrer</string>
+                            </property>
+                           </widget>
+                          </item>
                           <item>
                            <widget class="QPushButton" name="accepter">
                             <property name="text">
@@ -1353,7 +1363,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1106</width>
+     <width>1184</width>
      <height>20</height>
     </rect>
    </property>

@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_table->setModel(tmptable.afficher());
     ui->tableView_client->setModel(tempclient.afficher());
     ui->tableView_reservation->setModel(tempreservation.afficher());
+    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
     //Selection tableView_invite
@@ -1158,13 +1159,21 @@ void MainWindow::on_recherche_reservation_textChanged(const QString &arg1)
 void MainWindow::update_label()
 {
     data=A.read_from_arduino();
+
     if (data!="#")
         cin_recu+=data;
     else
     {
-        ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
+        //ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
         QMessageBox::information(nullptr, QObject::tr("Notification"),
                                  QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+
+        tmpinvite.update(cin_recu,"permission","pending");
+
+         ui->tableView_invite->setModel(tmpinvite.afficher());
+         tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+         ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+
 
         cin_recu="";
     }
@@ -1174,9 +1183,12 @@ void MainWindow::update_label()
 }
 void MainWindow::on_refuser_clicked()
 {
-
-
+    QItemSelectionModel *select=ui->tableView_notifications->selectionModel();
+    QString cin= select->selectedRows(0).value(0).data().toString();
+    tmpinvite.update(cin,"permission","refuse");
+    ui->tableView_invite->setModel(tmpinvite.afficher());
     A.write_to_arduino("Acces Refuse");
+    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 }
 
@@ -1206,6 +1218,10 @@ void MainWindow::on_accepter_clicked()
 
     A.write_to_arduino(p);
 
+    tmpinvite.update(cin,"permission","accepte");
+    ui->tableView_invite->setModel(tmpinvite.afficher());
+    //ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin));
+    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
     //ui->tableView_invite->setModel(tmpinvite.update(cin,"permission","accepté"));
 
@@ -1213,7 +1229,6 @@ void MainWindow::on_accepter_clicked()
 
     smtp->sendMail("dhia.abdelli1@esprit.tn", email_invite , "Notification d'entrée" ,"Bonjour "+nom+",\nBienvenue à la salle. Votre numéro de table est "+num_table+".\nNous vous souhaitons une bonne soirée.\n\nCordialement,\nBoudinar Wedding Planner.\n");
 
-    ui->tableView_invite->setModel(tmpinvite.afficher());
 
 }
 
@@ -1244,4 +1259,27 @@ void MainWindow::on_tabWidget_2_tabBarClicked(int index)
         QString id;
         model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
+}
+
+void MainWindow::on_entrer_clicked()
+{
+    QString cin_recu=ui->enter_cin->text();
+
+
+   tmpinvite.update(cin_recu,"permission","pending");
+
+    ui->tableView_invite->setModel(tmpinvite.afficher());
+
+
+
+    tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+
+
+    cin_recu="";
+}
+
+void MainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 }

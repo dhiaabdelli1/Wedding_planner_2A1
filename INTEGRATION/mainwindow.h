@@ -149,6 +149,10 @@ private slots:
 
     void on_tabWidget_2_tabBarClicked(int index);
 
+    void on_entrer_clicked();
+
+    void on_tabWidget_tabBarClicked(int index);
+
 private:
     Ui::MainWindow *ui;
 
@@ -173,5 +177,7 @@ private:
     Arduino A; //Tmp
 
     QString cin_recu="";
+
+    int num_entree=0;
 };
 #endif // MAINWINDOW_H

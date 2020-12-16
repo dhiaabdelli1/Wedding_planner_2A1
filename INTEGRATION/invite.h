@@ -69,11 +69,14 @@ public:
     QSqlQueryModel *rechercher_combinaison_nom_sexe(QString,QString);
     QSqlQueryModel *trier(QString,QString);
     int affecter_table(QString,int,int);
-    QSqlQueryModel *update(QString,QString,QString);
+    bool update(QString,QString,QString);
     void exporter(QTableView *table);
     //FCTS Supp
     int count(QString);
     int count_date(QDate,QDate,QString);
+
+    QSqlQueryModel *afficher_notifications();
+    bool update_num_entree(QString,int);
 
 };
 
