@@ -751,6 +751,9 @@
                          </layout>
                         </item>
                         <item>
+                         <widget class="QLineEdit" name="cin_recu"/>
+                        </item>
+                        <item>
                          <layout class="QHBoxLayout" name="horizontalLayout_53">
                           <item>
                            <widget class="QPushButton" name="enter">

@@ -164,5 +164,7 @@ private:
     //Arduino
     QByteArray data; //contient les données reçus
     Arduino A; //Tmp
+
+    QString cin_recu="";
 };
 #endif // MAINWINDOW_H

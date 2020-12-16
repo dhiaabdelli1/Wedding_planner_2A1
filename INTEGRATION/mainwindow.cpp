@@ -103,6 +103,8 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug() << "arduino is not available";
         break;
     }
+
+    QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label()));
 }
 MainWindow::~MainWindow()
 {
@@ -1093,11 +1095,18 @@ void MainWindow::on_recherche_reservation_textChanged(const QString &arg1)
 }
 void MainWindow::update_label()
 {
-    //    data=A.read_from_arduino();
-    //    if (data=="1")
-    //        ui->Arduino_button->setText("1");
-    //    else if (data=="0")
-    //        ui->Arduino_button->setText("0");
+    data=A.read_from_arduino();
+    if (data!="#")
+        cin_recu+=data;
+    else
+    {
+        ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
+        ui->cin_recu->setText("Nouveau invité à la porte!");
+    }
+
+
+    qDebug()<< data;
+
 
 }
 void MainWindow::on_refuser_clicked()
@@ -1107,7 +1116,7 @@ void MainWindow::on_refuser_clicked()
 
     A.write_to_arduino("Acces Refuse");
 
-    tmpinvite.update(cin,"permission","refusé");
+    //tmpinvite.update(cin,"permission","refusé");
 
 
 
@@ -1121,7 +1130,7 @@ void MainWindow::on_accepter_clicked()
     QString cin= select->selectedRows(0).value(0).data().toString();
     QString nom =select->selectedRows(1).value(0).data().toString();
     QString num_table=select->selectedRows(7).value(0).data().toString();
-    QString msg= "Bonjour,  "+nom+" Votre num de table est: "+num_table;
+    QString msg= "Bonjour, Mme "+nom+" Votre num de table est: "+num_table;
 
 
     const char * p= msg.toStdString().c_str();
