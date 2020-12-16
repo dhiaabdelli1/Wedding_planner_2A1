@@ -140,14 +140,14 @@
                  <item>
                   <widget class="QPushButton" name="Iheb">
                    <property name="text">
-                    <string>Iheb</string>
+                    <string>Barkia</string>
                    </property>
                   </widget>
                  </item>
                  <item>
                   <widget class="QPushButton" name="Barkia">
                    <property name="text">
-                    <string>Barkia</string>
+                    <string>Iheb</string>
                    </property>
                   </widget>
                  </item>
@@ -180,7 +180,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -474,6 +474,9 @@
                              <item>
                               <layout class="QHBoxLayout" name="horizontalLayout_18">
                                <item>
+                                <widget class="QComboBox" name="comboBox_tables"/>
+                               </item>
+                               <item>
                                 <widget class="QPushButton" name="affecter_table">
                                  <property name="text">
                                   <string>Affecter Table</string>
@@ -570,6 +573,16 @@
                              </item>
                              <item row="1" column="1">
                               <widget class="QLineEdit" name="nomServeurLineEdit_table"/>
+                             </item>
+                             <item row="2" column="0">
+                              <widget class="QLabel" name="referenceLabel">
+                               <property name="text">
+                                <string>Reference</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="1">
+                              <widget class="QLineEdit" name="reference_table"/>
                              </item>
                             </layout>
                            </item>
@@ -751,17 +764,7 @@
                          </layout>
                         </item>
                         <item>
-                         <widget class="QLineEdit" name="cin_recu"/>
-                        </item>
-                        <item>
                          <layout class="QHBoxLayout" name="horizontalLayout_53">
-                          <item>
-                           <widget class="QPushButton" name="enter">
-                            <property name="text">
-                             <string>Enter</string>
-                            </property>
-                           </widget>
-                          </item>
                           <item>
                            <widget class="QPushButton" name="accepter">
                             <property name="text">
@@ -1130,6 +1133,16 @@
                            </item>
                            <item row="4" column="1">
                             <widget class="QLineEdit" name="localisation_reservation"/>
+                           </item>
+                           <item row="5" column="0">
+                            <widget class="QLabel" name="cINClientLabel">
+                             <property name="text">
+                              <string>CIN client</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="5" column="1">
+                            <widget class="QComboBox" name="comboBox_reservations"/>
                            </item>
                           </layout>
                          </item>

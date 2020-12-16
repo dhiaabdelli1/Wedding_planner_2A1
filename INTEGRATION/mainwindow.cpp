@@ -105,6 +105,21 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label()));
+
+
+
+    int nb=ui->tableView_table->model()->rowCount();
+
+    for (int i=0;i<nb;i++)
+    {
+        QString num_table = ui->tableView_table->model()->index(i, 0).data().toString();
+        ui->comboBox_tables->addItem(num_table);
+    }
+
+    QSqlQueryModel *model2=new QSqlQueryModel();
+        QString id;
+        model2->setQuery("select * from CLIENT");
+    ui->comboBox_reservations->setModel(model2);
 }
 MainWindow::~MainWindow()
 {
@@ -512,12 +527,12 @@ void MainWindow::on_trier_invite_clicked()
 
 void MainWindow::on_stats_invite_clicked()
 {
-        QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
-        stats stats_window(this);
-        stats_window.setModal(true);
-        stats_window.show();
-        stats_window.exec();
-        QDialog d;
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    stats stats_window(this);
+    stats_window.setModal(true);
+    stats_window.show();
+    stats_window.exec();
+    QDialog d;
 }
 
 void MainWindow::on_contract_invite_clicked()
@@ -550,7 +565,8 @@ void MainWindow::on_ajouter_table_clicked()
     QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
     int nb=ui->nombrePlacesLineEdit_table->text().toInt();
     QString nom=ui->nomServeurLineEdit_table->text();
-    table table(nb,nom);
+    QString ref=ui->reference_table->text();
+    table table(nb,nom,ref);
 
     bool nom_verif=chaine_regex.exactMatch(ui->nomServeurLineEdit_table->text());
     bool nombre_verif=ui->nombrePlacesLineEdit_table->text().toInt()<7 && ui->nombrePlacesLineEdit_table->text().toInt()>0;
@@ -566,7 +582,20 @@ void MainWindow::on_ajouter_table_clicked()
             bool test=table.ajouter();
 
             if (test)
+            {
+
+                int nb=ui->tableView_table->model()->rowCount();
+                ui->comboBox_tables->clear();
+
+                for (int i=0;i<nb;i++)
+                {
+                    QString num_table = ui->tableView_table->model()->index(i, 0).data().toString();
+                    ui->comboBox_tables->addItem(num_table);
+                }
                 ui->tableView_table->setModel(tmptable.afficher());
+
+            }
+
             ui->nombrePlacesLineEdit_table->setText("");
             ui->nomServeurLineEdit_table->setText("");
         }
@@ -613,6 +642,14 @@ void MainWindow::on_supprimer_table_clicked()
 
             ui->tableView_table->setModel(tmptable.afficher());
             ui->statusbar->showMessage("Table supprimée");
+            int nb=ui->tableView_table->model()->rowCount();
+            ui->comboBox_tables->clear();
+
+            for (int i=0;i<nb;i++)
+            {
+                QString num_table = ui->tableView_table->model()->index(i, 0).data().toString();
+                ui->comboBox_tables->addItem(num_table);
+            }
         }
     }
     else
@@ -656,7 +693,8 @@ void MainWindow::on_affecter_table_clicked()
     QString cin =select_affect->selectedRows(0).value(0).data().toString();
 
 
-    int nb_table= QInputDialog::getText(this, "Affectation de table", "Saisir le numéro de la table?").toInt();
+    //int nb_table= QInputDialog::getText(this, "Affectation de table", "Saisir le numéro de la table?").toInt();
+    int nb_table= ui->comboBox_tables->currentText().toInt();
     int test=tmpinvite.affecter_table(cin,nb_table,6);
     if (!test)
         ui->tableView_invite->setModel(tmpinvite.afficher());
@@ -855,9 +893,21 @@ void MainWindow::on_supprimer_client_clicked()
 {
     QItemSelectionModel *select=ui->tableView_client->selectionModel();
     int CIN =select->selectedRows(0).value(0).data().toInt();
-    bool test=tempclient.supprimer(CIN);
+    QString cin_2 =select->selectedRows(0).value(0).data().toString();
 
-    if(test)
+
+    int ref=select->selectedRows(5).value(0).data().toInt();
+
+    qDebug()<< ref;
+
+    if (tempreservation.supprimer_cin(cin_2))
+    {
+        ui->tableView_reservation->setModel(tempreservation.afficher());
+    }
+
+
+
+    if(tempclient.supprimer(CIN))
     {
         ui->tableView_client->setModel(tempclient.afficher());
 
@@ -998,6 +1048,7 @@ void MainWindow::on_ajouter_reservation_clicked()
 
     QString reference= ui->reference_reservation->text();
     QDate date_reservation = ui->date_reservation->date();
+    QString cin_client=ui->comboBox_reservations->currentText();
 
     float prix= ui->prix_reservation->text().toFloat();
     int nb_invites=ui->nb_invites_reservation->text().toInt();
@@ -1006,12 +1057,23 @@ void MainWindow::on_ajouter_reservation_clicked()
 
     qDebug()<<reference<<date_reservation<<prix<<nb_invites<<localisation;
 
-    reservation r(reference,date_reservation,prix,nb_invites,localisation);
+    reservation r(reference,date_reservation,prix,nb_invites,localisation,cin_client);
     bool test=r.ajouter();
     if(test)
     {
         QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
         ui->tableView_reservation->setModel(tempreservation.afficher());
+
+        //int nb=ui->tableView_reservation->model()->rowCount();
+
+
+        QSqlQueryModel *model2=new QSqlQueryModel();
+            QString id;
+            model2->setQuery("select * from CLIENT");
+        ui->comboBox_reservations->removeItem(ui->comboBox_reservations->currentIndex());
+        ui->comboBox_reservations->setModel(model2);
+
+
 
     }
     else
@@ -1101,12 +1163,12 @@ void MainWindow::update_label()
     else
     {
         ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
-        ui->cin_recu->setText("Nouveau invité à la porte!");
+        QMessageBox::information(nullptr, QObject::tr("Notification"),
+                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+
         cin_recu="";
     }
 
-
-    qDebug()<< data;
 
 
 }
@@ -1174,4 +1236,12 @@ void MainWindow::on_envoyer_invite_clicked()
     QDialog *d=new Dialog(email_recipient,nom_recipient,sexe_recipient,this);
     d->show();
     d->exec();
+}
+
+void MainWindow::on_tabWidget_2_tabBarClicked(int index)
+{
+    QSqlQueryModel *model2=new QSqlQueryModel();
+        QString id;
+        model2->setQuery("select * from CLIENT");
+    ui->comboBox_reservations->setModel(model2);
 }

@@ -147,6 +147,8 @@ private slots:
 
     void on_envoyer_invite_clicked();
 
+    void on_tabWidget_2_tabBarClicked(int index);
+
 private:
     Ui::MainWindow *ui;
 
