@@ -49,8 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->browseBtn, SIGNAL(clicked()), this, SLOT(browse()));
     /* player= new QMediaPlayer;
     vw=new QVideoWidget;
-QString chemin="C:\\Users\\houba\\Downloads\\";
-QDir chedir(chemin);
+    QString chemin="C:\\Users\\houba\\Downloads\\";
+    QDir chedir(chemin);
     auto filename=QFileDialog::getOpenFileName(this,"import mp4 file",chemin,"Excel Files(*.mp4)");
 
 
@@ -58,7 +58,7 @@ QDir chedir(chemin);
     player->setMedia(QUrl::fromLocalFile(filename));
     vw->setGeometry(100,100,300,400);
     vw->show();
-player->play();*/
+    player->play();*/
     /* player = new QMediaPlayer;
     // ...
     player->setMedia(QUrl::fromLocalFile("C:\\Users\\houba\\Downloads\\"));
@@ -94,7 +94,8 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::on_ajouter_client_clicked()
-{ MainWindow w;
+{
+    MainWindow w;
 
     bool mail_verif = mail_regex.exactMatch(ui->email_client->text());
     bool nom_verif=nom_regex.exactMatch(ui->prenom_client->text());
@@ -130,7 +131,8 @@ void MainWindow::on_ajouter_client_clicked()
 
     client c(CIN,nom,prenom,date_naissance,telephone,mail,budget);
     if(test2)
-    { bool test=c.ajouter();
+    {
+        bool test=c.ajouter();
         if(test)
         {
             // w.show();
@@ -143,7 +145,8 @@ void MainWindow::on_ajouter_client_clicked()
             player->play();
             ui->cin_client->clear();
 
-        }}
+        }
+    }
     else
         QMessageBox::critical(nullptr, QObject::tr("ajout échoué"),
                               QObject::tr("connection failed.\n"
@@ -161,7 +164,8 @@ void MainWindow::on_pushButton_3_clicked()
     bool test=tempclient.supprimer(CIN);
 
     if(test)
-    {        ui->tableView_client->setModel(tempclient.afficher());
+    {
+        ui->tableView_client->setModel(tempclient.afficher());
 
         //w.show();
         QMessageBox::information(nullptr, QObject::tr("ajout client"),
@@ -324,9 +328,9 @@ void   MainWindow::sendMail()
     connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
     if( !files.isEmpty() )
-        smtp->sendMail("mohamediheb.berraies@esprit.tn", ui->rcpt->text() , ui->subject->text(),ui->msg->toPlainText(), files );
+        smtp->sendMail("mohamediheb.berraies@esprit.tn", ui->rcpt->text(), ui->subject->text(),ui->msg->toPlainText(), files );
     else
-        smtp->sendMail("mohamediheb.berraies@esprit.tn", ui->rcpt->text() , ui->subject->text(),ui->msg->toPlainText());
+        smtp->sendMail("mohamediheb.berraies@esprit.tn", ui->rcpt->text(), ui->subject->text(),ui->msg->toPlainText());
 }
 void   MainWindow::mailSent(QString status)
 {
@@ -362,10 +366,14 @@ void MainWindow::on_tableView_client_activated(const QModelIndex &index)
     QPrinter printer;
 
     QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
-    if (dialog->exec() == QDialog::Accepted) {
+    if (dialog->exec() == QDialog::Accepted)
+    {
         //document->print(&printer);
         QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
-        if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+        if (QFileInfo(fileName).suffix().isEmpty())
+        {
+            fileName.append(".pdf");
+        }
 
         QPrinter printer(QPrinter::PrinterResolution);
         printer.setOutputFormat(QPrinter::PdfFormat);
@@ -396,12 +404,12 @@ void MainWindow::on_tableView_client_activated(const QModelIndex &index)
         const int columnCount = ui->tableView_client->model()->columnCount();
 
         out <<  "<html>\n"
-                "<head>\n"
-                "<meta Content=\"Text/html; charset=Windows-1251\">\n"
-             <<  QString("<title>%1</title>\n").arg("Title")
-              <<  "</head>\n"
-                  "<body bgcolor=#ffffff link=#5000A0>\n"
-                  "<table border=1 cellspacing=0 cellpadding=2>\n";
+            "<head>\n"
+            "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+            <<  QString("<title>%1</title>\n").arg("Title")
+            <<  "</head>\n"
+            "<body bgcolor=#ffffff link=#5000A0>\n"
+            "<table border=1 cellspacing=0 cellpadding=2>\n";
 
         // headers
         out << "<thead><tr bgcolor=#f0f0f0>";
@@ -411,10 +419,13 @@ void MainWindow::on_tableView_client_activated(const QModelIndex &index)
         out << "</tr></thead>\n";
 
         // data table
-        for (int row = 0; row < rowCount; row++) {
+        for (int row = 0; row < rowCount; row++)
+        {
             out << "<tr>";
-            for (int column = 0; column < columnCount; column++) {
-                if (!ui->tableView_client->isColumnHidden(column)) {
+            for (int column = 0; column < columnCount; column++)
+            {
+                if (!ui->tableView_client->isColumnHidden(column))
+                {
                     QString data = ui->tableView_client->model()->data(ui->tableView_client->model()->index(row, column)).toString().simplified();
                     out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
                 }
@@ -422,8 +433,8 @@ void MainWindow::on_tableView_client_activated(const QModelIndex &index)
             out << "</tr>\n";
         }
         out <<  "</table>\n"
-                "</body>\n"
-                "</html>\n";
+            "</body>\n"
+            "</html>\n";
 
         QTextDocument *document = new QTextDocument();
         document->setHtml(strStream);
@@ -431,7 +442,8 @@ void MainWindow::on_tableView_client_activated(const QModelIndex &index)
         // QPrinter printer;
 
         QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
-        if (dialog->exec() == QDialog::Accepted) {
+        if (dialog->exec() == QDialog::Accepted)
+        {
             document->print(&printer);
         }
         QTransform tform(58.68,0,0,-58.68,268.74,384.48);
@@ -448,7 +460,8 @@ void MainWindow::on_tableView_client_activated(const QModelIndex &index)
 }
 
 void MainWindow::on_tableView_client_clicked(const QModelIndex &index)
-{QItemSelectionModel *select = ui->tableView_client->selectionModel();
+{
+    QItemSelectionModel *select = ui->tableView_client->selectionModel();
     QString email_recipient =select->selectedRows(5).value(0).data().toString();
     ui->rcpt->setText(email_recipient);
 }
@@ -457,7 +470,10 @@ void MainWindow::on_pushButton_5_clicked()
 {
 
     QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
-    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_clients.pdf"); }
+    if (QFileInfo(fileName).suffix().isEmpty())
+    {
+        fileName.append("liste_clients.pdf");
+    }
 
     QPrinter printer(QPrinter::PrinterResolution);
     printer.setOutputFormat(QPrinter::PdfFormat);
@@ -473,7 +489,8 @@ void MainWindow::on_pushButton_5_clicked()
     QString pdf="<br> <img src='C:/Users/houba/Downloads/logo.jpg' height='80' width='144'/> <h1  style='color:pink'>       LISTE DES INVITES  <br></h1>\n <br> <table>  <tr>  <th> CIN </th> <th> NOM </th> <th> PRENOM </th> <th> DATE DE NAISSANCE  </th> <th>E-MAIL </th>  </tr>" ;
 
 
-    while ( q.next()) {
+    while ( q.next())
+    {
 
         pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+"       </td>" ;
 
@@ -552,7 +569,8 @@ void MainWindow::on_pushButton_8_clicked()
     bool test=tempreservation.supprimer(ref);
 
     if(test)
-    {        ui->tableView_client->setModel(tempclient.afficher());
+    {
+        ui->tableView_client->setModel(tempclient.afficher());
 
         //w.show();
         QMessageBox::information(nullptr, QObject::tr("ajout client"),

@@ -40,6 +40,8 @@ FORMS += \
     mainwindow.ui \
     stats.ui
 
+TRANSLATIONS = wedding_planner_en.ts wedding_planner_ar.ts wedding_planner_fr.ts
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

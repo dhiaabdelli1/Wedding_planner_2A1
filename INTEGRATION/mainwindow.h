@@ -19,6 +19,8 @@
 #include <QSound>
 #include <QInputDialog>
 
+#include <QTranslator>
+
 #include "invite.h"
 #include "table.h"
 #include "client.h"
@@ -153,6 +155,16 @@ private slots:
 
     void on_tabWidget_tabBarClicked(int index);
 
+    void on_signup_button_clicked();
+
+    void on_configuration_clicked();
+
+    void on_confirmer_langue_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_confirmer_chan_mdp_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -179,5 +191,9 @@ private:
     QString cin_recu="";
 
     int num_entree=0;
+
+    QTranslator *translator=new QTranslator;
+
+    login *log=new login;
 };
 #endif // MAINWINDOW_H

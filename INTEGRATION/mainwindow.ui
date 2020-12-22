@@ -20,7 +20,7 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -165,6 +165,26 @@
                    </property>
                   </widget>
                  </item>
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="configuration">
+                   <property name="text">
+                    <string>Configuration</string>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </item>
                <item>
@@ -180,7 +200,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>0</number>
+               <number>5</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -189,7 +209,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget">
                     <property name="currentIndex">
-                     <number>2</number>
+                     <number>0</number>
                     </property>
                     <widget class="QWidget" name="tab">
                      <attribute name="title">
@@ -1345,6 +1365,224 @@
                  <string>Sara</string>
                 </property>
                </widget>
+              </widget>
+              <widget class="QWidget" name="page_8">
+               <layout class="QVBoxLayout" name="verticalLayout_25">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_24">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_57">
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="text">
+                       <string>Langue</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_langue">
+                      <item>
+                       <property name="text">
+                        <string>Français</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>English</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_langue">
+                      <property name="text">
+                       <string>Confimer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_56">
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>Thème</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_jour">
+                      <property name="text">
+                       <string>Jour</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_nuit">
+                      <property name="text">
+                       <string>Nuit</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_theme">
+                      <property name="text">
+                       <string>Confirmer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_61">
+                    <item>
+                     <widget class="QLabel" name="label_8">
+                      <property name="text">
+                       <string>Notifications des invités entrants</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton">
+                      <property name="text">
+                       <string>Oui</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_2">
+                      <property name="text">
+                       <string>Non</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_notifications">
+                      <property name="text">
+                       <string>Confirmer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_55">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>Modifer Mot de Passe</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QFormLayout" name="formLayout_7">
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="ancienMotDePasseLabel">
+                        <property name="text">
+                         <string>Ancien mot de passe</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="ancienMotDePasseLineEdit"/>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="nouveauMotDePasseLabel">
+                        <property name="text">
+                         <string>Nouveau mot de passe</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QLineEdit" name="nouveauMotDePasseLineEdit"/>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="confirmerNouveauMotDePasseLabel">
+                        <property name="text">
+                         <string>Confirmer nouveau mot de passe</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QLineEdit" name="confirmerNouveauMotDePasseLineEdit"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_28"/>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_chan_mdp">
+                      <property name="text">
+                       <string>Confirmer</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="annuler_chan_mdp">
+                      <property name="text">
+                       <string>Annuler</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_59">
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="text">
+                       <string>Signaler un problème</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPlainTextEdit" name="plainTextEdit_probleme"/>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_4">
+                      <property name="text">
+                       <string>Envoyer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_54">
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="text">
+                       <string>Supprimer Compte</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_3">
+                      <property name="text">
+                       <string>Supprimer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </widget>
              </widget>
             </item>

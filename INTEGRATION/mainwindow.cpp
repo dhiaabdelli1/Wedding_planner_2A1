@@ -29,11 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     //Looks
     ui->groupBox_ajouter_table->setMaximumWidth(100);
     ui->groupBox_ajouter_invites->setMaximumWidth(400);
-    QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
+    QPixmap bkgnd("D:/Users/dhiaa/Desktop/working_on/background.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
-    //palette.setBrush(QPalette::Background, bkgnd);
-    this->setPalette(palette);
+    palette.setBrush(QPalette::Background, bkgnd);
+    //this->setPalette(palette);
     ui->cINLineEdit_invite->setPlaceholderText("CIN ...");
     ui->nomLineEdit_invite->setPlaceholderText("Nom ...");
     ui->prNomLineEdit_invite->setPlaceholderText("Prénom ...");
@@ -90,6 +90,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->passwordLineEdit_login->setEchoMode(QLineEdit::Password);
     ui->passwordLineEdit_signup->setEchoMode(QLineEdit::Password);
+    ui->ancienMotDePasseLineEdit->setEchoMode(QLineEdit::Password);
+    ui->nouveauMotDePasseLineEdit->setEchoMode(QLineEdit::Password);
+    ui->confirmerNouveauMotDePasseLineEdit->setEchoMode(QLineEdit::Password);
 
     int ret=A.connect_arduino();
     switch (ret)
@@ -118,8 +121,8 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     QSqlQueryModel *model2=new QSqlQueryModel();
-        QString id;
-        model2->setQuery("select * from CLIENT");
+    QString id;
+    model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
 }
 MainWindow::~MainWindow()
@@ -153,23 +156,62 @@ void MainWindow::on_Sara_clicked()
     ui->stackedWidget_2->setCurrentIndex(4);
 }
 
+void MainWindow::on_configuration_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(5);
+}
+
 void MainWindow::on_login_button_clicked()
 {
-    login log;
-    if (log.sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
+
+
+    if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
+    {
         ui->stackedWidget->setCurrentIndex(1);
+        ui->usernameLineEdit_login->clear();
+        ui->passwordLineEdit_login->clear();
+
+    }
     else
         QMessageBox::warning(this,"Login","Erreur de login");
 }
 
 void MainWindow::on_sign_up_button_clicked()
 {
-    login log;
-    if (log.sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+
+    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
         ui->stackedWidget->setCurrentIndex(1);
     else
         QMessageBox::warning(this,"Sign-up","Erreur d'insciption");
 }
+
+void MainWindow::on_confirmer_chan_mdp_clicked()
+{
+    qDebug() << log->get_current_user();
+
+    if (ui->confirmerNouveauMotDePasseLineEdit->text()==ui->nouveauMotDePasseLineEdit->text())
+    {
+        if (ui->ancienMotDePasseLineEdit->text()!="" && ui->confirmerNouveauMotDePasseLineEdit->text()!="")
+        {
+            qDebug() << log->get_current_user();
+            bool test=log->modifier_mdp(log->get_current_user(),ui->ancienMotDePasseLineEdit->text(),ui->nouveauMotDePasseLineEdit->text());
+
+            if (!test)
+                QMessageBox::warning(this,"Changement du MDP","Erreur lors du changement du MDP");
+            else
+            {
+                ui->ancienMotDePasseLineEdit->clear();
+                ui->nouveauMotDePasseLineEdit->clear();
+                ui->confirmerNouveauMotDePasseLineEdit->clear();
+            }
+        }
+        else
+            QMessageBox::warning(this,"Changement du MDP","Veuillez remplir tous les champs");
+    }
+    else
+        QMessageBox::warning(this,"Changement du MDP","Les deux mots de passe ne sont pas identiques");
+}
+
 
 void MainWindow::on_logout_button_clicked()
 {
@@ -1069,8 +1111,8 @@ void MainWindow::on_ajouter_reservation_clicked()
 
 
         QSqlQueryModel *model2=new QSqlQueryModel();
-            QString id;
-            model2->setQuery("select * from CLIENT");
+        QString id;
+        model2->setQuery("select * from CLIENT");
         ui->comboBox_reservations->removeItem(ui->comboBox_reservations->currentIndex());
         ui->comboBox_reservations->setModel(model2);
 
@@ -1170,9 +1212,9 @@ void MainWindow::update_label()
 
         tmpinvite.update(cin_recu,"permission","pending");
 
-         ui->tableView_invite->setModel(tmpinvite.afficher());
-         tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-         ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+        ui->tableView_invite->setModel(tmpinvite.afficher());
+        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
         cin_recu="";
@@ -1201,7 +1243,7 @@ void MainWindow::on_accepter_clicked()
     QString num_table=select->selectedRows(7).value(0).data().toString();
     QString email_invite=select->selectedRows(4).value(0).data().toString();
 
-    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
+
 
     QString sexe=select->selectedRows(5).value(0).data().toString();
 
@@ -1226,7 +1268,7 @@ void MainWindow::on_accepter_clicked()
     //ui->tableView_invite->setModel(tmpinvite.update(cin,"permission","accepté"));
 
 
-
+    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
     smtp->sendMail("dhia.abdelli1@esprit.tn", email_invite , "Notification d'entrée" ,"Bonjour "+nom+",\nBienvenue à la salle. Votre numéro de table est "+num_table+".\nNous vous souhaitons une bonne soirée.\n\nCordialement,\nBoudinar Wedding Planner.\n");
 
 
@@ -1256,8 +1298,8 @@ void MainWindow::on_envoyer_invite_clicked()
 void MainWindow::on_tabWidget_2_tabBarClicked(int index)
 {
     QSqlQueryModel *model2=new QSqlQueryModel();
-        QString id;
-        model2->setQuery("select * from CLIENT");
+    QString id;
+    model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
 }
 
@@ -1266,7 +1308,7 @@ void MainWindow::on_entrer_clicked()
     QString cin_recu=ui->enter_cin->text();
 
 
-   tmpinvite.update(cin_recu,"permission","pending");
+    tmpinvite.update(cin_recu,"permission","pending");
 
     ui->tableView_invite->setModel(tmpinvite.afficher());
 
@@ -1283,3 +1325,51 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 }
+
+void MainWindow::on_signup_button_clicked()
+{
+    login log;
+
+    if (ui->usernameLineEdit_signup->text()!="" && ui->passwordLineEdit_signup->text()!="")
+    {
+        if (!log.sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+            QMessageBox::warning(this,"Sign-up",tr("Erreur d'insciption"));
+        else
+        {
+            ui->usernameLineEdit_signup->clear();
+            ui->passwordLineEdit_signup->clear();
+        }
+
+    }
+    else
+        QMessageBox::warning(this,"Sign-up","Veuillez remplir tous les champs");
+
+}
+
+
+
+void MainWindow::on_confirmer_langue_clicked()
+{
+    if (ui->comboBox_langue->currentText()=="Français")
+    {
+        translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_fr");
+        qApp->installTranslator(translator);
+        ui->retranslateUi(this);
+        ui->comboBox_langue->setCurrentText("Français");
+    }
+    else if (ui->comboBox_langue->currentText()=="English")
+    {
+        translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_en");
+        qApp->installTranslator(translator);
+        ui->retranslateUi(this);
+        ui->comboBox_langue->setCurrentText("English");
+    }
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
+    smtp->sendMail("dhia.abdelli1@esprit.tn", "dhia.abdelli1@esprit.tn" , "Signalisation Problème" ,ui->plainTextEdit_probleme->toPlainText());
+    ui->plainTextEdit_probleme->clear();
+}
+
