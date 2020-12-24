@@ -1,0 +1,1613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1184</width>
+    <height>602</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QStackedWidget" name="stackedWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="page">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QGroupBox" name="groupBox">
+              <property name="title">
+               <string>Login</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout">
+                 <item>
+                  <layout class="QFormLayout" name="formLayout">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="usernameLabel">
+                     <property name="text">
+                      <string>Username</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="usernameLineEdit_login"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="passwordLabel">
+                     <property name="text">
+                      <string>Password</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="passwordLineEdit_login"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="login_button">
+                   <property name="text">
+                    <string>Login</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="title">
+               <string>Sign-up</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_3">
+                 <item>
+                  <layout class="QFormLayout" name="formLayout_2">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="usernameLabel_2">
+                     <property name="text">
+                      <string>Username</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="usernameLineEdit_signup"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="passwordLabel_2">
+                     <property name="text">
+                      <string>Password</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="passwordLineEdit_signup"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="signup_button">
+                   <property name="text">
+                    <string>Sign-up</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QGroupBox" name="groupBox_3">
+              <property name="title">
+               <string>Modules</string>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_5">
+                 <item>
+                  <widget class="QPushButton" name="Dhia">
+                   <property name="text">
+                    <string>Dhia</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Iheb">
+                   <property name="text">
+                    <string>Barkia</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Barkia">
+                   <property name="text">
+                    <string>Iheb</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Elaa">
+                   <property name="text">
+                    <string>Elaa</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Sara">
+                   <property name="text">
+                    <string>Sara</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="configuration">
+                   <property name="text">
+                    <string>Configuration</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="logout_button">
+                 <property name="text">
+                  <string>Logout</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QStackedWidget" name="stackedWidget_2">
+              <property name="currentIndex">
+               <number>5</number>
+              </property>
+              <widget class="QWidget" name="page_3">
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QTabWidget" name="tabWidget">
+                    <property name="currentIndex">
+                     <number>0</number>
+                    </property>
+                    <widget class="QWidget" name="tab">
+                     <attribute name="title">
+                      <string>Invités</string>
+                     </attribute>
+                     <layout class="QHBoxLayout" name="horizontalLayout_10">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_12">
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_ajouter_invites">
+                          <property name="title">
+                           <string>Ajouter</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_8">
+                           <item>
+                            <layout class="QVBoxLayout" name="verticalLayout_7">
+                             <item>
+                              <layout class="QFormLayout" name="formLayout_3">
+                               <item row="0" column="0">
+                                <widget class="QLabel" name="cINLabel">
+                                 <property name="text">
+                                  <string>CIN</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="0" column="1">
+                                <widget class="QLineEdit" name="cINLineEdit_invite"/>
+                               </item>
+                               <item row="1" column="0">
+                                <widget class="QLabel" name="prNomLabel">
+                                 <property name="text">
+                                  <string>Nom</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="1" column="1">
+                                <widget class="QLineEdit" name="nomLineEdit_invite"/>
+                               </item>
+                               <item row="2" column="0">
+                                <widget class="QLabel" name="prNomLabel_2">
+                                 <property name="text">
+                                  <string>Prénom</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="2" column="1">
+                                <widget class="QLineEdit" name="prNomLineEdit_invite"/>
+                               </item>
+                               <item row="3" column="0">
+                                <widget class="QLabel" name="dateDeNaissanceLabel">
+                                 <property name="text">
+                                  <string>Date de Naissance</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="3" column="1">
+                                <widget class="QDateEdit" name="dateDeNaissanceDateEdit_invite"/>
+                               </item>
+                               <item row="4" column="0">
+                                <widget class="QLabel" name="eMailLabel">
+                                 <property name="text">
+                                  <string>E-mail</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="4" column="1">
+                                <widget class="QLineEdit" name="eMailLineEdit_invite"/>
+                               </item>
+                               <item row="5" column="0">
+                                <widget class="QLabel" name="sexeLabel">
+                                 <property name="text">
+                                  <string>Sexe</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="5" column="1">
+                                <widget class="QComboBox" name="sexeComboBox">
+                                 <item>
+                                  <property name="text">
+                                   <string>Homme</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>Femme</string>
+                                  </property>
+                                 </item>
+                                </widget>
+                               </item>
+                               <item row="6" column="0">
+                                <widget class="QLabel" name="tLPhoneLabel">
+                                 <property name="text">
+                                  <string>Téléphone</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="6" column="1">
+                                <widget class="QLineEdit" name="tLPhoneLineEdit_invite"/>
+                               </item>
+                              </layout>
+                             </item>
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_13">
+                               <item>
+                                <widget class="QPushButton" name="contract_invite">
+                                 <property name="text">
+                                  <string>Contract</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="reset_invite">
+                                 <property name="text">
+                                  <string>Reset</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="ajouter_invite">
+                                 <property name="text">
+                                  <string>Ajouter</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="groupBox_afficher_invites">
+                          <property name="title">
+                           <string>Afficher</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_10">
+                           <item>
+                            <layout class="QVBoxLayout" name="verticalLayout_9">
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_14">
+                               <item>
+                                <widget class="QLineEdit" name="lineEdit_recherche_invite"/>
+                               </item>
+                               <item>
+                                <widget class="QDateEdit" name="date_recherche_invite"/>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="recherche_invite">
+                                 <property name="text">
+                                  <string>Recherche</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="afficher_tout_invite">
+                                 <property name="text">
+                                  <string>Afficher Tout</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="trier_invite">
+                                 <property name="text">
+                                  <string>Trier</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QComboBox" name="ordre_invite">
+                                 <item>
+                                  <property name="text">
+                                   <string>ASC</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>DESC</string>
+                                  </property>
+                                 </item>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_16">
+                               <item>
+                                <widget class="QGroupBox" name="groupBox_4">
+                                 <property name="title">
+                                  <string>Sexe</string>
+                                 </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_21">
+                                  <item>
+                                   <layout class="QHBoxLayout" name="horizontalLayout_20">
+                                    <item>
+                                     <widget class="QRadioButton" name="radio_button_homme">
+                                      <property name="text">
+                                       <string>Homme</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QRadioButton" name="radio_button_femme">
+                                      <property name="text">
+                                       <string>Femme</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                   </layout>
+                                  </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_19">
+                               <item>
+                                <widget class="QGroupBox" name="groupBox_5">
+                                 <property name="title">
+                                  <string>Filtre</string>
+                                 </property>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_23">
+                                  <item>
+                                   <layout class="QHBoxLayout" name="horizontalLayout_22">
+                                    <item>
+                                     <widget class="QCheckBox" name="checkBox_cin_invite">
+                                      <property name="text">
+                                       <string>CIN</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QCheckBox" name="checkBox_nom_invite">
+                                      <property name="text">
+                                       <string>Nom</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QCheckBox" name="checkBox_sexe_invite">
+                                      <property name="text">
+                                       <string>Sexe</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QCheckBox" name="checkBox_date_invite">
+                                      <property name="text">
+                                       <string>Date</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QCheckBox" name="checkBox_mail_invite">
+                                      <property name="text">
+                                       <string>E-mail</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QPushButton" name="aucun_invite">
+                                      <property name="text">
+                                       <string>Aucun</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                   </layout>
+                                  </item>
+                                 </layout>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_17">
+                               <item>
+                                <widget class="QTableView" name="tableView_invite"/>
+                               </item>
+                              </layout>
+                             </item>
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_18">
+                               <item>
+                                <widget class="QComboBox" name="comboBox_tables"/>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="affecter_table">
+                                 <property name="text">
+                                  <string>Affecter Table</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="supprimer_invite">
+                                 <property name="text">
+                                  <string>Supprimer</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="modifier_invite">
+                                 <property name="text">
+                                  <string>Modifier</string>
+                                 </property>
+                                 <property name="checkable">
+                                  <bool>true</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="exporter_invite">
+                                 <property name="text">
+                                  <string>Exporter</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="stats_invite">
+                                 <property name="text">
+                                  <string>stats</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="imprimer_invite">
+                                 <property name="text">
+                                  <string>Imprimer</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="envoyer_invite">
+                                 <property name="text">
+                                  <string>Envoyer</string>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="tab_2">
+                     <attribute name="title">
+                      <string>Tables</string>
+                     </attribute>
+                     <layout class="QHBoxLayout" name="horizontalLayout_34">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_ajouter_table">
+                        <property name="title">
+                         <string>Ajouter</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_16">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_15">
+                           <item>
+                            <layout class="QFormLayout" name="formLayout_5">
+                             <item row="0" column="0">
+                              <widget class="QLabel" name="nombrePlacesLabel">
+                               <property name="text">
+                                <string>Nombre places</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QLineEdit" name="nombrePlacesLineEdit_table"/>
+                             </item>
+                             <item row="1" column="0">
+                              <widget class="QLabel" name="nomServeurLabel">
+                               <property name="text">
+                                <string>Nom serveur</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="1">
+                              <widget class="QLineEdit" name="nomServeurLineEdit_table"/>
+                             </item>
+                             <item row="2" column="0">
+                              <widget class="QLabel" name="referenceLabel">
+                               <property name="text">
+                                <string>Reference</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="1">
+                              <widget class="QLineEdit" name="reference_table"/>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_27">
+                             <item>
+                              <widget class="QPushButton" name="contract_table">
+                               <property name="text">
+                                <string>Contract</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="reset_table">
+                               <property name="text">
+                                <string>Reset</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="ajouter_table">
+                               <property name="text">
+                                <string>Ajouter</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_afficher_table">
+                        <property name="title">
+                         <string>Afficher</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_13">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_14">
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_25">
+                             <item>
+                              <widget class="QLineEdit" name="lineEdit_recherche_table"/>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="recherche_table">
+                               <property name="text">
+                                <string>Recherche</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="afficher_tout_table">
+                               <property name="text">
+                                <string>Afficher Tout</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="trier_table">
+                               <property name="text">
+                                <string>Trier</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QComboBox" name="ordre_table">
+                               <item>
+                                <property name="text">
+                                 <string>ASC</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>DESC</string>
+                                </property>
+                               </item>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_26"/>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_29">
+                             <item>
+                              <widget class="QGroupBox" name="groupBox_7">
+                               <property name="title">
+                                <string>Filtre</string>
+                               </property>
+                               <layout class="QHBoxLayout" name="horizontalLayout_30">
+                                <item>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_31">
+                                  <item>
+                                   <widget class="QCheckBox" name="checkBox_numero">
+                                    <property name="text">
+                                     <string>Numéro</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QCheckBox" name="checkBox_nombre">
+                                    <property name="text">
+                                     <string>Nombre places</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QCheckBox" name="checkBox_nomserv">
+                                    <property name="text">
+                                     <string>Nom Serveur</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QPushButton" name="aucun_table">
+                                    <property name="text">
+                                     <string>Aucun</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_32">
+                             <item>
+                              <widget class="QTableView" name="tableView_table"/>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_33">
+                             <item>
+                              <widget class="QPushButton" name="supprimer_table">
+                               <property name="text">
+                                <string>Supprimer</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="modifier_table">
+                               <property name="text">
+                                <string>Modifier</string>
+                               </property>
+                               <property name="checkable">
+                                <bool>true</bool>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="tab_5">
+                     <attribute name="title">
+                      <string>Notifications</string>
+                     </attribute>
+                     <layout class="QHBoxLayout" name="horizontalLayout_38">
+                      <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_23">
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_37">
+                          <item>
+                           <widget class="QTableView" name="tableView_notifications"/>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="enter_cin"/>
+                        </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_53">
+                          <item>
+                           <widget class="QPushButton" name="entrer">
+                            <property name="text">
+                             <string>Entrer</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="accepter">
+                            <property name="text">
+                             <string>Accepter</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="refuser">
+                            <property name="text">
+                             <string>Refuser</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="page_4">
+               <layout class="QHBoxLayout" name="horizontalLayout_11"/>
+              </widget>
+              <widget class="QWidget" name="page_5">
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <widget class="QTabWidget" name="tabWidget_2">
+                  <property name="currentIndex">
+                   <number>1</number>
+                  </property>
+                  <widget class="QWidget" name="tab_3">
+                   <attribute name="title">
+                    <string>Clients</string>
+                   </attribute>
+                   <layout class="QHBoxLayout" name="horizontalLayout_15">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_24">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_ajouter_invites_2">
+                        <property name="title">
+                         <string>Ajouter  </string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_11">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_12">
+                           <item>
+                            <layout class="QFormLayout" name="formLayout_4">
+                             <item row="0" column="0">
+                              <widget class="QLabel" name="cINLabel_2">
+                               <property name="text">
+                                <string>CIN</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QLineEdit" name="cin_client"/>
+                             </item>
+                             <item row="1" column="0">
+                              <widget class="QLabel" name="prNomLabel_3">
+                               <property name="text">
+                                <string>Nom</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="1">
+                              <widget class="QLineEdit" name="nom_client"/>
+                             </item>
+                             <item row="2" column="0">
+                              <widget class="QLabel" name="prNomLabel_4">
+                               <property name="text">
+                                <string>Prénom</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="1">
+                              <widget class="QLineEdit" name="prenom_client"/>
+                             </item>
+                             <item row="3" column="0">
+                              <widget class="QLabel" name="dateDeNaissanceLabel_2">
+                               <property name="text">
+                                <string>Date de Naissance</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="3" column="1">
+                              <widget class="QDateEdit" name="date_client"/>
+                             </item>
+                             <item row="4" column="0">
+                              <widget class="QLabel" name="eMailLabel_2">
+                               <property name="text">
+                                <string>E-mail</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="4" column="1">
+                              <widget class="QLineEdit" name="email_client"/>
+                             </item>
+                             <item row="5" column="0">
+                              <widget class="QLabel" name="tLPhoneLabel_2">
+                               <property name="text">
+                                <string>Téléphone</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="5" column="1">
+                              <widget class="QLineEdit" name="tel_client"/>
+                             </item>
+                             <item row="6" column="0">
+                              <widget class="QLabel" name="budgetLabel">
+                               <property name="text">
+                                <string>Budget</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="6" column="1">
+                              <widget class="QLineEdit" name="budget_client"/>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_28">
+                             <item>
+                              <widget class="QPushButton" name="contract_client">
+                               <property name="text">
+                                <string>Contract</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="reset_client">
+                               <property name="text">
+                                <string>Reset</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="ajouter_client">
+                               <property name="text">
+                                <string>Ajouter</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_afficher_invites_2">
+                        <property name="title">
+                         <string>Afficher</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_17">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_18">
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_35">
+                             <item>
+                              <widget class="QLineEdit" name="recherche_client"/>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="afficher_tout_client">
+                               <property name="text">
+                                <string>Afficher Tout</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="trier_client">
+                               <property name="text">
+                                <string>Trier</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QComboBox" name="ordre_client">
+                               <item>
+                                <property name="text">
+                                 <string>ASC</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>DESC</string>
+                                </property>
+                               </item>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_36"/>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_39">
+                             <item>
+                              <widget class="QGroupBox" name="groupBox_8">
+                               <property name="title">
+                                <string>Filtre</string>
+                               </property>
+                               <layout class="QHBoxLayout" name="horizontalLayout_40">
+                                <item>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_41">
+                                  <item>
+                                   <widget class="QCheckBox" name="checkBox_nom_client">
+                                    <property name="text">
+                                     <string>Nom</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QCheckBox" name="checkBox_prenom_client">
+                                    <property name="text">
+                                     <string>Prénom</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QCheckBox" name="checkBox_budget_client">
+                                    <property name="text">
+                                     <string>Budget</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <widget class="QPushButton" name="aucun_client">
+                                    <property name="text">
+                                     <string>Aucun</string>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                 </layout>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_42">
+                             <item>
+                              <widget class="QTableView" name="tableView_client"/>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_43">
+                             <item>
+                              <widget class="QPushButton" name="supprimer_client">
+                               <property name="text">
+                                <string>Supprimer</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="modifier_client">
+                               <property name="text">
+                                <string>Modifier</string>
+                               </property>
+                               <property name="checkable">
+                                <bool>true</bool>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="exporter_client">
+                               <property name="text">
+                                <string>Exporter</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="imprimer_client">
+                               <property name="text">
+                                <string>Imprimer</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="envoyer_client">
+                               <property name="text">
+                                <string>Envoyer</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="tab_4">
+                   <attribute name="title">
+                    <string>Réservations</string>
+                   </attribute>
+                   <layout class="QHBoxLayout" name="horizontalLayout_44">
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_ajouter_table_2">
+                      <property name="title">
+                       <string>Ajouter</string>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_19">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_20">
+                         <item>
+                          <layout class="QFormLayout" name="formLayout_6">
+                           <item row="0" column="0">
+                            <widget class="QLabel" name="nombrePlacesLabel_2">
+                             <property name="text">
+                              <string>Référence</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="0" column="1">
+                            <widget class="QLineEdit" name="reference_reservation"/>
+                           </item>
+                           <item row="1" column="0">
+                            <widget class="QLabel" name="dateLabel">
+                             <property name="text">
+                              <string>Date</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="1" column="1">
+                            <widget class="QDateEdit" name="date_reservation"/>
+                           </item>
+                           <item row="2" column="0">
+                            <widget class="QLabel" name="prixLabel">
+                             <property name="text">
+                              <string>Prix</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="2" column="1">
+                            <widget class="QLineEdit" name="prix_reservation"/>
+                           </item>
+                           <item row="3" column="0">
+                            <widget class="QLabel" name="nombreInvitSLabel">
+                             <property name="text">
+                              <string>Nombre invités</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="3" column="1">
+                            <widget class="QLineEdit" name="nb_invites_reservation"/>
+                           </item>
+                           <item row="4" column="0">
+                            <widget class="QLabel" name="localisationLabel">
+                             <property name="text">
+                              <string>Localisation</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="4" column="1">
+                            <widget class="QLineEdit" name="localisation_reservation"/>
+                           </item>
+                           <item row="5" column="0">
+                            <widget class="QLabel" name="cINClientLabel">
+                             <property name="text">
+                              <string>CIN client</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item row="5" column="1">
+                            <widget class="QComboBox" name="comboBox_reservations"/>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_45">
+                           <item>
+                            <widget class="QPushButton" name="contract_reservation">
+                             <property name="text">
+                              <string>Contract</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="reset_reservation">
+                             <property name="text">
+                              <string>Reset</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="ajouter_reservation">
+                             <property name="text">
+                              <string>Ajouter</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_afficher_table_2">
+                      <property name="title">
+                       <string>Afficher</string>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_21">
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_22">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_46">
+                           <item>
+                            <widget class="QLineEdit" name="recherche_reservation"/>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="afficher_tout_reservation">
+                             <property name="text">
+                              <string>Afficher Tout</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="trier_reservation">
+                             <property name="text">
+                              <string>Trier</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QComboBox" name="ordre_reservation">
+                             <item>
+                              <property name="text">
+                               <string>ASC</string>
+                              </property>
+                             </item>
+                             <item>
+                              <property name="text">
+                               <string>DESC</string>
+                              </property>
+                             </item>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_47"/>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_48">
+                           <item>
+                            <widget class="QGroupBox" name="groupBox_9">
+                             <property name="title">
+                              <string>Filtre</string>
+                             </property>
+                             <layout class="QHBoxLayout" name="horizontalLayout_49">
+                              <item>
+                               <layout class="QHBoxLayout" name="horizontalLayout_50">
+                                <item>
+                                 <widget class="QCheckBox" name="checkBox_prix_reservation">
+                                  <property name="text">
+                                   <string>Prix</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QCheckBox" name="checkBox_nb_invites_reservation">
+                                  <property name="text">
+                                   <string>Nombre invités</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QCheckBox" name="checkBox_localisation_reservation">
+                                  <property name="text">
+                                   <string>Localisation</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                                <item>
+                                 <widget class="QPushButton" name="aucun_reservation">
+                                  <property name="text">
+                                   <string>Aucun</string>
+                                  </property>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_51">
+                           <item>
+                            <widget class="QTableView" name="tableView_reservation"/>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_52">
+                           <item>
+                            <widget class="QPushButton" name="supprimer_reservation">
+                             <property name="text">
+                              <string>Supprimer</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="modifier_reservation">
+                             <property name="text">
+                              <string>Modifier</string>
+                             </property>
+                             <property name="checkable">
+                              <bool>true</bool>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="page_6">
+               <widget class="QLabel" name="label_4">
+                <property name="geometry">
+                 <rect>
+                  <x>250</x>
+                  <y>230</y>
+                  <width>47</width>
+                  <height>13</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Elaa</string>
+                </property>
+               </widget>
+              </widget>
+              <widget class="QWidget" name="page_7">
+               <widget class="QLabel" name="label_5">
+                <property name="geometry">
+                 <rect>
+                  <x>200</x>
+                  <y>210</y>
+                  <width>47</width>
+                  <height>13</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>Sara</string>
+                </property>
+               </widget>
+              </widget>
+              <widget class="QWidget" name="page_8">
+               <layout class="QVBoxLayout" name="verticalLayout_25">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_24">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_57">
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="text">
+                       <string>Langue</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_langue">
+                      <item>
+                       <property name="text">
+                        <string>Français</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>English</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_langue">
+                      <property name="text">
+                       <string>Confimer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_56">
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>Thème</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_jour">
+                      <property name="text">
+                       <string>Jour</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_nuit">
+                      <property name="text">
+                       <string>Nuit</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_theme">
+                      <property name="text">
+                       <string>Confirmer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_61">
+                    <item>
+                     <widget class="QLabel" name="label_8">
+                      <property name="text">
+                       <string>Notifications des invités entrants</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton">
+                      <property name="text">
+                       <string>Oui</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_2">
+                      <property name="text">
+                       <string>Non</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_notifications">
+                      <property name="text">
+                       <string>Confirmer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_55">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>Modifer Mot de Passe</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <layout class="QFormLayout" name="formLayout_7">
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="ancienMotDePasseLabel">
+                        <property name="text">
+                         <string>Ancien mot de passe</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="ancienMotDePasseLineEdit"/>
+                      </item>
+                      <item row="1" column="0">
+                       <widget class="QLabel" name="nouveauMotDePasseLabel">
+                        <property name="text">
+                         <string>Nouveau mot de passe</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <widget class="QLineEdit" name="nouveauMotDePasseLineEdit"/>
+                      </item>
+                      <item row="2" column="0">
+                       <widget class="QLabel" name="confirmerNouveauMotDePasseLabel">
+                        <property name="text">
+                         <string>Confirmer nouveau mot de passe</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="1">
+                       <widget class="QLineEdit" name="confirmerNouveauMotDePasseLineEdit"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_28"/>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="confirmer_chan_mdp">
+                      <property name="text">
+                       <string>Confirmer</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="annuler_chan_mdp">
+                      <property name="text">
+                       <string>Annuler</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_59">
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="text">
+                       <string>Signaler un problème</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPlainTextEdit" name="plainTextEdit_probleme"/>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_4">
+                      <property name="text">
+                       <string>Envoyer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_54">
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="text">
+                       <string>Supprimer Compte</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_3">
+                      <property name="text">
+                       <string>Supprimer</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1184</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
