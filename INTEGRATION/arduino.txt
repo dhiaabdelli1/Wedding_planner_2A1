@@ -1,11 +1,7 @@
 #include <Keypad.h>
 #include <LiquidCrystal.h>
-#define PIN_LED 13
-#define PIN_LED_2 9
 
 int Contrast = 70;
-
-int nb_tours = 0;
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 
@@ -35,10 +31,6 @@ void setup() {
 
   analogWrite(6, Contrast);
   lcd.begin(16, 2);
-  pinMode(13, OUTPUT);
-  digitalWrite(13, LOW);
-  pinMode(9, OUTPUT);
-  digitalWrite(9, HIGH);
 
   Serial.begin(9600) ;
 
@@ -47,88 +39,32 @@ void setup() {
 void loop() {
   char customKey = customKeypad.getKey();
 
-
   if (customKey) {
+    //Serial.println(customKey);
     Serial.write(customKey);
-
-
-    if (customKey == '#')
-    {
-      lcd.setCursor(4, 1);
-      lcd.print("Attendez SVP");
-      cin = "";
-    }
-    else if (customKey == '*')
-    {
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Bienvenue!");
-      lcd.setCursor(0, 1);
-      lcd.print("CIN:");
-      cin="";
-      
-    }
-    else
-    {
-      lcd.setCursor(6, 1);
-      cin += customKey;
-      lcd.print(cin);
-    }
-
 
   }
 
   lcd.setCursor(0, 0);
 
+  lcd.setCursor(0, 1);
+
+
+
   if (Serial.available() > 0)
   {
     a = Serial.readString();
-    if (a != "Acces Refuse")
-    {
-      digitalWrite(PIN_LED, HIGH);
-      delay(4000);
-      digitalWrite(PIN_LED, LOW);
-      lcd.print(a);
-      for (int positionCounter = 0; positionCounter < 40; positionCounter++) {
-        lcd.scrollDisplayLeft();
-        delay(250);
-        if (positionCounter == 39 && nb_tours != 3)
-        {
-          positionCounter = 0;
-          nb_tours++;
-        }
+    lcd.print(a);
+    //lcd.print("fuck yes");
 
-        if (nb_tours == 2)
-        {
-          lcd.clear();
-          positionCounter = 40;
-        }
-
-      }
+    for (int positionCounter = 0; positionCounter < 40; positionCounter++) {
+      // scroll one position right:
+      lcd.scrollDisplayLeft();
+      // wait a bit:
+      delay(350);
+      if (positionCounter = 39)
+        positionCounter = 0;
 
     }
-    else
-    {
-      lcd.setCursor(0, 1);
-      lcd.clear();
-      digitalWrite(PIN_LED_2, LOW);
-      delay(4000);
-      digitalWrite(PIN_LED_2, HIGH);
-      lcd.print(a);
-      delay(4000);
-      lcd.clear();
-    }
-
-
-
   }
-  else
-  {
-
-    lcd.setCursor(0, 0);
-    lcd.print("Bienvenue!");
-    lcd.setCursor(0, 1);
-    lcd.print("CIN:");
-  }
-
 }

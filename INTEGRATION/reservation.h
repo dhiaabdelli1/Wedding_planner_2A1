@@ -8,7 +8,7 @@ class reservation
 {
 public:
     reservation();
-    reservation(QString,QDate,float,int,QString,QString);
+    reservation(QString,QDate,float,int,QString);
     QString getREFERENCE(){return reference;}
     float getPRIX(){return prix;}
     int getNBINV(){return nb_invites;}
@@ -21,13 +21,11 @@ public:
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(int);
-    bool supprimer_cin(QString);
 private:
     float prix;
     int nb_invites;
     QString localisation,reference;
     QDate date_reservation;
-    QString cin_client;
 };
 
 #endif // RESERVATION_H

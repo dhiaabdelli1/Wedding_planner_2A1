@@ -5,14 +5,13 @@ reservation::reservation()
 {
 
 }
-reservation::reservation(QString reference,QDate date_reservation,float prix,int nb_invites,QString localisation,QString cin_cl)
+reservation::reservation(QString reference,QDate date_reservation,float prix,int nb_invites,QString localisation)
 {
     this->reference=reference;
     this->date_reservation=date_reservation;
     this->prix=prix;
     this->nb_invites=nb_invites;
     this->localisation=localisation;
-    this->cin_client=cin_cl;
 
 }
 bool reservation::ajouter()
@@ -20,15 +19,14 @@ bool reservation::ajouter()
     QSqlQuery query;
     QString prix_string=QString::number(prix);
 
-    query.prepare("Insert into reservation(reference,date_reservation,prix,nb_invites,localisation,cin_client)"
-                  "Values(:reference,:date_reservation,:prix,:nb_invites,:localisation,:cin_client)");
+    query.prepare("Insert into reservation(reference,date_reservation,prix,nb_invites,localisation)"
+                  "Values(:reference,:date_reservation,:prix,:nb_invites,:localisation)");
     query.bindValue(":reference",reference);
     query.bindValue(":date_reservation",date_reservation);
     query.bindValue(":prix",prix_string);
 
     query.bindValue(":nb_invites",nb_invites);
     query.bindValue(":localisation",localisation);
-    query.bindValue(":cin_client",cin_client);
     return query.exec();
 
 }
@@ -42,7 +40,6 @@ QSqlQueryModel * reservation::afficher()
     model->setHeaderData(1,Qt::Horizontal,QObject::tr("date_reservation"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("nb_invites"));
     model->setHeaderData(4,Qt::Horizontal,QObject::tr("localisation"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("CIN CLIENT"));
     return model;
 
 }
@@ -52,14 +49,6 @@ bool reservation::supprimer(int reference)
     QSqlQuery query;
     query.prepare("delete from reservation where reference=:reference");
     query.bindValue(":reference",reference);
-    return query.exec();
-}
-
-bool reservation::supprimer_cin(QString cin)
-{
-    QSqlQuery query;
-    query.prepare("delete from reservation where cin_client=:cin_client");
-    query.bindValue(":cin_client",cin);
     return query.exec();
 }
 

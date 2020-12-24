@@ -1,5 +1,4 @@
 QT       += core gui sql serialport printsupport network charts multimedia
-QT       += core gui charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,40 +12,25 @@ SOURCES += \
     arduino.cpp \
     client.cpp \
     connexion.cpp \
-    departement.cpp \
-    dialog.cpp \
     invite.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
-    personnel.cpp \
     reservation.cpp \
-    smtp.cpp \
-    stat.cpp \
-    stats.cpp \
     table.cpp
 
 HEADERS += \
     arduino.h \
     client.h \
     connexion.h \
-    departement.h \
-    dialog.h \
     invite.h \
     login.h \
     mainwindow.h \
-    personnel.h \
     reservation.h \
-    smtp.h \
-    stat.h \
-    stats.h \
     table.h
 
 FORMS += \
-    dialog.ui \
-    mainwindow.ui \
-    stat.ui \
-    stats.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -11,13 +11,12 @@ bool table::ajouter()
 
 
 
-    query.prepare("INSERT INTO tables (nb_places,nom_serveur,reference)"
-                  "VALUES (:nb_places,:nom_serveur,:reference)");
+    query.prepare("INSERT INTO tables (nb_places,nom_serveur)"
+                  "VALUES (:nb_places,:nom_serveur)");
 
 
     query.bindValue(":nb_places",nb_places);
     query.bindValue(":nom_serveur",nom_serveur);
-    query.bindValue(":reference",reference);
 
     return query.exec();
 }
@@ -32,7 +31,6 @@ QSqlQueryModel * table::afficher()
     model_2->setHeaderData(0, Qt::Horizontal, QObject::tr("Numéro"));
     model_2->setHeaderData(1, Qt::Horizontal, QObject::tr("Nombre places"));
     model_2->setHeaderData(2, Qt::Horizontal, QObject::tr("Nom serveur"));
-    model_2->setHeaderData(3, Qt::Horizontal, QObject::tr("Reference"));
 
     return model_2;
 }
@@ -53,15 +51,6 @@ QSqlQueryModel *table::recherche(QString num)
     QSqlQueryModel *model= new QSqlQueryModel;
 
     model->setQuery("select * from tables where numero like'"+num+"%'");
-
-    return model;
-}
-
-QSqlQueryModel *table::recherche_ref(QString ref)
-{
-
-    QSqlQueryModel *model= new QSqlQueryModel;
-    model->setQuery("select * from tables where reference like'"+ref+"%'");
 
     return model;
 }
@@ -96,8 +85,5 @@ bool table::invite_existe(int num)
 }
 
 
-void table::update_comboBox()
-{
 
-}
 

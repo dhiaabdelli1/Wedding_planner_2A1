@@ -1,5 +1,4 @@
 #include "invite.h"
-#include "mainwindow.h"
 
 invite::invite()
 {
@@ -41,9 +40,8 @@ QSqlQueryModel * invite::afficher()
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Date de Naissance"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("Mail"));
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Sexe"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Téléphone"));
-    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Numéro table"));
-    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Permission"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Numéro table"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Permission"));
 
     return model;
 }
@@ -72,15 +70,15 @@ QSqlQueryModel * invite::rechercher_sexe(QString sexe)
     return model;
 }
 
-bool invite::update(QString cin,QString att,QString val)
+QSqlQueryModel *invite::update(QString cin,QString att,QString val)
 {
+    QSqlQueryModel *model= new QSqlQueryModel;
     QSqlQuery query;
     query.prepare("update invites set permission=:permission where cin=:cin");
     query.bindValue(":permission",val);
     query.bindValue(":cin",cin);
-
-
-    return query.exec();
+    model->setQuery(query);
+    return model;
 }
 
 QSqlQueryModel *invite::rechercher_nom(QString nom)
@@ -304,34 +302,5 @@ int invite::affecter_table(QString cin, int num,int nb_max)
 }
 
 
-QSqlQueryModel *invite::afficher_notifications()
-{
-    QSqlQueryModel *model=new QSqlQueryModel();
-    QSqlQuery *qry= new QSqlQuery;
-    qry->prepare("select * from invites where permission='pending' or permission='accepte' or permission='refuse' order by ordre_entree DESC");
-    qry->exec();
-    model->setQuery(*qry);
-
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("CIN"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Prenom"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Date de Naissance"));
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Mail"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Sexe"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Téléphone"));
-    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Numéro table"));
-    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Permission"));
-
-    return model;
-}
-
-bool invite::update_num_entree(QString cin,int i)
-{
-    QSqlQuery query;
-    query.prepare("update invites set ordre_entree=:ordre_entree where cin=:cin");
-    query.bindValue(":ordre_entree",i);
-    query.bindValue(":cin",cin);
 
 
-    return query.exec();
-}

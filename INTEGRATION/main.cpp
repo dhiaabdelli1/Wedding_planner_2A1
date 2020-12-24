@@ -1,27 +1,20 @@
 #include "mainwindow.h"
-#include <QApplication>
-#include <QMessageBox>
 #include "connexion.h"
+#include <QApplication>
+#include <QDebug>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
     connexion c;
-    bool test=c.createconnect();
-     MainWindow w;
-    if(test)
-    {w.show();
-        QMessageBox::critical(nullptr, QObject::tr("testbd is open"),
-                    QObject::tr("connexion successful.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
+    bool test=c.createConnexion();
+    MainWindow w;
 
-}
+    if (test)
+        qDebug() << "connexion successful";
     else
-        QMessageBox::critical(nullptr, QObject::tr("testbd is not open"),
-                    QObject::tr("connexion failed.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
-
-
+        qDebug() << "connexion failed";
+    w.show();
 
     return a.exec();
 }

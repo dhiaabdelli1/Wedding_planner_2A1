@@ -4,8 +4,6 @@
 #include <QDateEdit>
 #include <QSqlQueryModel>
 
-#include "reservation.h"
-
 class client
 {
 public:

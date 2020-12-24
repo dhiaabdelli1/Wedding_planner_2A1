@@ -23,14 +23,9 @@
 #include "table.h"
 #include "client.h"
 #include "reservation.h"
-#include "personnel.h"
-#include "departement.h"
 #include "login.h"
 
 #include "arduino.h"
-#include "dialog.h"
-#include "smtp.h"
-#include "stats.h"
 //#include "stats.h"
 //#include "arduino.h"
 
@@ -147,42 +142,6 @@ private slots:
 
     void on_enter_clicked();
 
-    void on_envoyer_invite_clicked();
-
-    void on_tabWidget_2_tabBarClicked(int index);
-
-    void on_entrer_clicked();
-
-    void on_tabWidget_tabBarClicked(int index);
-
-    void on_ajouter_departement_clicked();
-
-    void on_reset_departement_clicked();
-
-    void on_modifier_departement_clicked();
-
-    void on_sypprimer_departement_clicked();
-
-    void on_ajouter_personnel_clicked();
-
-    void on_reset_personnel_clicked();
-
-    void on_modifier_personnel_clicked();
-
-    void on_supprimer_personnel_clicked();
-
-    void on_pdf_personnel_clicked();
-
-    void on_lineEdit_recherchepersonnel_textChanged(const QString &arg1);
-
-    void on_stat_personnel_clicked();
-
-    void on_tri_cin_personnel_clicked();
-
-    void on_tri_salaire_personnel_clicked();
-
-    void on_tri_nom_personnel_clicked();
-
 private:
     Ui::MainWindow *ui;
 
@@ -190,8 +149,6 @@ private:
     table tmptable;
     client tempclient;
     reservation tempreservation;
-    personnel tmppersonnel;
-    departement tmpdepartement;
     //Regex
     QRegExp mail_regex;
     QRegExp cin_regex;
@@ -209,7 +166,5 @@ private:
     Arduino A; //Tmp
 
     QString cin_recu="";
-
-    int num_entree=0;
 };
 #endif // MAINWINDOW_H
