@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "stat.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,11 +30,11 @@ MainWindow::MainWindow(QWidget *parent)
     //Looks
     ui->groupBox_ajouter_table->setMaximumWidth(100);
     ui->groupBox_ajouter_invites->setMaximumWidth(400);
-    QPixmap bkgnd("D:/Users/dhiaa/Desktop/working_on/background.jpg");
+    QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
-    palette.setBrush(QPalette::Background, bkgnd);
-    //this->setPalette(palette);
+    //palette.setBrush(QPalette::Background, bkgnd);
+    this->setPalette(palette);
     ui->cINLineEdit_invite->setPlaceholderText("CIN ...");
     ui->nomLineEdit_invite->setPlaceholderText("Nom ...");
     ui->prNomLineEdit_invite->setPlaceholderText("Prénom ...");
@@ -49,6 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_client->setModel(tempclient.afficher());
     ui->tableView_reservation->setModel(tempreservation.afficher());
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+    ui->tableView_departement->setModel(tmpdepartement.afficher());
+    ui->tableView_personnel->setModel(tmppersonnel.afficher());
 
 
     //Selection tableView_invite
@@ -61,7 +64,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_reservation->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_reservation->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_notifications->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableView_notifications->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_notifications->setSelectionMode(QAbstractItemView::SingleSelection); 
+    ui->tableView_personnel->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_personnel->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_departement->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_departement->setSelectionMode(QAbstractItemView::SingleSelection);
+
 
     //Animations
     contract_animation = new QPropertyAnimation(ui->groupBox_ajouter_invites,"maximumWidth");
@@ -90,9 +98,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->passwordLineEdit_login->setEchoMode(QLineEdit::Password);
     ui->passwordLineEdit_signup->setEchoMode(QLineEdit::Password);
-    ui->ancienMotDePasseLineEdit->setEchoMode(QLineEdit::Password);
-    ui->nouveauMotDePasseLineEdit->setEchoMode(QLineEdit::Password);
-    ui->confirmerNouveauMotDePasseLineEdit->setEchoMode(QLineEdit::Password);
 
     int ret=A.connect_arduino();
     switch (ret)
@@ -121,8 +126,8 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     QSqlQueryModel *model2=new QSqlQueryModel();
-    QString id;
-    model2->setQuery("select * from CLIENT");
+        QString id;
+        model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
 }
 MainWindow::~MainWindow()
@@ -156,62 +161,23 @@ void MainWindow::on_Sara_clicked()
     ui->stackedWidget_2->setCurrentIndex(4);
 }
 
-void MainWindow::on_configuration_clicked()
-{
-    ui->stackedWidget_2->setCurrentIndex(5);
-}
-
 void MainWindow::on_login_button_clicked()
 {
-
-
-    if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
-    {
+    login log;
+    if (log.sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
         ui->stackedWidget->setCurrentIndex(1);
-        ui->usernameLineEdit_login->clear();
-        ui->passwordLineEdit_login->clear();
-
-    }
     else
         QMessageBox::warning(this,"Login","Erreur de login");
 }
 
 void MainWindow::on_sign_up_button_clicked()
 {
-
-    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+    login log;
+    if (log.sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
         ui->stackedWidget->setCurrentIndex(1);
     else
         QMessageBox::warning(this,"Sign-up","Erreur d'insciption");
 }
-
-void MainWindow::on_confirmer_chan_mdp_clicked()
-{
-    qDebug() << log->get_current_user();
-
-    if (ui->confirmerNouveauMotDePasseLineEdit->text()==ui->nouveauMotDePasseLineEdit->text())
-    {
-        if (ui->ancienMotDePasseLineEdit->text()!="" && ui->confirmerNouveauMotDePasseLineEdit->text()!="")
-        {
-            qDebug() << log->get_current_user();
-            bool test=log->modifier_mdp(log->get_current_user(),ui->ancienMotDePasseLineEdit->text(),ui->nouveauMotDePasseLineEdit->text());
-
-            if (!test)
-                QMessageBox::warning(this,"Changement du MDP","Erreur lors du changement du MDP");
-            else
-            {
-                ui->ancienMotDePasseLineEdit->clear();
-                ui->nouveauMotDePasseLineEdit->clear();
-                ui->confirmerNouveauMotDePasseLineEdit->clear();
-            }
-        }
-        else
-            QMessageBox::warning(this,"Changement du MDP","Veuillez remplir tous les champs");
-    }
-    else
-        QMessageBox::warning(this,"Changement du MDP","Les deux mots de passe ne sont pas identiques");
-}
-
 
 void MainWindow::on_logout_button_clicked()
 {
@@ -1111,8 +1077,8 @@ void MainWindow::on_ajouter_reservation_clicked()
 
 
         QSqlQueryModel *model2=new QSqlQueryModel();
-        QString id;
-        model2->setQuery("select * from CLIENT");
+            QString id;
+            model2->setQuery("select * from CLIENT");
         ui->comboBox_reservations->removeItem(ui->comboBox_reservations->currentIndex());
         ui->comboBox_reservations->setModel(model2);
 
@@ -1212,9 +1178,9 @@ void MainWindow::update_label()
 
         tmpinvite.update(cin_recu,"permission","pending");
 
-        ui->tableView_invite->setModel(tmpinvite.afficher());
-        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+         ui->tableView_invite->setModel(tmpinvite.afficher());
+         tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+         ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
         cin_recu="";
@@ -1243,7 +1209,7 @@ void MainWindow::on_accepter_clicked()
     QString num_table=select->selectedRows(7).value(0).data().toString();
     QString email_invite=select->selectedRows(4).value(0).data().toString();
 
-
+    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
 
     QString sexe=select->selectedRows(5).value(0).data().toString();
 
@@ -1268,7 +1234,7 @@ void MainWindow::on_accepter_clicked()
     //ui->tableView_invite->setModel(tmpinvite.update(cin,"permission","accepté"));
 
 
-    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
+
     smtp->sendMail("dhia.abdelli1@esprit.tn", email_invite , "Notification d'entrée" ,"Bonjour "+nom+",\nBienvenue à la salle. Votre numéro de table est "+num_table+".\nNous vous souhaitons une bonne soirée.\n\nCordialement,\nBoudinar Wedding Planner.\n");
 
 
@@ -1298,8 +1264,8 @@ void MainWindow::on_envoyer_invite_clicked()
 void MainWindow::on_tabWidget_2_tabBarClicked(int index)
 {
     QSqlQueryModel *model2=new QSqlQueryModel();
-    QString id;
-    model2->setQuery("select * from CLIENT");
+        QString id;
+        model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
 }
 
@@ -1308,7 +1274,7 @@ void MainWindow::on_entrer_clicked()
     QString cin_recu=ui->enter_cin->text();
 
 
-    tmpinvite.update(cin_recu,"permission","pending");
+   tmpinvite.update(cin_recu,"permission","pending");
 
     ui->tableView_invite->setModel(tmpinvite.afficher());
 
@@ -1326,50 +1292,282 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 }
 
-void MainWindow::on_signup_button_clicked()
+void MainWindow::on_ajouter_departement_clicked()
 {
-    login log;
 
-    if (ui->usernameLineEdit_signup->text()!="" && ui->passwordLineEdit_signup->text()!="")
+
+        QString reference= ui->lineEdit_reference->text();
+        QString nom= ui->lineEdit_nomm->text();
+        int nb_employes= ui->lineEdit_nbemployes->text().toInt();
+
+        departement d(reference,nom,nb_employes);
+        bool test=d.ajouter();
+
+
+        if(test)
+
+      {ui->tableView_departement->setModel(tmpdepartement.afficher());
+              ui->comboBox_ref_deppersonnel->setModel(tmpdepartement.refdep());
+        QMessageBox::information(nullptr, QObject::tr("ajout departement"),
+                                  QObject::tr("departement ajoutè.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+
+              }
+                  else
+                      QMessageBox::information(nullptr, QObject::tr("ajout departement"),
+                                  QObject::tr("ajout echouèe.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);}
+
+
+
+void MainWindow::on_reset_departement_clicked()
+{
+    ui->lineEdit_nomm->setText("");
+    ui->lineEdit_nbemployes->setText("");
+    ui->lineEdit_reference->setText("");
+}
+
+
+
+void MainWindow::on_modifier_departement_clicked()
+{
     {
-        if (!log.sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
-            QMessageBox::warning(this,"Sign-up",tr("Erreur d'insciption"));
-        else
+
+              QString reference= ui->lineEdit_reference->text();
+              QString nom= ui->lineEdit_nomm->text();
+              int nb_employes = ui->lineEdit_nbemployes->text().toInt();
+
+                     departement d(reference,nom,nb_employes);
+
+            bool test = tmpdepartement.update(reference,nom,nb_employes);
+
+
+            if(test)
+
+            {
+                 ui->tableView_departement->setModel(tmpdepartement.afficher());
+                QMessageBox::information(nullptr, QObject::tr("update "),
+                            QObject::tr("departement modifie\n"
+            "Click Cancel to exit."), QMessageBox::Cancel);}
+            else
+                QMessageBox::critical(nullptr, QObject::tr("update "),
+                            QObject::tr("departement non modifie\n"
+            "Click Cancel to exit."), QMessageBox::Cancel);}
+
+    }
+
+
+
+
+void MainWindow::on_sypprimer_departement_clicked()
+{
+    QString nom=ui->lineEdit_nomm->text();
+    QString reference= ui->lineEdit_reference->text();
+    int nb_employes= ui->lineEdit_nbemployes->text().toInt();
+
+
+
+    bool test=tmpdepartement.supprimer(reference);
+
+    if(test)
+    {             ui->tableView_departement->setModel(tmpdepartement.afficher());
+
+        QMessageBox::information(nullptr, QObject::tr("supprimer departemnt"),
+                              QObject::tr("supp ressuie.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
+
+          }
+              else
+                {  QMessageBox::information(nullptr, QObject::tr("supprimer departement"),
+                              QObject::tr("supp echouèe.\n"
+                                        "Click Cancel to exit."), QMessageBox::Cancel);}
+}
+
+
+
+
+
+
+
+void MainWindow::on_ajouter_personnel_clicked()
+
+{
+          int cin= ui->lineEdit_cinpersonnel->text().toInt();
+          QString nom= ui->lineEdit_nompersonnel->text();
+          QString prenom= ui->lineEdit_prenompersonnel->text();
+          QString departement=ui->comboBox_persodep->currentText();
+          QString mobile= ui->lineEdit_mobilepersonnel->text();
+          QDate date_naissance=ui->dateEdit_personnel->date();
+          QString salaire=ui->lineEdit_salairepersonnel->text();
+           QString ref_dep=ui->comboBox_ref_deppersonnel->currentText();
+
+
+
+          personnel p(cin,nom,prenom,departement,mobile,date_naissance,salaire,ref_dep);
+
+
+          if(mobile.size()<8)
+
+
         {
-            ui->usernameLineEdit_signup->clear();
-            ui->passwordLineEdit_signup->clear();
-        }
+              p.ajouter();
 
-    }
-    else
-        QMessageBox::warning(this,"Sign-up","Veuillez remplir tous les champs");
+              ui->tableView_personnel->setModel(tmppersonnel.afficher());
+          QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
+                                    QObject::tr("personnel ajoutè.\n"
+                                                "Click Cancel to exit."), QMessageBox::Cancel);
 
-}
+                }
+                    else
+                        QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
+                                    QObject::tr("ajout echouèe.\n"
+                                                "Click Cancel to exit."), QMessageBox::Cancel);}
 
 
 
-void MainWindow::on_confirmer_langue_clicked()
+void MainWindow::on_reset_personnel_clicked()
 {
-    if (ui->comboBox_langue->currentText()=="Français")
-    {
-        translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_fr");
-        qApp->installTranslator(translator);
-        ui->retranslateUi(this);
-        ui->comboBox_langue->setCurrentText("Français");
-    }
-    else if (ui->comboBox_langue->currentText()=="English")
-    {
-        translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_en");
-        qApp->installTranslator(translator);
-        ui->retranslateUi(this);
-        ui->comboBox_langue->setCurrentText("English");
-    }
+
 }
 
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_modifier_personnel_clicked()
 {
-    Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
-    smtp->sendMail("dhia.abdelli1@esprit.tn", "dhia.abdelli1@esprit.tn" , "Signalisation Problème" ,ui->plainTextEdit_probleme->toPlainText());
-    ui->plainTextEdit_probleme->clear();
+          int cin= ui->lineEdit_cinpersonnel->text().toInt();
+          QString nom= ui->lineEdit_nompersonnel->text();
+          QString prenom= ui->lineEdit_prenompersonnel->text();
+          QString departement=ui->comboBox_persodep->currentText();
+          QString mobile= ui->lineEdit_mobilepersonnel->text();
+          QDate date_naissance=ui->dateEdit_personnel->date();
+          QString salaire=ui->lineEdit_salairepersonnel->text();
+          QString ref_dep=ui->comboBox_ref_deppersonnel->currentText();
+         personnel p(cin,nom,prenom,mobile,departement,date_naissance,salaire,ref_dep);
+
+        bool test = tmppersonnel.update(cin,nom,prenom,departement,mobile,date_naissance,salaire,ref_dep);
+
+
+        if(test)
+
+        {
+             ui->tableView_personnel->setModel(tmppersonnel.afficher());
+            QMessageBox::information(nullptr, QObject::tr("update "),
+                        QObject::tr("personnel modifie\n"
+        "Click Cancel to exit."), QMessageBox::Cancel);}
+        else
+            QMessageBox::critical(nullptr, QObject::tr("update "),
+                        QObject::tr("personnel non modifie\n"
+        "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+void MainWindow::on_supprimer_personnel_clicked()
+{
+    QItemSelectionModel *select = ui->tableView_personnel->selectionModel();
+
+    int cin =select->selectedRows(0).value(0).data().toInt();
+
+    if(tmppersonnel.supprimer(cin))
+    {
+        ui->tableView_personnel->setModel(tmppersonnel.afficher());
+        QMessageBox::information(nullptr, QObject::tr("supression"),
+                                  QObject::tr("personnel supprimé.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
+
+              }
+                  else
+                      QMessageBox::information(nullptr, QObject::tr("supression"),
+                                  QObject::tr("supression echouèe.\n"
+                                              "Click Cancel to exit."), QMessageBox::Cancel);
 }
 
+
+void MainWindow::on_pdf_personnel_clicked()
+{
+    personnel p;
+    p.creerpdf();
+}
+
+
+void MainWindow::on_lineEdit_recherchepersonnel_textChanged(const QString &arg1)
+{
+    personnel p;
+        ui->tableView_personnel->setModel(p.chercher(ui->lineEdit_recherchepersonnel->text()));
+}
+
+void MainWindow::on_stat_personnel_clicked()
+{
+
+
+
+    Stat *w = new Stat();
+    w->make();
+    w->show();
+}
+
+void MainWindow::on_tri_cin_personnel_clicked()
+{
+    QMessageBox msgBox ;
+            QSqlQueryModel * model= new QSqlQueryModel();
+
+
+
+               model->setQuery("select * from personnel order by CAST(cin as INT) asc");
+
+               model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
+               model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+               model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+               model->setHeaderData(4, Qt::Horizontal, QObject::tr("departement"));
+               model->setHeaderData(3, Qt::Horizontal, QObject::tr("mobile"));
+               model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
+               model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+               model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
+                        ui->tableView_personnel->setModel(model);
+                        ui->tableView_personnel->show();
+                        msgBox.setText("Tri avec succés.");
+                        msgBox.exec();
+}
+
+void MainWindow::on_tri_salaire_personnel_clicked()
+{
+    QMessageBox msgBox ;
+            QSqlQueryModel * model= new QSqlQueryModel();
+
+
+
+               model->setQuery("select * from personnel order by CAST(salaire as INT) asc");
+
+               model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
+               model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+               model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+                model->setHeaderData(3, Qt::Horizontal, QObject::tr("departement"));
+               model->setHeaderData(4, Qt::Horizontal, QObject::tr("mobile"));
+               model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
+               model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+               model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
+                        ui->tableView_personnel->setModel(model);
+                        ui->tableView_personnel->show();
+                        msgBox.setText("Tri avec succés.");
+                        msgBox.exec();
+}
+void MainWindow::on_tri_nom_personnel_clicked()
+{
+    {
+        QMessageBox msgBox ;
+                QSqlQueryModel * model= new QSqlQueryModel();
+
+
+
+                   model->setQuery("select * from personnel order by nom");
+
+                   model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
+                   model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+                   model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+                   model->setHeaderData(3, Qt::Horizontal, QObject::tr("departement"));
+                   model->setHeaderData(4, Qt::Horizontal, QObject::tr("mobile"));
+                   model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
+                   model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+                   model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
+                            ui->tableView_personnel->setModel(model);
+                            ui->tableView_personnel->show();
+                            msgBox.setText("Tri avec succés.");
+                            msgBox.exec();
+    }
+}

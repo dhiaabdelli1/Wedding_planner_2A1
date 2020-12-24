@@ -1,27 +1,27 @@
 #include "mainwindow.h"
-#include "connexion.h"
 #include <QApplication>
-#include <QDebug>
-#include <QTranslator>
-
+#include <QMessageBox>
+#include "connexion.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    QTranslator translator;
-//    translator.load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_fr");
-//    a.installTranslator(&translator);
-
-
     connexion c;
-    bool test=c.createConnexion();
-    MainWindow w;
+    bool test=c.createconnect();
+     MainWindow w;
+    if(test)
+    {w.show();
+        QMessageBox::critical(nullptr, QObject::tr("testbd is open"),
+                    QObject::tr("connexion successful.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
 
-    if (test)
-        qDebug() << "connexion successful";
+}
     else
-        qDebug() << "connexion failed";
-    w.show();
+        QMessageBox::critical(nullptr, QObject::tr("testbd is not open"),
+                    QObject::tr("connexion failed.\n"
+                                "Click Cancel to exit."), QMessageBox::Cancel);
+
+
 
     return a.exec();
 }
