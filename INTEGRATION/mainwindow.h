@@ -25,6 +25,8 @@
 #include "table.h"
 #include "client.h"
 #include "reservation.h"
+#include "personnel.h"
+#include "departement.h"
 #include "login.h"
 
 #include "arduino.h"
@@ -155,15 +157,41 @@ private slots:
 
     void on_tabWidget_tabBarClicked(int index);
 
-    void on_signup_button_clicked();
+    void on_ajouter_departement_clicked();
+
+    void on_reset_departement_clicked();
+
+    void on_modifier_departement_clicked();
+
+    void on_sypprimer_departement_clicked();
+
+    void on_ajouter_personnel_clicked();
+
+    void on_reset_personnel_clicked();
+
+    void on_modifier_personnel_clicked();
+
+    void on_supprimer_personnel_clicked();
+
+    void on_pdf_personnel_clicked();
+
+    void on_lineEdit_recherchepersonnel_textChanged(const QString &arg1);
+
+    void on_stat_personnel_clicked();
+
+    void on_tri_cin_personnel_clicked();
+
+    void on_tri_salaire_personnel_clicked();
+
+    void on_tri_nom_personnel_clicked();
 
     void on_configuration_clicked();
 
-    void on_confirmer_langue_clicked();
+    void on_confirmer_chan_mdp_clicked();
 
     void on_pushButton_4_clicked();
 
-    void on_confirmer_chan_mdp_clicked();
+    void on_confirmer_langue_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -172,6 +200,8 @@ private:
     table tmptable;
     client tempclient;
     reservation tempreservation;
+    personnel tmppersonnel;
+    departement tmpdepartement;
     //Regex
     QRegExp mail_regex;
     QRegExp cin_regex;
@@ -192,8 +222,8 @@ private:
 
     int num_entree=0;
 
-    QTranslator *translator=new QTranslator;
+     QTranslator *translator=new QTranslator;
 
-    login *log=new login;
+    login *log;
 };
 #endif // MAINWINDOW_H
