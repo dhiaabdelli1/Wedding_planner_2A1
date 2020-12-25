@@ -15,11 +15,14 @@ SOURCES += \
     connexion.cpp \
     departement.cpp \
     dialog.cpp \
+    excel.cpp \
+    fournisseurs.cpp \
     invite.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
     personnel.cpp \
+    produits.cpp \
     reservation.cpp \
     smtp.cpp \
     stat.cpp \
@@ -32,10 +35,13 @@ HEADERS += \
     connexion.h \
     departement.h \
     dialog.h \
+    excel.h \
+    fournisseurs.h \
     invite.h \
     login.h \
     mainwindow.h \
     personnel.h \
+    produits.h \
     reservation.h \
     smtp.h \
     stat.h \

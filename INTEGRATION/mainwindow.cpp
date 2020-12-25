@@ -44,6 +44,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->nombrePlacesLineEdit_table->setPlaceholderText("Nombre places ...");
     ui->nomServeurLineEdit_table->setPlaceholderText("Nom serveur");
 
+    ui->lineEdit_Ref_p->setPlaceholderText("Reference ...");
+    ui->lineEdit_quantite_p->setPlaceholderText("Quantite ...");
+    ui->lineEdit_Prix_p->setPlaceholderText("Prix ...");
+    ui->lineEdit_CIN_f->setPlaceholderText("CIN...");
+    ui->lineEdit_RIB_f->setPlaceholderText("RIB");
+    ui->lineEdit_tel_f->setPlaceholderText("Numero de telephone");
+
+
     //Affichage des tableaux au lancement
     ui->tableView_invite->setModel(tmpinvite.afficher());
     ui->tableView_table->setModel(tmptable.afficher());
@@ -52,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
     ui->tableView_departement->setModel(tmpdepartement.afficher());
     ui->tableView_personnel->setModel(tmppersonnel.afficher());
+    ui->tableView_Produits->setModel(tmpprod.afficher_p());
+    ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
 
 
     //Selection tableView_invite
@@ -69,7 +79,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_personnel->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_departement->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_departement->setSelectionMode(QAbstractItemView::SingleSelection);
-
+    ui->tableView_Produits->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_Produits->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableView_Fournisseurs->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_Fournisseurs->setSelectionMode(QAbstractItemView::SingleSelection);
 
     //Animations
     contract_animation = new QPropertyAnimation(ui->groupBox_ajouter_invites,"maximumWidth");
@@ -1606,6 +1619,251 @@ void MainWindow::on_tri_nom_personnel_clicked()
     }
 }
 
+void MainWindow::on_pushButton_val_p_clicked()
+{
+            int reference_p = ui->lineEdit_Ref_p->text().toInt();
+            int quantite_p = ui->lineEdit_quantite_p->text().toInt();
+            QString type_p= ui->comboBox_Type_p->currentText();
+            qreal prix_p= ui->lineEdit_Prix_p->text().toFloat();
+            QDate date_p = ui->dateEdit_p->date();
+            produits p (reference_p,quantite_p,type_p,prix_p,date_p);
+            bool test=p.ajouter_p();
+
+            if (test)
+            {
+                ui->tableView_Produits->setModel(tmpprod.afficher_p());
+                ui->lineEdit_Ref_p->setText("");
+                ui->lineEdit_quantite_p->setText("");
+                ui->lineEdit_Prix_p->setText("");
+                QMessageBox::information(nullptr,QObject::tr("OK"),
+                                      QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
+            }
+            else
+{QMessageBox::critical(nullptr,QObject::tr("Not OK"),
+                       QObject::tr("Ajout non effectué .\n"),QMessageBox::Cancel);}
+}
+void MainWindow::on_pushButton_Supp_p_clicked()
+{
+    QItemSelectionModel *select = ui->tableView_Produits->selectionModel();
+
+    int reference_p =select->selectedRows(0).value(0).data().toInt();
+
+    if(tmpprod.supprimer_p(reference_p))
+    {
+        ui->tableView_Produits->setModel(tmpprod.afficher_p());
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                              QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
+     }
+
+}
+void MainWindow::on_pushButton_Modifier_p_clicked()
+{
+    if (ui->pushButton_Modifier_p->isChecked())
+    {
+        //ui->pushButton_Modifier->setDisabled(true);
+        ui->pushButton_Modifier_p->setText("Modifier...");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("produits");
+        tableModel->select();
+        ui->tableView_Produits->setModel(tableModel);
+    }
+    else
+    {
+        ui->pushButton_Modifier_p->setText("Modifier");
+        ui->tableView_Produits->setModel(tmpprod.afficher_p());
+
+    }
+}
+void MainWindow::on_pushButton_Recherche_p_clicked()
+{
+    if (ui->comboBox_p->currentIndex()==0)
+    {
+        int reference_p=ui->lineEdit_Recherche_p->text().toInt();
+        QSqlQueryModel *verif_reference=tmpprod.rechercher_reference_p(reference_p);
+        if (verif_reference!=nullptr)
+        {
+            ui->tableView_Produits->setModel(verif_reference);
+
+        }
+    }
+    else if (ui->comboBox_p->currentIndex()==1)
+    {
+        QString type_p;
+        if (ui->radioButton_perissables->isChecked())
+        type_p=ui->radioButton_perissables->text();
+        else if (ui->radioButton_durables->isChecked())
+        type_p=ui->radioButton_durables->text();
+
+        QSqlQueryModel *verif_type=tmpprod.rechercher_type_p(type_p);
+        if (verif_type!=nullptr)
+        {
+            ui->tableView_Produits->setModel(verif_type);
+        }
+    }
+
+    else if (ui->comboBox_p->currentIndex()==2)
+    {
+        QDate date_p=ui->dateEdit_recherche_p->date();
+        QSqlQueryModel *verif_datee=tmpprod.rechercher_date_p(date_p);
+        if (verif_datee!=nullptr)
+        {
+            ui->tableView_Produits->setModel(verif_datee);
+        }
+
+    }
+    else if (ui->comboBox_p->currentIndex()==3)
+    {
+        int quantite_p=ui->lineEdit_Recherche_p->text().toInt();
+        QSqlQueryModel *verif_reference=tmpprod.rechercher_quantite_p(quantite_p);
+        QDate date_p=ui->dateEdit_recherche_p->date();
+        QString type_p;
+        if (verif_reference!=nullptr)
+        {
+            if (ui->radioButton_perissables->isChecked())
+               type_p=ui->radioButton_perissables->text();
+            else if (ui->radioButton_durables->isChecked())
+                type_p=ui->radioButton_durables->text();
+            QSqlQueryModel *verif_critere=tmpprod.rechercher_critere_p(quantite_p,type_p,date_p);
+            if (verif_critere!=nullptr)
+            {
+                ui->tableView_Produits->setModel(verif_critere);
+            }
+        }
+        else
+            QMessageBox::warning(this,"Erreur","réessayer");
+
+    }
+
+}
+void MainWindow::on_pushButton_afficher_p_clicked()
+{
+    ui->tableView_Produits->setModel(tmpprod.afficher_p());
+}
+
+void MainWindow::on_pushButton_val_f_clicked()
+{
+            int CIN_f = ui->lineEdit_CIN_f->text().toInt();
+            int telephone_f = ui->lineEdit_tel_f->text().toInt();
+            QString type_f = ui->comboBox_type_f->currentText();
+            int RIB_f = ui->lineEdit_RIB_f->text().toInt();
+
+            fournisseurs f (CIN_f,telephone_f,type_f,RIB_f);
+            bool test=f.ajouter_f();
+
+            if (test)
+            {
+                ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+                ui->lineEdit_CIN_f->setText("");
+                ui->lineEdit_tel_f->setText("");
+                ui->lineEdit_RIB_f->setText("");
+                QMessageBox::information(nullptr,QObject::tr("OK"),
+                                      QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
+            }
+            else
+{       QMessageBox::critical(nullptr,QObject::tr("Not OK"),
+                       QObject::tr("Ajout non effectué .\n"),QMessageBox::Cancel);}
+}
+void MainWindow::on_pushButton_supp_f_clicked()
+{
+    QItemSelectionModel *select = ui->tableView_Fournisseurs->selectionModel();
+
+    int CIN_f =select->selectedRows(0).value(0).data().toInt();
+
+    if(tmpf.supprimer_f(CIN_f))
+    {
+        ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                              QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
+     }
+}
+
+
+void MainWindow::on_pushButton_modifier_f_clicked()
+{
+
+    if (ui->pushButton_modifier_f->isChecked())
+               {
+                  // ui->pushButton_modifier->setDisabled(true);
+                   ui->pushButton_modifier_f->setText("Modifiable");
+                   QSqlTableModel *tableModel= new QSqlTableModel();
+                   tableModel->setTable("fournisseurs");
+                   tableModel->select();
+                   ui->tableView_Fournisseurs->setModel(tableModel);
+               }
+               else
+               {
+                   ui->pushButton_modifier_f->setText("Modifier");
+                   ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+
+               }
+}
+
+
+    void MainWindow::on_pushButton_afficher_f_clicked()
+    {
+        ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+    }
+
+void MainWindow::on_pushButton_rechercher_f_clicked()
+{
+    ui->tableView_Fournisseurs->setModel(tmpf.afficher_f(  ));
+     QString CIN_f= ui->lineEdit_rechercher_f->text();
+     ui->tableView_Fournisseurs->setModel(tmpf.rechercher_fournisseurs(CIN_f));
+}
+
+
+
+void MainWindow::on_pushButton_Exporter_p_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
+        if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_produits.pdf"); }
+
+        QPrinter printer(QPrinter::PrinterResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setPaperSize(QPrinter::A4);
+        printer.setOutputFileName(fileName);
+
+        QTextDocument doc;
+        QSqlQuery q;
+
+        q.prepare("SELECT * FROM produits ");
+        q.exec();
+        QString pdf="<br> <img src='C:/Users/lenovo/Documents/Gestion_stock/wedding bells.png' height='20' width='50'/> <h1  style='color:blue'>       LISTE DES PRODUITS  <br></h1>\n <br> <table>  <tr>  <th> REFERENCE </th>  <th> QUANTITE </th>  <th>TYPE </th>  <th> PRIX  " ;
+
+
+        while ( q.next()) {
+
+            pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"    </td>  <td>    " +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"</td>             </td>" ;
+
+        }
+        doc.setHtml(pdf);
+        doc.setPageSize(printer.pageRect().size());
+        doc.print(&printer);
+}
+
+void MainWindow::on_pushButton_exporter_f_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Excel file"), qApp->applicationDirPath (),
+                                                    tr("Excel Files (*.xls)"));
+    if (fileName.isEmpty())
+        return;
+
+    EXCEL obj(fileName, "mydata", ui->tableView_Fournisseurs);
+
+    //colums to export
+    obj.addField(0, "CIN", "char(20)");
+    obj.addField(1, "telephone", "char(20)");
+    obj.addField(2, "type", "char(20)");
+    obj.addField(3, "RIB", "char(20)");
+
+    int retVal = obj.export2Excel();
+    if( retVal > 0)
+    {
+        QMessageBox::information(this, tr("Done"),
+                                 QString(tr("%1 records exported!")).arg(retVal)
+                                 );
+    }
+}
 void MainWindow::on_configuration_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(5);

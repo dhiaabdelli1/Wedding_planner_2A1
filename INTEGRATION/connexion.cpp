@@ -26,7 +26,7 @@ bool connexion::createConnexion()
     QSqlDatabase db=QSqlDatabase::addDatabase("QODBC");
     db.setDatabaseName("gestion_invites");
     db.setUserName("dhia");
-    db.setPassword("dhia");
+    db.setPassword("sdhia");
 
     if (db.open())
         test=true;

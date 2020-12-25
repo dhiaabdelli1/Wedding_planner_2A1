@@ -28,6 +28,9 @@
 #include "personnel.h"
 #include "departement.h"
 #include "login.h"
+#include "produits.h"
+#include"fournisseurs.h"
+#include"excel.h"
 
 #include "arduino.h"
 #include "dialog.h"
@@ -193,6 +196,30 @@ private slots:
 
     void on_confirmer_langue_clicked();
 
+    void on_pushButton_val_p_clicked();
+
+    void on_pushButton_Supp_p_clicked();
+
+    void on_pushButton_Modifier_p_clicked();
+
+    void on_pushButton_Recherche_p_clicked();
+
+    void on_pushButton_afficher_p_clicked();
+
+    void on_pushButton_val_f_clicked();
+
+    void on_pushButton_supp_f_clicked();
+
+    void on_pushButton_modifier_f_clicked();
+
+    void on_pushButton_afficher_f_clicked();
+
+    void on_pushButton_rechercher_f_clicked();
+
+    void on_pushButton_Exporter_p_clicked();
+
+    void on_pushButton_exporter_f_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -202,6 +229,13 @@ private:
     reservation tempreservation;
     personnel tmppersonnel;
     departement tmpdepartement;
+    produits tmpprod;
+    fournisseurs tmpf;
+
+    enum column
+    {
+        REFERENCE,QUANTITE,TYPE,DATE
+    };
     //Regex
     QRegExp mail_regex;
     QRegExp cin_regex;
