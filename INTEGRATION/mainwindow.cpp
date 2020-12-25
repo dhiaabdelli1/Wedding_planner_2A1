@@ -1742,10 +1742,10 @@ void MainWindow::on_pushButton_afficher_p_clicked()
 
 void MainWindow::on_pushButton_val_f_clicked()
 {
-            int CIN_f = ui->lineEdit_CIN_f->text().toInt();
-            int telephone_f = ui->lineEdit_tel_f->text().toInt();
+            QString CIN_f = ui->lineEdit_CIN_f->text();
+            QString telephone_f = ui->lineEdit_tel_f->text();
             QString type_f = ui->comboBox_type_f->currentText();
-            int RIB_f = ui->lineEdit_RIB_f->text().toInt();
+            QString RIB_f = ui->lineEdit_RIB_f->text();
 
             fournisseurs f (CIN_f,telephone_f,type_f,RIB_f);
             bool test=f.ajouter_f();

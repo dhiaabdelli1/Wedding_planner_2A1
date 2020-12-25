@@ -2,12 +2,12 @@
 
 fournisseurs::fournisseurs()
 {
-    this->CIN_f=0;
-    this->telephone_f=0;
-    this->type_f="";
-    this->RIB_f=0;
+//    this->CIN_f=0;
+//    this->telephone_f=0;
+//    this->type_f="";
+//    this->RIB_f=0;
 }
-fournisseurs::fournisseurs(int CIN_f,int telephone_f,QString type_f,int RIB_f)
+fournisseurs::fournisseurs(QString CIN_f,QString telephone_f,QString type_f,QString RIB_f)
 {
     this->CIN_f=CIN_f;
     this->telephone_f=telephone_f;
@@ -19,10 +19,10 @@ fournisseurs::fournisseurs(int CIN_f,int telephone_f,QString type_f,int RIB_f)
 
 bool fournisseurs::ajouter_f()
 {
-    QString res= QString::number(CIN_f);
+    //QString res= QString::number(CIN_f);
     QSqlQuery query;
-    query.prepare("insert into fournisseurs (CIN,telephone,type,RIB)"
-                  "values (:CIN,:telephone,:type,:RIB)");
+    query.prepare("insert into fournisseurs (CIN,type,telephone,RIB)"
+                  "values (:CIN,:type,:telephone,:RIB)");
     query.bindValue(":CIN",CIN_f);
     query.bindValue(":telephone",telephone_f);
     query.bindValue(":type",type_f);
