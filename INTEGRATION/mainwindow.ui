@@ -187,7 +187,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>4</number>
+               <number>3</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -809,7 +809,775 @@
                </layout>
               </widget>
               <widget class="QWidget" name="page_4">
-               <layout class="QHBoxLayout" name="horizontalLayout_11"/>
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <item>
+                 <widget class="QTabWidget" name="tabWidget_CS">
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <widget class="QWidget" name="tab_C">
+                   <attribute name="title">
+                    <string>Collaborateur</string>
+                   </attribute>
+                   <layout class="QHBoxLayout" name="horizontalLayout_137">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_136">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_28">
+                        <property name="title">
+                         <string>Ajouter</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_56">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_55">
+                           <item>
+                            <spacer name="horizontalSpacer_9">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <layout class="QFormLayout" name="formLayout_17">
+                             <item row="0" column="0">
+                              <widget class="QLabel" name="label_38">
+                               <property name="text">
+                                <string>Service</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QComboBox" name="comboBox_C_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(170, 170, 127);</string>
+                               </property>
+                               <item>
+                                <property name="text">
+                                 <string>Photographie</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>Patisserie</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>Cuisine</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>Decor</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>AgenceVoyage</string>
+                                </property>
+                               </item>
+                               <item>
+                                <property name="text">
+                                 <string>DJ &amp; sono</string>
+                                </property>
+                               </item>
+                              </widget>
+                             </item>
+                             <item row="1" column="0">
+                              <widget class="QLabel" name="label_39">
+                               <property name="text">
+                                <string>Nom</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="1">
+                              <widget class="QLineEdit" name="lineEdit_NomC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="0">
+                              <widget class="QLabel" name="label_40">
+                               <property name="text">
+                                <string>Téléphone</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="1">
+                              <widget class="QLineEdit" name="lineEdit_TelephoneC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="3" column="0">
+                              <widget class="QLabel" name="label_41">
+                               <property name="text">
+                                <string>E-mail</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="3" column="1">
+                              <widget class="QLineEdit" name="lineEdit_EmailC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="4" column="0">
+                              <widget class="QLabel" name="label_42">
+                               <property name="text">
+                                <string>RIB</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="4" column="1">
+                              <widget class="QLineEdit" name="lineEdit_RibC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="5" column="0">
+                              <widget class="QLabel" name="label_43">
+                               <property name="text">
+                                <string>Référence</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="5" column="1">
+                              <widget class="QLineEdit" name="lineEdit_ReferenceC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(255, 131, 93);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <spacer name="horizontalSpacer_14">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <spacer name="verticalSpacer_18">
+                             <property name="orientation">
+                              <enum>Qt::Vertical</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>20</width>
+                               <height>40</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <spacer name="horizontalSpacer_7">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_138">
+                             <item>
+                              <spacer name="horizontalSpacer_10">
+                               <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>40</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="ajouterC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);
+</string>
+                               </property>
+                               <property name="text">
+                                <string>Ajouter</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="modifierC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Modifier</string>
+                               </property>
+                               <property name="checkable">
+                                <bool>true</bool>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="supprimerC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Supprimer</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="resetC_2">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Reset</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_29">
+                        <property name="title">
+                         <string>Afficher</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_60">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_58">
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_139">
+                             <item>
+                              <layout class="QFormLayout" name="formLayout_18">
+                               <item row="0" column="0">
+                                <widget class="QLabel" name="label_44">
+                                 <property name="text">
+                                  <string/>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="1" column="0">
+                                <widget class="QLabel" name="label_45">
+                                 <property name="text">
+                                  <string>Service :</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="1" column="1">
+                                <widget class="QComboBox" name="rech_service">
+                                 <property name="styleSheet">
+                                  <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                 </property>
+                                 <item>
+                                  <property name="text">
+                                   <string>Photographie</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>Patisserie</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>Cuisine</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>Decor</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>AgenceVoyage</string>
+                                  </property>
+                                 </item>
+                                 <item>
+                                  <property name="text">
+                                   <string>DJ &amp; sono</string>
+                                  </property>
+                                 </item>
+                                </widget>
+                               </item>
+                               <item row="2" column="0">
+                                <widget class="QLabel" name="label_46">
+                                 <property name="text">
+                                  <string>Référence</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="2" column="1">
+                                <widget class="QLineEdit" name="rech_ref">
+                                 <property name="styleSheet">
+                                  <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="3" column="0">
+                                <widget class="QLabel" name="label_47">
+                                 <property name="text">
+                                  <string>RIB :</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="3" column="1">
+                                <widget class="QLineEdit" name="rech_rib">
+                                 <property name="styleSheet">
+                                  <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item row="0" column="1">
+                                <layout class="QHBoxLayout" name="horizontalLayout_140">
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_service">
+                                   <property name="text">
+                                    <string>Service</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_ref">
+                                   <property name="text">
+                                    <string>Référence</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                 <item>
+                                  <widget class="QCheckBox" name="checkBox_rib">
+                                   <property name="text">
+                                    <string>RIB</string>
+                                   </property>
+                                  </widget>
+                                 </item>
+                                </layout>
+                               </item>
+                              </layout>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="rechercher_colab">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Rechercher</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="reafficher_colab">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Réafficher</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <layout class="QVBoxLayout" name="verticalLayout_59"/>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_141">
+                             <item>
+                              <widget class="QTableView" name="tableView_colab">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <spacer name="horizontalSpacer_11">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_142">
+                             <item>
+                              <spacer name="horizontalSpacer_12">
+                               <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>40</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="exporterC">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Expoter PDF</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="envoyerC">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Envoyer mail</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="tab_S">
+                   <attribute name="title">
+                    <string>Service</string>
+                   </attribute>
+                   <layout class="QHBoxLayout" name="horizontalLayout_144">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_143">
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_31">
+                        <property name="title">
+                         <string>Ajouter</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_61">
+                         <item>
+                          <layout class="QVBoxLayout" name="verticalLayout_57">
+                           <item>
+                            <layout class="QFormLayout" name="formLayout_19">
+                             <item row="1" column="0">
+                              <widget class="QLabel" name="label_48">
+                               <property name="text">
+                                <string>Type</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="1">
+                              <widget class="QLineEdit" name="lineEdit_type">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="0">
+                              <widget class="QLabel" name="label_49">
+                               <property name="text">
+                                <string>Date d'ajout</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="2" column="1">
+                              <widget class="QDateEdit" name="dateEdit">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="3" column="0">
+                              <widget class="QLabel" name="label_50">
+                               <property name="text">
+                                <string>Prix</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="3" column="1">
+                              <widget class="QLineEdit" name="lineEdit_prix">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="4" column="0">
+                              <widget class="QLabel" name="label_51">
+                               <property name="text">
+                                <string>Propriétaire :</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="4" column="1">
+                              <layout class="QHBoxLayout" name="horizontalLayout_145">
+                               <item>
+                                <spacer name="horizontalSpacer_15">
+                                 <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                                 </property>
+                                 <property name="sizeHint" stdset="0">
+                                  <size>
+                                   <width>40</width>
+                                   <height>20</height>
+                                  </size>
+                                 </property>
+                                </spacer>
+                               </item>
+                               <item>
+                                <widget class="QRadioButton" name="radioButton_e">
+                                 <property name="text">
+                                  <string>Entreprise</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <spacer name="horizontalSpacer_16">
+                                 <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                                 </property>
+                                 <property name="sizeHint" stdset="0">
+                                  <size>
+                                   <width>40</width>
+                                   <height>20</height>
+                                  </size>
+                                 </property>
+                                </spacer>
+                               </item>
+                               <item>
+                                <widget class="QRadioButton" name="radioButton_f">
+                                 <property name="text">
+                                  <string>free-lance</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <spacer name="horizontalSpacer_17">
+                                 <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                                 </property>
+                                 <property name="sizeHint" stdset="0">
+                                  <size>
+                                   <width>40</width>
+                                   <height>20</height>
+                                  </size>
+                                 </property>
+                                </spacer>
+                               </item>
+                              </layout>
+                             </item>
+                             <item row="0" column="1">
+                              <spacer name="verticalSpacer_19">
+                               <property name="orientation">
+                                <enum>Qt::Vertical</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>20</width>
+                                 <height>40</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
+                            </layout>
+                           </item>
+                           <item>
+                            <spacer name="horizontalSpacer_18">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <spacer name="horizontalSpacer_19">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>40</width>
+                               <height>20</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <spacer name="verticalSpacer_20">
+                             <property name="orientation">
+                              <enum>Qt::Vertical</enum>
+                             </property>
+                             <property name="sizeHint" stdset="0">
+                              <size>
+                               <width>20</width>
+                               <height>40</height>
+                              </size>
+                             </property>
+                            </spacer>
+                           </item>
+                           <item>
+                            <layout class="QHBoxLayout" name="horizontalLayout_146">
+                             <item>
+                              <widget class="QPushButton" name="pushButton_ajouterS">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Ajouter</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="pushButton_modifierS">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Modifier</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="pushButton_supprimerS">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Supprimer</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="resetS">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                               </property>
+                               <property name="text">
+                                <string>Reset</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QGroupBox" name="groupBox_30">
+                        <property name="title">
+                         <string>Afficher</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_65">
+                         <item>
+                          <layout class="QGridLayout" name="gridLayout_2">
+                           <item row="1" column="0">
+                            <layout class="QHBoxLayout" name="horizontalLayout_147">
+                             <item>
+                              <widget class="QTableView" name="tableView_service">
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                           <item row="0" column="0">
+                            <layout class="QVBoxLayout" name="verticalLayout_62">
+                             <item>
+                              <widget class="QGroupBox" name="groupBox_32">
+                               <property name="title">
+                                <string>Trier service</string>
+                               </property>
+                               <layout class="QVBoxLayout" name="verticalLayout_63">
+                                <item>
+                                 <layout class="QVBoxLayout" name="verticalLayout_64">
+                                  <item>
+                                   <layout class="QHBoxLayout" name="horizontalLayout_148">
+                                    <item>
+                                     <widget class="QRadioButton" name="radioButton_triPrix">
+                                      <property name="text">
+                                       <string>Prix</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QRadioButton" name="radioButton_triDate">
+                                      <property name="text">
+                                       <string>Date</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                    <item>
+                                     <widget class="QRadioButton" name="radioButton_triType">
+                                      <property name="text">
+                                       <string>Type</string>
+                                      </property>
+                                     </widget>
+                                    </item>
+                                   </layout>
+                                  </item>
+                                 </layout>
+                                </item>
+                               </layout>
+                              </widget>
+                             </item>
+                            </layout>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
               </widget>
               <widget class="QWidget" name="page_5">
                <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -1330,7 +2098,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget_3">
                     <property name="currentIndex">
-                     <number>0</number>
+                     <number>2</number>
                     </property>
                     <widget class="QWidget" name="tab_6">
                      <attribute name="title">
@@ -1885,6 +2653,26 @@
                      <attribute name="title">
                       <string>notification</string>
                      </attribute>
+                     <widget class="QLCDNumber" name="lcdNumber">
+                      <property name="geometry">
+                       <rect>
+                        <x>170</x>
+                        <y>80</y>
+                        <width>64</width>
+                        <height>23</height>
+                       </rect>
+                      </property>
+                     </widget>
+                     <widget class="QLineEdit" name="lineEdit_tmp">
+                      <property name="geometry">
+                       <rect>
+                        <x>160</x>
+                        <y>190</y>
+                        <width>113</width>
+                        <height>20</height>
+                       </rect>
+                      </property>
+                     </widget>
                     </widget>
                    </widget>
                   </item>
@@ -3847,7 +4635,7 @@
      <x>0</x>
      <y>0</y>
      <width>1184</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
