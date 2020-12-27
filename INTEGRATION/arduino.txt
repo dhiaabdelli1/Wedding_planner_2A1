@@ -25,7 +25,7 @@ char hexaKeys[ROWS][COLS] = {
 
 
 byte rowPins[COLS] = {A5, A4, A3, A2};
-byte colPins[ROWS] = {  A1, A0, 7, 8};
+byte colPins[ROWS] = {  A1, 10, 7, 8};
 
 String cin = "";
 
@@ -41,12 +41,25 @@ void setup() {
   digitalWrite(9, HIGH);
 
   Serial.begin(9600) ;
+  analogReference(INTERNAL);
 
 }
 
 void loop() {
   char customKey = customKeypad.getKey();
+  // Mesure la tension sur la broche A0
+  int valeur_brute = analogRead(A0);
 
+  // Transforme la mesure (nombre entier) en température via un produit en croix
+  float temperature_celcius = valeur_brute * (1.1 / 1023.0 * 100.0);
+  int tmp = trunc(temperature_celcius);
+
+  // Envoi la mesure au PC pour affichage et attends 250ms
+  /*Serial.println(tmp);
+    lcd.setCursor(12, 0);
+    lcd.print(tmp);
+    Serial.write(tmp);*/
+  //delay(250);
 
   if (customKey) {
     Serial.write(customKey);
@@ -65,18 +78,27 @@ void loop() {
       lcd.print("Bienvenue!");
       lcd.setCursor(0, 1);
       lcd.print("CIN:");
-      cin="";
-      
+      cin = "";
+
     }
     else
     {
       lcd.setCursor(6, 1);
       cin += customKey;
       lcd.print(cin);
+
+
     }
 
 
   }
+  Serial.println(tmp);
+  lcd.setCursor(12, 0);
+  lcd.print(tmp);
+  Serial.write(tmp/10);
+  delay(300);
+  Serial.write(tmp%10);
+  delay(300);
 
   lcd.setCursor(0, 0);
 

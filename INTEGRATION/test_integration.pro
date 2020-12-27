@@ -12,6 +12,7 @@ CONFIG += c++11
 SOURCES += \
     arduino.cpp \
     client.cpp \
+    collaborateur.cpp \
     connexion.cpp \
     departement.cpp \
     dialog.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     personnel.cpp \
     produits.cpp \
     reservation.cpp \
+    service.cpp \
     smtp.cpp \
     stat.cpp \
     stats.cpp \
@@ -32,6 +34,7 @@ SOURCES += \
 HEADERS += \
     arduino.h \
     client.h \
+    collaborateur.h \
     connexion.h \
     departement.h \
     dialog.h \
@@ -43,6 +46,7 @@ HEADERS += \
     personnel.h \
     produits.h \
     reservation.h \
+    service.h \
     smtp.h \
     stat.h \
     stats.h \

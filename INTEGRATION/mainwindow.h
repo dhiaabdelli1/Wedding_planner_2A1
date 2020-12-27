@@ -29,8 +29,10 @@
 #include "departement.h"
 #include "login.h"
 #include "produits.h"
-#include"fournisseurs.h"
 #include"excel.h"
+#include "collaborateur.h"
+#include "service.h"
+#include "fournisseurs.h"
 
 #include "arduino.h"
 #include "dialog.h"
@@ -220,6 +222,46 @@ private slots:
 
     void on_pushButton_exporter_f_clicked();
 
+    void on_ajouterC_2_clicked();
+
+    void on_supprimerC_2_clicked();
+
+    void on_pushButton_ajouterS_clicked();
+
+    void on_pushButton_supprimerS_clicked();
+
+    void on_modifierC_2_clicked();
+
+    void on_pushButton_modifierS_clicked();
+
+
+    void on_resetC_2_clicked();
+
+    void on_resetS_clicked();
+
+
+
+
+    void on_rechercher_colab_clicked();
+
+    void on_reafficher_colab_clicked();
+
+
+
+
+
+    void on_exporterC_clicked();
+
+    void on_envoyerC_clicked();
+
+
+
+    void on_radioButton_triType_clicked();
+
+    void on_radioButton_triPrix_clicked();
+
+    void on_radioButton_triDate_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -231,6 +273,9 @@ private:
     departement tmpdepartement;
     produits tmpprod;
     fournisseurs tmpf;
+    collaborateur tmpCollaborateur;
+    collaborateur tmpr;
+    service tmpservice;
 
     enum column
     {
@@ -242,6 +287,10 @@ private:
     QRegExp chaine_regex;
     QRegExp telephone_regex;
     QRegExp nom_regex,prenom_regex,tel_regex,budget_regex; //IHEB
+    QRegExp M;
+    QRegExp R;
+    QRegExp T;
+    QRegExp C;
     //Animation
     QPropertyAnimation *contract_animation;
     QPropertyAnimation *expand_animation;
@@ -253,6 +302,8 @@ private:
     Arduino A; //Tmp
 
     QString cin_recu="";
+    QString tmp_recue="";
+    bool tmp_verif=false;
 
     int num_entree=0;
 
