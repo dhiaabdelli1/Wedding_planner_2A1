@@ -187,7 +187,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>3</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -196,7 +196,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget">
                     <property name="currentIndex">
-                     <number>0</number>
+                     <number>2</number>
                     </property>
                     <widget class="QWidget" name="tab">
                      <attribute name="title">
@@ -857,36 +857,6 @@
                                <property name="styleSheet">
                                 <string notr="true">background-color: rgb(170, 170, 127);</string>
                                </property>
-                               <item>
-                                <property name="text">
-                                 <string>Photographie</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>Patisserie</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>Cuisine</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>Decor</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>AgenceVoyage</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>DJ &amp; sono</string>
-                                </property>
-                               </item>
                               </widget>
                              </item>
                              <item row="1" column="0">
@@ -1097,47 +1067,17 @@
                                  <property name="styleSheet">
                                   <string notr="true">background-color: rgb(251, 255, 176);</string>
                                  </property>
-                                 <item>
-                                  <property name="text">
-                                   <string>Photographie</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>Patisserie</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>Cuisine</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>Decor</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>AgenceVoyage</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>DJ &amp; sono</string>
-                                  </property>
-                                 </item>
                                 </widget>
                                </item>
                                <item row="2" column="0">
                                 <widget class="QLabel" name="label_46">
                                  <property name="text">
-                                  <string>Référence</string>
+                                  <string>Nom</string>
                                  </property>
                                 </widget>
                                </item>
                                <item row="2" column="1">
-                                <widget class="QLineEdit" name="rech_ref">
+                                <widget class="QLineEdit" name="rech_nom">
                                  <property name="styleSheet">
                                   <string notr="true">background-color: rgb(251, 255, 176);</string>
                                  </property>
@@ -1167,9 +1107,9 @@
                                   </widget>
                                  </item>
                                  <item>
-                                  <widget class="QCheckBox" name="checkBox_ref">
+                                  <widget class="QCheckBox" name="checkBox_nom">
                                    <property name="text">
-                                    <string>Référence</string>
+                                    <string>Nom</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -1177,6 +1117,9 @@
                                   <widget class="QCheckBox" name="checkBox_rib">
                                    <property name="text">
                                     <string>RIB</string>
+                                   </property>
+                                   <property name="checked">
+                                    <bool>false</bool>
                                    </property>
                                   </widget>
                                  </item>
@@ -1475,6 +1418,9 @@
                                </property>
                                <property name="text">
                                 <string>Modifier</string>
+                               </property>
+                               <property name="checkable">
+                                <bool>true</bool>
                                </property>
                               </widget>
                              </item>

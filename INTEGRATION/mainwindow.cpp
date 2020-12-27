@@ -166,6 +166,14 @@ MainWindow::MainWindow(QWidget *parent)
         ui->comboBox_C_2->addItem(type_service);
     }
 
+    int nbi=ui->tableView_service->model()->rowCount();
+    ui->rech_service->clear();
+
+    for (int k=0;k<nbi;k++)
+    {
+        QString type_service = ui->tableView_service->model()->index(k, 0).data().toString();
+        ui->rech_service->addItem(type_service);
+    }
     QSqlQueryModel *model2=new QSqlQueryModel();
         QString id;
         model2->setQuery("select * from CLIENT");
@@ -1963,7 +1971,7 @@ void MainWindow::on_ajouterC_2_clicked()
     QString reference= ui->lineEdit_ReferenceC_2->text();
     QString service=ui->comboBox_C_2->currentText();
 
-    collaborateur e(nom,telephone,email,rib,reference,service);
+    collaborateur e(reference,nom,email,telephone,service,rib);
 
     bool verifier_mail = M.exactMatch(ui->lineEdit_EmailC_2->text());
     bool verifier_nom = C.exactMatch(ui->lineEdit_NomC_2->text());
@@ -2007,7 +2015,7 @@ void MainWindow::on_ajouterC_2_clicked()
     QString reference= ui->lineEdit_ReferenceC_2->text();
     QString service=ui->comboBox_C_2->currentText();
 
-    collaborateur e(nom,telephone,email,rib,reference,service);
+    collaborateur e(reference,nom,email,telephone,service,rib);
 
             bool test=e.ajouter();
             if(test)
@@ -2046,17 +2054,25 @@ void MainWindow::on_ajouterC_2_clicked()
 
 void MainWindow::on_supprimerC_2_clicked()
 {
-    /*QItemSelectionModel *select = ui->tableView_colab->selectionModel();
+    QItemSelectionModel *select = ui->tableView_colab->selectionModel();
 
-      int rib=select->selectedRows(0).value(0).data().toInt();
+      QString reference=select->selectedRows(0).value(0).data().toString();
 
-       if(tmpCollaborateur.supprimer(rib))
+       if(tmpCollaborateur.supprimer(reference))
        {
            ui->tableView_colab->setModel(tmpCollaborateur.afficher());
-           ui->statusbar->showMessage("Collaborateur supprimé");
-        }*/
+           ui->tableView_colab->setModel(tmpCollaborateur.afficher());
+           QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
+                       QObject::tr("Collaborateur supprimé.\n"
+                                   "Click Cancel to exit."), QMessageBox::Cancel);
+        } else
+       {
+           QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
+                       QObject::tr("Suppression echoué.\n"
+                                   "Click Cancel to exit."), QMessageBox::Cancel);
+       }
 
-    QString reference= ui->lineEdit_ReferenceC_2->text();
+   /* QString reference= ui->lineEdit_ReferenceC_2->text();
     bool test=tmpCollaborateur.supprimer(reference);
     if(test)
     {
@@ -2070,7 +2086,7 @@ void MainWindow::on_supprimerC_2_clicked()
         QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
                     QObject::tr("Suppression echoué.\n"
                                 "Click Cancel to exit."), QMessageBox::Cancel);
-    }
+    }*/
 
 }
 
@@ -2110,10 +2126,19 @@ void MainWindow::on_pushButton_ajouterS_clicked()
                     QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
                     ui->comboBox_C_2->addItem(type_service);
                 }
+
+                int nbi=ui->tableView_service->model()->rowCount();
+                ui->rech_service->clear();
+
+                for (int k=0;k<nbi;k++)
+                {
+                    QString type_service = ui->tableView_service->model()->index(k, 0).data().toString();
+                    ui->rech_service->addItem(type_service);
+                }
             }
             else
             {
-                QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
+                QMessageBox::warning(nullptr, QObject::tr("Ajouter service"),
                             QObject::tr("Ajout echoué.\n"
                                         "Click Cancel to exit."), QMessageBox::Cancel);
             }
@@ -2128,7 +2153,9 @@ void MainWindow::on_pushButton_supprimerS_clicked()
        if(tmpservice.supprimer_service(type))
        {
            ui->tableView_service->setModel(tmpservice.afficher_service());
-           ui->statusbar->showMessage("service supprimé");
+           QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
+                            QObject::tr("service supprimé.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
            int n=ui->tableView_service->model()->rowCount();
            ui->comboBox_C_2->clear();
 
@@ -2137,6 +2164,20 @@ void MainWindow::on_pushButton_supprimerS_clicked()
                QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
                ui->comboBox_C_2->addItem(type_service);
            }
+
+           int nbi=ui->tableView_service->model()->rowCount();
+           ui->rech_service->clear();
+
+           for (int k=0;k<nbi;k++)
+           {
+               QString type_service = ui->tableView_service->model()->index(k, 0).data().toString();
+               ui->rech_service->addItem(type_service);
+           }
+       } else
+       {
+           QMessageBox::warning(nullptr, QObject::tr("Supprimer service"),
+                            QObject::tr("supression echouée.\n"
+                                          "Click Cancel to exit."), QMessageBox::Cancel);
        }
 
 //   QString type= ui->lineEdit_type->text();
@@ -2174,12 +2215,15 @@ void MainWindow::on_modifierC_2_clicked()
         tableModel->setTable("COLLABORATEUR");
         tableModel->select();
         ui->tableView_colab->setModel(tableModel);
+
     }
     else
     {
         ui->modifierC_2->setText("Modifier");
         ui->tableView_colab->setModel(tmpCollaborateur.afficher());
-
+        QMessageBox::information(nullptr, QObject::tr("Modification collaborateur"),
+                         QObject::tr("Collaborateur modifié.\n"
+                                       "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
 
@@ -2188,8 +2232,26 @@ void MainWindow::on_modifierC_2_clicked()
 
 void MainWindow::on_pushButton_modifierS_clicked()
 {
+     if (ui->pushButton_modifierS->isChecked())
+    {
 
-    QString type= ui->lineEdit_type->text();
+        ui->pushButton_modifierS->setText("Modifiable");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("SERVICE");
+        tableModel->select();
+        ui->tableView_service->setModel(tableModel);
+
+    }
+    else
+    {
+        ui->pushButton_modifierS->setText("Modifier");
+        ui->tableView_service->setModel(tmpservice.afficher_service());
+        QMessageBox::information(nullptr, QObject::tr("Modification service"),
+                         QObject::tr("Service modifié.\n"
+                                       "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+
+  /*  QString type= ui->lineEdit_type->text();
 
     QDate date_service=ui->dateEdit->date();
     int prix= ui->lineEdit_prix->text().toInt();
@@ -2214,7 +2276,7 @@ void MainWindow::on_pushButton_modifierS_clicked()
           QMessageBox::information(nullptr, QObject::tr("Modifier service"),
                       QObject::tr("Modification echoué.\n"
                                   "Click Cancel to exit."), QMessageBox::Cancel);
-      }
+      }*/
 
 }
 
@@ -2238,7 +2300,7 @@ void MainWindow::on_resetS_clicked()
 void MainWindow::on_rechercher_colab_clicked()
 {
    if (ui->checkBox_rib->isChecked())
-   { int rib=ui->rech_rib->text().toInt();
+   { QString rib=ui->rech_rib->text();
        QSqlQueryModel *verif=tmpCollaborateur.rechercher_rib(rib);
        if (verif!=nullptr)
        {
@@ -2247,9 +2309,9 @@ void MainWindow::on_rechercher_colab_clicked()
        }
     }
 
-   else if (ui->checkBox_ref->isChecked())
-   { QString reference=ui->rech_ref->text();
-       QSqlQueryModel *verif=tmpCollaborateur.rechercher_ref(reference);
+   else if (ui->checkBox_nom->isChecked())
+   { QString nom=ui->rech_nom->text();
+       QSqlQueryModel *verif=tmpCollaborateur.rechercher_nom(nom);
        if (verif!=nullptr)
        {
 
@@ -2267,32 +2329,32 @@ void MainWindow::on_rechercher_colab_clicked()
 
        }
     }
-   else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_ref->isChecked()))
+   else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_nom->isChecked()))
    {
-       int rib=ui->rech_rib->text().toInt();
-       QString reference=ui->rech_ref->text();
+       QString rib=ui->rech_rib->text();
+       QString nom=ui->rech_nom->text();
 
-                   if (rib!=0)
+                   if (rib!="")
                      {
-                       if (reference!="")
+                       if (nom!="")
                           {
-                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibRef(rib,reference);
+                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibNom(rib,nom);
                    if (verif!=nullptr)
                    {
                        ui->tableView_colab->setModel(verif);
 
                    }
                        } else
-                           QMessageBox::warning(this,"erreur","Champ reference est vide");
+                           QMessageBox::warning(this,"erreur","Champ nom est vide");
                    } else
                        QMessageBox::warning(this,"erreur","Champ rib est vide");
    }
    else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked()))
    {
-       int rib=ui->rech_rib->text().toInt();
+       QString rib=ui->rech_rib->text();
       QString service=ui->rech_service->currentText();
 
-                   if (rib!=0)
+                   if (rib!="")
                      {
                    QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibSer(rib,service);
                    if (verif!=nullptr)
@@ -2304,14 +2366,14 @@ void MainWindow::on_rechercher_colab_clicked()
                    } else
                        QMessageBox::warning(this,"erreur","Champ rib est vide");
    }
-   else if ((ui->checkBox_ref->isChecked())&&(ui->checkBox_service->isChecked()))
+   else if ((ui->checkBox_nom->isChecked())&&(ui->checkBox_service->isChecked()))
    {
-      QString reference=ui->rech_ref->text();
+      QString nom=ui->rech_nom->text();
       QString service=ui->rech_service->currentText();
 
-                   if (reference!="")
+                   if (nom!="")
                      {
-                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_RefSer(reference,service);
+                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_NomSer(nom,service);
                    if (verif!=nullptr)
                    {
                        ui->tableView_colab->setModel(verif);
@@ -2319,22 +2381,22 @@ void MainWindow::on_rechercher_colab_clicked()
                    }
 
                    } else
-                       QMessageBox::warning(this,"erreur","Champ Référence est vide");
+                       QMessageBox::warning(this,"erreur","Champ Nom est vide");
    }
 
 
-else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(ui->checkBox_ref->isChecked()))
+else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(ui->checkBox_nom->isChecked()))
 {
 
     QString service=ui->rech_service->currentText();
-    int rib=ui->rech_rib->text().toInt();
-    QString reference=ui->rech_ref->text();
+    QString rib=ui->rech_rib->text();
+    QString nom=ui->rech_nom->text();
 
-                if (rib!=0)
+                if (rib!="")
                   {
-                    if (reference!="")
+                    if (nom!="")
                        {
-                QSqlQueryModel *verif=tmpCollaborateur.rechercher_tous(rib,reference,service);
+                QSqlQueryModel *verif=tmpCollaborateur.rechercher_tous(rib,nom,service);
                 if (verif!=nullptr)
                 {
 
@@ -2342,7 +2404,7 @@ else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(
 
                 }
                     } else
-                        QMessageBox::warning(this,"erreur","Champ reference est vide");
+                        QMessageBox::warning(this,"erreur","Champ nom est vide");
                 } else
                     QMessageBox::warning(this,"erreur","Champ rib est vide");
 
@@ -2354,7 +2416,7 @@ else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(
 void MainWindow::on_reafficher_colab_clicked()
 {
     ui->rech_rib->setText("");
-    ui->rech_ref->setText("");
+    ui->rech_nom->setText("");
   ui->tableView_colab->setModel(tmpCollaborateur.afficher());
 }
 

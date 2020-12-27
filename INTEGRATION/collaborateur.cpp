@@ -10,7 +10,7 @@ collaborateur::collaborateur()
     this->rib="";
     this->service="";
 }
-collaborateur::collaborateur (QString nom,QString telephone,QString email,QString rib,QString reference,QString service)
+collaborateur::collaborateur (QString reference,QString nom,QString email,QString telephone,QString service ,QString rib)
 {
 this->nom=nom;
 this->telephone=telephone;
@@ -25,8 +25,8 @@ bool collaborateur::ajouter()
 {
     QSqlQuery query ;
 
-    query.prepare("INSERT INTO collaborateur (nom,telephone,email,rib,reference,service)"
-                  "Values(:nom,:telephone,:email,:rib,:reference,:service)");
+    query.prepare("INSERT INTO collaborateur (reference,nom,email,telephone,service,rib)"
+                  "Values(:reference,:nom,:email,:telephone,:service,:rib)");
 
     query.bindValue(":nom",nom);
     query.bindValue(":telephone",telephone);
@@ -42,12 +42,12 @@ QSqlQueryModel * collaborateur::afficher()
 {
    QSqlQueryModel * model = new QSqlQueryModel();
    model->setQuery("select * from collaborateur");
-   model->setHeaderData(0,Qt::Horizontal,QObject::tr("Nom"));
-   model->setHeaderData(1,Qt::Horizontal,QObject::tr("Telephone"));
-   model->setHeaderData(2,Qt::Horizontal,QObject::tr("Email"));
-   model->setHeaderData(3,Qt::Horizontal,QObject::tr("RIB"));
-   model->setHeaderData(4,Qt::Horizontal,QObject::tr("Reference"));
-   model->setHeaderData(5,Qt::Horizontal,QObject::tr("Service"));
+   model->setHeaderData(0,Qt::Horizontal,QObject::tr("reference"));
+   model->setHeaderData(1,Qt::Horizontal,QObject::tr("nom"));
+   model->setHeaderData(2,Qt::Horizontal,QObject::tr("email"));
+   model->setHeaderData(3,Qt::Horizontal,QObject::tr("telephone"));
+   model->setHeaderData(4,Qt::Horizontal,QObject::tr("service"));
+   model->setHeaderData(5,Qt::Horizontal,QObject::tr("rib"));
 
 
    return model;
@@ -63,10 +63,10 @@ QSqlQueryModel * collaborateur::afficher()
 
         return qry.exec();
 }
- bool collaborateur::modifier(QString nom,int telephone,QString email,int rib,QString reference,QString service)
+ bool collaborateur::modifier(QString reference,QString nom,QString email,QString telephone,QString service ,QString rib)
 {
     QSqlQuery query;
-    query.prepare("UPDATE collaborateur SET nom= :nom,telephone= :telephone,email=:email,rib= :rib,reference=:reference,service=:service WHERE reference = :reference");
+    query.prepare("UPDATE collaborateur SET reference=:reference,nom=:nom,email=:email,telephone=:telephone,service=:service,rib=:rib WHERE reference = :reference");
     query.bindValue(":nom", nom);
     query.bindValue(":telephone",telephone );
     query.bindValue(":email", email);
@@ -75,7 +75,7 @@ QSqlQueryModel * collaborateur::afficher()
     query.bindValue(":service", service);
     return    query.exec();
 }
- QSqlQueryModel * collaborateur::rechercher_rib(int rib)
+ QSqlQueryModel * collaborateur::rechercher_rib(QString rib)
  {
      QSqlQuery qry;
      qry.prepare("select * from collaborateur where rib=:rib");
@@ -90,11 +90,11 @@ QSqlQueryModel * collaborateur::afficher()
 
 
  }
- QSqlQueryModel * collaborateur::rechercher_ref(QString reference)
+ QSqlQueryModel * collaborateur::rechercher_nom(QString nom)
  {
      QSqlQuery qry;
-     qry.prepare("select * from collaborateur where reference=:reference");
-     qry.bindValue(":reference",reference);
+     qry.prepare("select * from collaborateur where nom=:nom");
+     qry.bindValue(":nom",nom);
      qry.exec();
 
      QSqlQueryModel *model= new QSqlQueryModel;
@@ -120,12 +120,12 @@ QSqlQueryModel * collaborateur::afficher()
 
 
  }
- QSqlQueryModel * collaborateur::rechercher_RibRef(int rib, QString reference)
+ QSqlQueryModel * collaborateur::rechercher_RibNom(QString rib, QString nom)
  {
      QSqlQuery *qry= new QSqlQuery();
-     qry->prepare("select * from collaborateur where rib=:rib and reference=:reference");
+     qry->prepare("select * from collaborateur where rib=:rib and nom=:nom");
      qry->bindValue(":rib",rib);
-     qry->bindValue(":reference",reference);
+     qry->bindValue(":nom",nom);
      qry->exec();
 
 
@@ -135,7 +135,7 @@ QSqlQueryModel * collaborateur::afficher()
 
 
  }
- QSqlQueryModel * collaborateur::rechercher_RibSer(int rib, QString service)
+ QSqlQueryModel * collaborateur::rechercher_RibSer(QString rib, QString service)
  {
      QSqlQuery *qry= new QSqlQuery();
      qry->prepare("select * from collaborateur where rib=:rib and service=:service");
@@ -149,11 +149,11 @@ QSqlQueryModel * collaborateur::afficher()
 
 
  }
- QSqlQueryModel * collaborateur::rechercher_RefSer(QString reference, QString service)
+ QSqlQueryModel * collaborateur::rechercher_NomSer(QString nom, QString service)
  {
      QSqlQuery *qry= new QSqlQuery();
-     qry->prepare("select * from collaborateur where reference=:reference and service=:service");
-     qry->bindValue(":reference",reference);
+     qry->prepare("select * from collaborateur where nom=:nom and service=:service");
+     qry->bindValue(":nom",nom);
      qry->bindValue(":service",service);
      qry->exec();
 
@@ -166,12 +166,12 @@ QSqlQueryModel * collaborateur::afficher()
 
 
 
-QSqlQueryModel * collaborateur::rechercher_tous(int rib,QString reference,QString service)
+QSqlQueryModel * collaborateur::rechercher_tous(QString rib,QString nom,QString service)
 {
     QSqlQuery *qry= new QSqlQuery();
-    qry->prepare("select * from collaborateur where rib=:rib and reference=:reference and service=:service");
+    qry->prepare("select * from collaborateur where rib=:rib and nom=:nom and service=:service");
     qry->bindValue(":rib",rib);
-    qry->bindValue(":reference",reference);
+    qry->bindValue(":nom",nom);
     qry->bindValue(":service",service);
     qry->exec();
 

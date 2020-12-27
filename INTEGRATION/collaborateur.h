@@ -29,14 +29,14 @@ public:
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(QString);
-    bool modifier(QString,int,QString,int,QString,QString);
-     QSqlQueryModel * rechercher_rib(int);
-     QSqlQueryModel * rechercher_ref(QString);
+    bool modifier(QString,QString,QString,QString,QString,QString);
+     QSqlQueryModel * rechercher_rib(QString);
+     QSqlQueryModel * rechercher_nom(QString);
      QSqlQueryModel * rechercher_service(QString);
-     QSqlQueryModel * rechercher_RibRef(int,QString);
-     QSqlQueryModel * rechercher_RibSer(int,QString);
-     QSqlQueryModel * rechercher_RefSer(QString,QString);
-     QSqlQueryModel * rechercher_tous(int,QString,QString);
+     QSqlQueryModel * rechercher_RibNom(QString,QString);
+     QSqlQueryModel * rechercher_RibSer(QString,QString);
+     QSqlQueryModel * rechercher_NomSer(QString,QString);
+     QSqlQueryModel * rechercher_tous(QString,QString,QString);
      void exporter(QTableView *table);
 
 
