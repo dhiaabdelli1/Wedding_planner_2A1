@@ -11,6 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     arduino.cpp \
+    chat.cpp \
     client.cpp \
     collaborateur.cpp \
     connexion.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     arduino.h \
+    chat.h \
     client.h \
     collaborateur.h \
     connexion.h \
@@ -53,6 +55,7 @@ HEADERS += \
     table.h
 
 FORMS += \
+    chat.ui \
     dialog.ui \
     mainwindow.ui \
     stat.ui \

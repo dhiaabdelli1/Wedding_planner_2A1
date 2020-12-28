@@ -38,6 +38,7 @@
 #include "dialog.h"
 #include "smtp.h"
 #include "stats.h"
+#include "chat.h"
 //#include "stats.h"
 //#include "arduino.h"
 
@@ -261,6 +262,8 @@ private slots:
     void on_radioButton_triPrix_clicked();
 
     void on_radioButton_triDate_clicked();
+
+    void on_chat_clicked();
 
 private:
     Ui::MainWindow *ui;

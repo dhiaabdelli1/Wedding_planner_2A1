@@ -2482,3 +2482,14 @@ void MainWindow::on_radioButton_triDate_clicked()
 
     }
 }
+
+void MainWindow::on_chat_clicked()
+{
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    chat chat_window(this);
+    chat_window.setModal(true);
+    chat_window.show();
+    chat_window.exec();
+}
+
+
