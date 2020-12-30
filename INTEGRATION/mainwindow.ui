@@ -187,7 +187,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>3</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -304,6 +304,20 @@
                                 <widget class="QPushButton" name="contract_invite">
                                  <property name="text">
                                   <string>Contract</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="show">
+                                 <property name="text">
+                                  <string>Show</string>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="image">
+                                 <property name="text">
+                                  <string>Image</string>
                                  </property>
                                 </widget>
                                </item>
@@ -756,7 +770,7 @@
                       </item>
                      </layout>
                     </widget>
-                    <widget class="QWidget" name="tab_5">
+                    <widget class="QWidget" name="tab_notifications_invites">
                      <attribute name="title">
                       <string>Notifications</string>
                      </attribute>

@@ -9,7 +9,7 @@ personnel::personnel()
 
 }
 
-personnel::personnel(int cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire,QString ref_dep)
+personnel::personnel(QString cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire,QString ref_dep)
 {
 
         this->cin=cin;
@@ -71,11 +71,11 @@ model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
     return model;
 }
 
-bool personnel::supprimer(int cin)
+bool personnel::supprimer(QString cin)
 {
 
     QSqlQuery qry;
-        QString mat = QString::number(cin);
+        //QString mat = QString::number(cin);
         qry.prepare("Delete from personnel where cin = :cin");
         qry.bindValue(":cin",cin);
         return qry.exec();
@@ -84,7 +84,7 @@ bool personnel::supprimer(int cin)
 
 
 
-bool personnel::update(int cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire,QString ref_dep)
+bool personnel::update(QString cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire,QString ref_dep)
 {
     QSqlQuery query;
     query.prepare("UPDATE personnel SET cin= :cin , nom= :nom , prenom= :prenom , departement= :departement , mobile= :mobile , date_naissance = :date_naissance , salaire= :salaire ,ref_dep= :ref_dep WHERE cin = :cin");
@@ -149,4 +149,25 @@ QSqlQueryModel * personnel::chercher(QString r)
 
 
         return model;
+}
+
+
+bool personnel::ajouter_image(QString cin)
+{
+    QByteArray byte;
+    QString filename=QFileDialog::getOpenFileName(0,"open image","D:\\","image files (*.png");
+    QFile file(filename);
+
+    if (file.open(QIODevice::ReadOnly))
+    {
+        byte=file.readAll();
+        file.close();
+    }
+
+    QSqlQuery qry;
+    qry.prepare("UPDATE personnel SET photo= :photo where cin=:cin");
+    qry.bindValue(":photo",byte,QSql::In | QSql::Binary);
+    qry.bindValue(":cin",cin);
+
+    return qry.exec();
 }

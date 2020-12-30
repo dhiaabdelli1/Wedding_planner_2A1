@@ -45,6 +45,8 @@ QSqlQueryModel * invite::afficher()
     model->setHeaderData(7, Qt::Horizontal, QObject::tr("Numéro table"));
     model->setHeaderData(8, Qt::Horizontal, QObject::tr("Permission"));
 
+    model->setHeaderData(10, Qt::Horizontal, "Photo", Qt::DecorationRole);
+
     return model;
 }
 
@@ -335,3 +337,50 @@ bool invite::update_num_entree(QString cin,int i)
 
     return query.exec();
 }
+
+bool invite::ajouter_image(QString cin)
+{
+    QByteArray byte;
+    QString filename=QFileDialog::getOpenFileName(0,"open image","D:\\",0);
+    QFile file(filename);
+
+    if (file.open(QIODevice::ReadOnly))
+    {
+        byte=file.readAll();
+        file.close();
+    }
+
+    QSqlQuery qry;
+    qry.prepare("UPDATE invites SET photo=:photo where cin=:cin");
+    qry.bindValue(":photo",byte,QSql::In | QSql::Binary);
+    qry.bindValue(":cin",cin);
+
+    return qry.exec();
+}
+
+
+QVariant invite::show_image(const QModelIndex &idx, int role) const
+{
+    if ( idx.column() == 10 )
+    {
+        QString imgFile = QSqlTableModel::data( idx, Qt::DisplayRole );
+        if ( Qt::DisplayRole == role )
+        {
+            return QString();
+        }
+        if ( !QFile::exists( imgFile )
+        {
+             imgFile = ":/centinela/images/picture_unavailable.jpg";
+    }
+             QPixmap pixmap( imgFile );
+             if ( role == Qt::DecorationRole )
+        {
+             return pixmap;
+    }
+             if(role == Qt::SizeHintRole)
+        {
+             return pixmap.size();
+    }
+    }
+             return QSqlTableModel::data( idx, role );
+    }

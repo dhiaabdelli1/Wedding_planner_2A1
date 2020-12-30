@@ -17,6 +17,7 @@
 #include <QSqlTableModel>
 #include "table.h"
 #include <QMessageBox>
+#include <QLabel>
 
 class invite
 {
@@ -77,6 +78,9 @@ public:
 
     QSqlQueryModel *afficher_notifications();
     bool update_num_entree(QString,int);
+    bool ajouter_image(QString);
+    QVariant show_image(const QModelIndex &idx, int role) const;
+    QVariant data(const QModelIndex &item, int role) const;
 
 };
 

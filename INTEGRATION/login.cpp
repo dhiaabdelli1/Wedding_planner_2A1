@@ -12,7 +12,7 @@ bool login::sign_in(QString uname,QString pwd)
     qry.bindValue(":username",uname);
     qry.bindValue(":password",this->hash(pwd));
 
-    this->current_user=uname;
+    //current_user=uname;
 
     return qry.exec() && qry.next();
 

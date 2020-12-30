@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    current_user="";
+
     //Regex (pour contrôle de saisie)
     mail_regex=QRegExp("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$");
     cin_regex=QRegExp("[0-9]{8}$");
@@ -80,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //Selection tableView_invite
+
     ui->tableView_invite->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView_invite->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView_table->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -208,10 +211,10 @@ void MainWindow::on_login_button_clicked()
 
     if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
     {
+        current_user=ui->usernameLineEdit_login->text();
         ui->stackedWidget->setCurrentIndex(1);
         ui->usernameLineEdit_login->clear();
         ui->passwordLineEdit_login->clear();
-
     }
     else
         QMessageBox::warning(this,"Login","Erreur de login");
@@ -221,21 +224,23 @@ void MainWindow::on_sign_up_button_clicked()
 {
 
     if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+    {
         ui->stackedWidget->setCurrentIndex(1);
+        current_user=ui->usernameLineEdit_signup->text();
+    }
+
     else
         QMessageBox::warning(this,"Sign-up","Erreur d'insciption");
 }
 
 void MainWindow::on_confirmer_chan_mdp_clicked()
 {
-    qDebug() << log->get_current_user();
 
     if (ui->confirmerNouveauMotDePasseLineEdit->text()==ui->nouveauMotDePasseLineEdit->text())
     {
         if (ui->ancienMotDePasseLineEdit->text()!="" && ui->confirmerNouveauMotDePasseLineEdit->text()!="")
         {
-            qDebug() << log->get_current_user();
-            bool test=log->modifier_mdp(log->get_current_user(),ui->ancienMotDePasseLineEdit->text(),ui->nouveauMotDePasseLineEdit->text());
+            bool test=log->modifier_mdp(current_user,ui->ancienMotDePasseLineEdit->text(),ui->nouveauMotDePasseLineEdit->text());
 
             if (!test)
                 QMessageBox::warning(this,"Changement du MDP","Erreur lors du changement du MDP");
@@ -316,27 +321,22 @@ void MainWindow::on_ajouter_invite_clicked()
 
             if (!mail_verif)
             {
-                //QMessageBox::warning(this,"Erreur lors de l'ajout","E-mail invalid");
                 ui->eMailLineEdit_invite->setStyleSheet("color: red");
             }
             if (!cin_verif)
             {
-                //QMessageBox::warning(this,"Erreur lors de l'ajout","CIN invalid");
                 ui->cINLineEdit_invite->setStyleSheet("color: red");
             }
             if (!telephone_verif || !telephone_verif_2)
             {
-                //QMessageBox::warning(this,"Erreur lors de l'ajout","Téléphone invalid");
                 ui->tLPhoneLineEdit_invite->setStyleSheet("color: red");
             }
             if (!nom_verif)
             {
-                //QMessageBox::warning(this,"Erreur lors de l'ajout","Nom invalid");
                 ui->nomLineEdit_invite->setStyleSheet("color: red");
             }
             if (!prenom_verif)
             {
-                //QMessageBox::warning(this,"Erreur lors de l'ajout","Prénom invalid");
                 ui->prNomLineEdit_invite->setStyleSheet("color: red");
             }
 
@@ -1279,6 +1279,8 @@ void MainWindow::update_label()
         QMessageBox::information(nullptr, QObject::tr("Notification"),
                                  QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
 
+        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+
         tmpinvite.update(cin_recu,"permission","pending");
 
          ui->tableView_invite->setModel(tmpinvite.afficher());
@@ -1396,6 +1398,8 @@ void MainWindow::on_entrer_clicked()
 void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+    // ui->tabWidget->setTabText(1,"Notifcations");
+    qDebug()<< ui->tabWidget->currentIndex();
 }
 
 void MainWindow::on_ajouter_departement_clicked()
@@ -1498,7 +1502,7 @@ void MainWindow::on_sypprimer_departement_clicked()
 void MainWindow::on_ajouter_personnel_clicked()
 
 {
-          int cin= ui->lineEdit_cinpersonnel->text().toInt();
+          QString cin= ui->lineEdit_cinpersonnel->text();
           QString nom= ui->lineEdit_nompersonnel->text();
           QString prenom= ui->lineEdit_prenompersonnel->text();
           QString departement=ui->comboBox_persodep->currentText();
@@ -1538,7 +1542,7 @@ void MainWindow::on_reset_personnel_clicked()
 
 void MainWindow::on_modifier_personnel_clicked()
 {
-          int cin= ui->lineEdit_cinpersonnel->text().toInt();
+          QString cin= ui->lineEdit_cinpersonnel->text();
           QString nom= ui->lineEdit_nompersonnel->text();
           QString prenom= ui->lineEdit_prenompersonnel->text();
           QString departement=ui->comboBox_persodep->currentText();
@@ -1568,7 +1572,7 @@ void MainWindow::on_supprimer_personnel_clicked()
 {
     QItemSelectionModel *select = ui->tableView_personnel->selectionModel();
 
-    int cin =select->selectedRows(0).value(0).data().toInt();
+    QString cin =select->selectedRows(0).value(0).data().toString();
 
     if(tmppersonnel.supprimer(cin))
     {
@@ -1932,14 +1936,19 @@ void MainWindow::on_confirmer_langue_clicked()
 {
     if (ui->comboBox_langue->currentText()=="Français")
     {
-        translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_fr");
+        //translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_fr");
+        qDebug() << QDir::currentPath();
+        translator->load(QDir::currentPath().append("/wedding_planner_fr"));
         qApp->installTranslator(translator);
         ui->retranslateUi(this);
         ui->comboBox_langue->setCurrentText("Français");
     }
     else if (ui->comboBox_langue->currentText()=="English")
     {
-        translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_en");
+        //translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_en");
+        translator->load("D:\\Users\\dhiaa\\Desktop\\Wedding_planner_2A1\\INTEGRATION\\wedding_planner_en");
+//        qDebug() << QDir::currentPath().append("/wedding_planner_en");
+//        translator->load(QDir::currentPath().append("/wedding_planner_en"));
         qApp->installTranslator(translator);
         ui->retranslateUi(this);
         ui->comboBox_langue->setCurrentText("English");
@@ -2493,3 +2502,28 @@ void MainWindow::on_chat_clicked()
 }
 
 
+
+void MainWindow::on_signup_button_clicked()
+{
+    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+        ui->stackedWidget->setCurrentIndex(1);
+    else
+        QMessageBox::warning(this,"Sign-up","Erreur d'insciption");
+}
+
+void MainWindow::on_image_clicked()
+{
+    QItemSelectionModel *select = ui->tableView_invite->selectionModel();
+
+    QString cin =select->selectedRows(0).value(0).data().toString();
+
+    if (!tmpinvite.ajouter_image(cin))
+    {
+        QMessageBox::warning(this,"Ajout image","Erreur");
+    }
+}
+
+void MainWindow::on_show_clicked()
+{
+    //tmpinvite.show_image("lol");
+}

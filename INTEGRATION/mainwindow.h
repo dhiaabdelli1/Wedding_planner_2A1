@@ -265,6 +265,12 @@ private slots:
 
     void on_chat_clicked();
 
+    void on_signup_button_clicked();
+
+    void on_image_clicked();
+
+    void on_show_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -313,5 +319,7 @@ private:
      QTranslator *translator=new QTranslator;
 
     login *log;
+
+    QString current_user;
 };
 #endif // MAINWINDOW_H

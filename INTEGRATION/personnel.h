@@ -8,7 +8,7 @@
 
 class personnel
 {
-    int cin,c;
+    QString cin,c;
     QString nom;
     QString prenom;
     QString mobile;
@@ -19,8 +19,8 @@ class personnel
 public:
     personnel();
 
-    personnel(int,QString,QString,QString,QString,QDate,QString,QString);
-    int getCin(){return cin;}
+    personnel(QString,QString,QString,QString,QString,QDate,QString,QString);
+    //int getCin(){return cin;}
     QString getNom(){return nom;}
     QString getPrenom(){return prenom;}
     QString getMobile(){return mobile;}
@@ -32,9 +32,10 @@ public:
 
     bool ajouter();
     QSqlQueryModel * afficher();
-    bool supprimer(int);
-    bool update(int,QString,QString,QString,QString,QDate,QString,QString);
+    bool supprimer(QString);
+    bool update(QString,QString,QString,QString,QString,QDate,QString,QString);
     void creerpdf();
+    bool ajouter_image(QString);
 
 
 
