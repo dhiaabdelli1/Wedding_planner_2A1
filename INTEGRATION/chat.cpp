@@ -5,10 +5,12 @@ chat::chat(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::chat)
 {
+    QHostAddress me("192.168.34.246");
     ui->setupUi(this);
     socketServerc=new QUdpSocket(this);
     socketServer=new QUdpSocket(this);
-    socketServer->bind(QHostAddress::LocalHost, 8001);
+    socketServer->bind(me, 8001);
+
     connect(socketServer,SIGNAL(readyRead()),this,SLOT(readPendingDatagrams()));
 
 //    clientSocket=new QUdpSocket(this);
@@ -32,7 +34,8 @@ void chat::on_sendButton_clicked()
     buffer=word.toUtf8();
     QHostAddress sender;
     quint16 senderPort;
-    socketServerc->writeDatagram(buffer.data(), QHostAddress::LocalHost, 7000 );
+    //socketServerc->writeDatagram(buffer.data(), QHostAddress::LocalHost, 7000 );
+    socketServerc->writeDatagram(buffer.data(), QHostAddress::Broadcast, 7000 );
 
 }
 
@@ -45,6 +48,9 @@ void chat::readPendingDatagrams()
         quint16 senderPort;
         socketServer->readDatagram(buffer.data(), buffer.size(),&sender, &senderPort);
         ui->textBrowser->append(buffer.data());
+
+        qDebug() << sender;
+        qDebug() << senderPort;
 
     }
 
