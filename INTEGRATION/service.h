@@ -19,6 +19,7 @@ public:
     QSqlQueryModel * afficher_service();
     bool supprimer_service(QString);
     bool modifier_service(QString,QDate,int,QString);
+
 private:
     QString type;
     QDate date_service ;

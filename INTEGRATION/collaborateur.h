@@ -37,6 +37,7 @@ public:
      QSqlQueryModel * rechercher_RibSer(QString,QString);
      QSqlQueryModel * rechercher_NomSer(QString,QString);
      QSqlQueryModel * rechercher_tous(QString,QString,QString);
+
      void exporter(QTableView *table);
 
 

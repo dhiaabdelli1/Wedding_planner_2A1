@@ -6,7 +6,21 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
+    son=new QSound(":/son/ss.wav");
+    mSystemTrayIcon = new QSystemTrayIcon(this);
+     mSystemTrayIcon->setIcon(QIcon(":/myappico.png"));
+     mSystemTrayIcon->setVisible(true);
+
+     mMediaPlayer = new QMediaPlayer(this);
+     connect(mMediaPlayer , &QMediaPlayer::positionChanged, [&](qint64 pos){
+        ui->avancement_media->setValue(pos);
+     });
+     connect(mMediaPlayer , &QMediaPlayer::durationChanged, [&](qint64 dur){
+        ui->avancement_media->setMaximum(dur);
+     });
+
 
     //Regex (pour contrôle de saisie)
     mail_regex=QRegExp("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$");
@@ -187,31 +201,37 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Dhia_clicked()
 {
+    son->play();
     ui->stackedWidget_2->setCurrentIndex(0);
 }
 
 void MainWindow::on_Iheb_clicked()
 {
+    son->play();
     ui->stackedWidget_2->setCurrentIndex(1);
 }
 
 void MainWindow::on_Barkia_clicked()
 {
+    son->play();
     ui->stackedWidget_2->setCurrentIndex(2);
 }
 
 void MainWindow::on_Elaa_clicked()
 {
+    son->play();
     ui->stackedWidget_2->setCurrentIndex(3);
 }
 
 void MainWindow::on_Sara_clicked()
 {
+    son->play();
     ui->stackedWidget_2->setCurrentIndex(4);
 }
 
 void MainWindow::on_login_button_clicked()
 {
+    son->play();
 
 
     if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
@@ -227,7 +247,7 @@ void MainWindow::on_login_button_clicked()
 
 void MainWindow::on_sign_up_button_clicked()
 {
-
+son->play();
     if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
         ui->stackedWidget->setCurrentIndex(1);
     else
@@ -235,7 +255,7 @@ void MainWindow::on_sign_up_button_clicked()
 }
 
 void MainWindow::on_confirmer_chan_mdp_clicked()
-{
+{son->play();
     qDebug() << log->get_current_user();
 
     if (ui->confirmerNouveauMotDePasseLineEdit->text()==ui->nouveauMotDePasseLineEdit->text())
@@ -264,6 +284,7 @@ void MainWindow::on_confirmer_chan_mdp_clicked()
 
 void MainWindow::on_logout_button_clicked()
 {
+    son->play();
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -1933,6 +1954,7 @@ void MainWindow::on_pushButton_exporter_f_clicked()
 }
 void MainWindow::on_configuration_clicked()
 {
+    son->play();
     ui->stackedWidget_2->setCurrentIndex(5);
 }
 
@@ -1963,13 +1985,14 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_ajouterC_2_clicked()
 {
-
+son->play();
     QString nom= ui->lineEdit_NomC_2->text();
     QString telephone= ui->lineEdit_TelephoneC_2->text();
     QString email= ui->lineEdit_EmailC_2->text();
     QString rib= ui->lineEdit_RibC_2->text();
     QString reference= ui->lineEdit_ReferenceC_2->text();
     QString service=ui->comboBox_C_2->currentText();
+    histo.save("reference:"+ui->lineEdit_ReferenceC_2->text(),"nom :"+ui->lineEdit_NomC_2->text());
 
     collaborateur e(reference,nom,email,telephone,service,rib);
 
@@ -2028,15 +2051,19 @@ void MainWindow::on_ajouterC_2_clicked()
                 ui->lineEdit_EmailC_2->setText("");
                 ui->lineEdit_RibC_2->setText("");
                 ui->lineEdit_ReferenceC_2->setText("");
-
+                mSystemTrayIcon->showMessage(tr("Notification"),
+                        tr("Collaborateur ajouté"));
                 QMessageBox::information(nullptr, QObject::tr("Ajouter collaborateur"),
                             QObject::tr("Collaborateur ajouté.\n"
                                         "Click Cancel to exit."), QMessageBox::Cancel);
+
             }
             else
             {
+                mSystemTrayIcon->showMessage(tr("Notification"),
+                        tr("Ajout echoué"));
                 QMessageBox::information(nullptr, QObject::tr("Ajouter collaborateur"),
-                            QObject::tr("Ajout echoué.\n"
+                            QObject::tr("Ajout collaborateur echoué.\n"
                                         "Click Cancel to exit."), QMessageBox::Cancel);
             }
          }
@@ -2054,6 +2081,7 @@ void MainWindow::on_ajouterC_2_clicked()
 
 void MainWindow::on_supprimerC_2_clicked()
 {
+    son->play();
     QItemSelectionModel *select = ui->tableView_colab->selectionModel();
 
       QString reference=select->selectedRows(0).value(0).data().toString();
@@ -2062,31 +2090,19 @@ void MainWindow::on_supprimerC_2_clicked()
        {
            ui->tableView_colab->setModel(tmpCollaborateur.afficher());
            ui->tableView_colab->setModel(tmpCollaborateur.afficher());
+           mSystemTrayIcon->showMessage(tr("Notification"),
+                   tr("Collaborateur supprimé"));
            QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
                        QObject::tr("Collaborateur supprimé.\n"
                                    "Click Cancel to exit."), QMessageBox::Cancel);
         } else
        {
+           mSystemTrayIcon->showMessage(tr("Notification"),
+                   tr("suppression echouée"));
            QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
-                       QObject::tr("Suppression echoué.\n"
+                       QObject::tr("Suppression service echoué.\n"
                                    "Click Cancel to exit."), QMessageBox::Cancel);
        }
-
-   /* QString reference= ui->lineEdit_ReferenceC_2->text();
-    bool test=tmpCollaborateur.supprimer(reference);
-    if(test)
-    {
-        ui->tableView_colab->setModel(tmpCollaborateur.afficher());
-        QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
-                    QObject::tr("Collaborateur supprimé.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
-    }
-    else
-    {
-        QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
-                    QObject::tr("Suppression echoué.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
-    }*/
 
 }
 
@@ -2095,6 +2111,7 @@ void MainWindow::on_supprimerC_2_clicked()
 
 void MainWindow::on_pushButton_ajouterS_clicked()
 {
+    son->play();
     QString type= ui->lineEdit_type->text();
     QDate date_service= ui->dateEdit->date();
     int prix= ui->lineEdit_prix->text().toInt();
@@ -2114,6 +2131,8 @@ void MainWindow::on_pushButton_ajouterS_clicked()
                 ui->tableView_service->setModel(tmpservice.afficher_service());
                 ui->lineEdit_type->setText("");
                 ui->lineEdit_prix->setText("");
+                mSystemTrayIcon->showMessage(tr("Notification"),
+                        tr("Service ajouté"));
                 QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
                             QObject::tr("service ajouté.\n"
                                         "Click Cancel to exit."), QMessageBox::Cancel);
@@ -2138,6 +2157,8 @@ void MainWindow::on_pushButton_ajouterS_clicked()
             }
             else
             {
+                mSystemTrayIcon->showMessage(tr("Notification"),
+                        tr("Ajout service echoué"));
                 QMessageBox::warning(nullptr, QObject::tr("Ajouter service"),
                             QObject::tr("Ajout echoué.\n"
                                         "Click Cancel to exit."), QMessageBox::Cancel);
@@ -2146,6 +2167,7 @@ void MainWindow::on_pushButton_ajouterS_clicked()
 
 void MainWindow::on_pushButton_supprimerS_clicked()
 {
+    son->play();
     QItemSelectionModel *select = ui->tableView_service->selectionModel();
 
        QString type =select->selectedRows(0).value(0).data().toString();
@@ -2153,6 +2175,8 @@ void MainWindow::on_pushButton_supprimerS_clicked()
        if(tmpservice.supprimer_service(type))
        {
            ui->tableView_service->setModel(tmpservice.afficher_service());
+           mSystemTrayIcon->showMessage(tr("Notification"),
+                   tr("Service supprimé"));
            QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
                             QObject::tr("service supprimé.\n"
                                           "Click Cancel to exit."), QMessageBox::Cancel);
@@ -2175,38 +2199,19 @@ void MainWindow::on_pushButton_supprimerS_clicked()
            }
        } else
        {
+           mSystemTrayIcon->showMessage(tr("Notification"),
+                   tr("Suppression service echouée"));
            QMessageBox::warning(nullptr, QObject::tr("Supprimer service"),
                             QObject::tr("supression echouée.\n"
                                           "Click Cancel to exit."), QMessageBox::Cancel);
        }
 
-//   QString type= ui->lineEdit_type->text();
-//    bool test=tmpservice.supprimer_service(type);
-//    if(test)
-//    {
-//        ui->tableView_service->setModel(tmpservice.afficher_service());
-//        QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
-//                    QObject::tr("service supprimé.\n"
-//                                "Click Cancel to exit."), QMessageBox::Cancel);
-//        int n=ui->tableView_service->model()->rowCount();
-//        ui->comboBox_C_2->clear();
 
-//        for (int i=0;i<n;i++)
-//        {
-//            QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
-//            ui->comboBox_C_2->addItem(type_service);
-//        }
-//    }
-//    else
-//    {
-//        QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
-//                    QObject::tr("Suppression echoué.\n"
-//                                "Click Cancel to exit."), QMessageBox::Cancel);
-//    }
 }
 
 void MainWindow::on_modifierC_2_clicked()
 {
+    son->play();
     if (ui->modifierC_2->isChecked())
     {
 
@@ -2221,6 +2226,8 @@ void MainWindow::on_modifierC_2_clicked()
     {
         ui->modifierC_2->setText("Modifier");
         ui->tableView_colab->setModel(tmpCollaborateur.afficher());
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                tr("Collaborateur modifié"));
         QMessageBox::information(nullptr, QObject::tr("Modification collaborateur"),
                          QObject::tr("Collaborateur modifié.\n"
                                        "Click Cancel to exit."), QMessageBox::Cancel);
@@ -2232,6 +2239,7 @@ void MainWindow::on_modifierC_2_clicked()
 
 void MainWindow::on_pushButton_modifierS_clicked()
 {
+    son->play();
      if (ui->pushButton_modifierS->isChecked())
     {
 
@@ -2246,42 +2254,19 @@ void MainWindow::on_pushButton_modifierS_clicked()
     {
         ui->pushButton_modifierS->setText("Modifier");
         ui->tableView_service->setModel(tmpservice.afficher_service());
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                tr("Service modifié"));
         QMessageBox::information(nullptr, QObject::tr("Modification service"),
                          QObject::tr("Service modifié.\n"
                                        "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
-  /*  QString type= ui->lineEdit_type->text();
-
-    QDate date_service=ui->dateEdit->date();
-    int prix= ui->lineEdit_prix->text().toInt();
-    QString proprietaire;
-    bool b=ui->radioButton_e->isChecked();
-   if (b)
-   { proprietaire="Entreprise";}
-   else
-     { proprietaire="Free-lance"; }
-
-
-      bool test = tmpservice.modifier_service(type,date_service,prix,proprietaire);
-      if(test)
-
-      {
-           ui->tableView_service->setModel(tmpservice.afficher_service());
-          QMessageBox::information(nullptr, QObject::tr("Modifier service"),
-                      QObject::tr("Service modifié\n"
-      "Click Cancel to exit."), QMessageBox::Cancel);}
-      else
-      {
-          QMessageBox::information(nullptr, QObject::tr("Modifier service"),
-                      QObject::tr("Modification echoué.\n"
-                                  "Click Cancel to exit."), QMessageBox::Cancel);
-      }*/
 
 }
 
 void MainWindow::on_resetC_2_clicked()
 {
+    son->play();
      ui->lineEdit_NomC_2->setText("");
      ui->lineEdit_TelephoneC_2->setText("");
      ui->lineEdit_EmailC_2->setText("");
@@ -2291,6 +2276,7 @@ void MainWindow::on_resetC_2_clicked()
 
 void MainWindow::on_resetS_clicked()
 {
+    son->play();
     ui->lineEdit_type->setText("");
     ui->lineEdit_prix->setText("");
 
@@ -2299,6 +2285,7 @@ void MainWindow::on_resetS_clicked()
 
 void MainWindow::on_rechercher_colab_clicked()
 {
+    son->play();
    if (ui->checkBox_rib->isChecked())
    { QString rib=ui->rech_rib->text();
        QSqlQueryModel *verif=tmpCollaborateur.rechercher_rib(rib);
@@ -2415,6 +2402,7 @@ else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(
 
 void MainWindow::on_reafficher_colab_clicked()
 {
+    son->play();
     ui->rech_rib->setText("");
     ui->rech_nom->setText("");
   ui->tableView_colab->setModel(tmpCollaborateur.afficher());
@@ -2438,6 +2426,7 @@ void MainWindow::on_reafficher_colab_clicked()
 
 void MainWindow::on_exporterC_clicked()
 {
+    son->play();
     QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
        if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_collaborateurs.pdf"); }
 
@@ -2466,7 +2455,7 @@ void MainWindow::on_exporterC_clicked()
 
 void MainWindow::on_envoyerC_clicked()
 {
-
+    son->play();
     QItemSelectionModel *select = ui->tableView_colab->selectionModel();
 
     QString email =select->selectedRows(3).value(0).data().toString();
@@ -2482,7 +2471,7 @@ void MainWindow::on_envoyerC_clicked()
 
 
 void MainWindow::on_radioButton_triType_clicked()
-{
+{   son->play();
     {QMessageBox msgBox ;
         QSqlQueryModel * model= new QSqlQueryModel();
 
@@ -2504,7 +2493,7 @@ void MainWindow::on_radioButton_triType_clicked()
 
 void MainWindow::on_radioButton_triPrix_clicked()
 {
-
+    son->play();
     {QMessageBox msgBox ;
         QSqlQueryModel * model= new QSqlQueryModel();
 
@@ -2525,7 +2514,7 @@ void MainWindow::on_radioButton_triPrix_clicked()
 }
 
 void MainWindow::on_radioButton_triDate_clicked()
-{
+{  son->play();
     {QMessageBox msgBox ;
         QSqlQueryModel * model= new QSqlQueryModel();
 
@@ -2544,3 +2533,55 @@ void MainWindow::on_radioButton_triDate_clicked()
 
     }
 }
+
+void MainWindow::on_web_clicked()
+{   son->play();
+    QString link="http://www.google.com";
+       QDesktopServices::openUrl(QUrl(link));
+}
+
+void MainWindow::on_ouvrir_media_clicked()
+{   son->play();
+    QString filename = QFileDialog::getOpenFileName(this, "ouvrir");
+    if (filename.isEmpty())
+    {
+        return;
+    }
+    mMediaPlayer->setMedia(QUrl::fromLocalFile(filename));
+    mMediaPlayer->setVolume(ui->volume_media->value());
+    on_play_media_clicked();
+}
+
+void MainWindow::on_play_media_clicked()
+{   son->play();
+    mMediaPlayer->play();
+}
+
+void MainWindow::on_pause_media_clicked()
+{   son->play();
+    mMediaPlayer->pause();
+}
+
+void MainWindow::on_stop_media_clicked()
+{   son->play();
+    mMediaPlayer->stop();
+}
+
+void MainWindow::on_mute_media_clicked()
+{   son->play();
+    if (ui->mute_media->text() == "Mute")
+    {
+    mMediaPlayer->setMuted(true);
+    ui->mute_media->setText("Unmute");
+    }
+    else {
+        mMediaPlayer->setMuted(false);
+        ui->mute_media->setText("Mute");
+    }
+}
+
+void MainWindow::on_volume_media_valueChanged(int value)
+{
+   mMediaPlayer->setVolume(value);
+}
+

@@ -64,3 +64,4 @@ bool service::modifier_service(QString type,QDate date_service,int prix,QString 
 
     return    query.exec();
 }
+

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/myappico.png</normaloff>:/myappico.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
@@ -196,7 +200,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget">
                     <property name="currentIndex">
-                     <number>2</number>
+                     <number>0</number>
                     </property>
                     <widget class="QWidget" name="tab">
                      <attribute name="title">
@@ -813,7 +817,7 @@
                 <item>
                  <widget class="QTabWidget" name="tabWidget_CS">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="tab_C">
                    <attribute name="title">
@@ -1343,6 +1347,13 @@
                                  </property>
                                 </spacer>
                                </item>
+                               <item>
+                                <widget class="QPushButton" name="web">
+                                 <property name="text">
+                                  <string>Web</string>
+                                 </property>
+                                </widget>
+                               </item>
                               </layout>
                              </item>
                              <item row="0" column="1">
@@ -1530,7 +1541,7 @@
                 <item>
                  <widget class="QTabWidget" name="tabWidget_2">
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -2633,7 +2644,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget_6">
                     <property name="currentIndex">
-                     <number>0</number>
+                     <number>1</number>
                     </property>
                     <widget class="QWidget" name="Produits">
                      <attribute name="title">
@@ -4410,6 +4421,79 @@
                        </layout>
                       </item>
                       <item>
+                       <layout class="QGridLayout" name="gridLayout_6">
+                        <item row="0" column="1">
+                         <spacer name="horizontalSpacer_5">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item row="0" column="3">
+                         <widget class="QPushButton" name="play_media">
+                          <property name="text">
+                           <string>Play</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="4">
+                         <widget class="QPushButton" name="pause_media">
+                          <property name="text">
+                           <string>Pause</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="5">
+                         <widget class="QPushButton" name="stop_media">
+                          <property name="text">
+                           <string>Stop</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="7">
+                         <widget class="QPushButton" name="mute_media">
+                          <property name="text">
+                           <string>Mute</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_32">
+                          <property name="text">
+                           <string>Son</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="2">
+                         <widget class="QPushButton" name="ouvrir_media">
+                          <property name="text">
+                           <string>Ouvrir</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="6">
+                         <widget class="QProgressBar" name="avancement_media">
+                          <property name="value">
+                           <number>0</number>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="8">
+                         <widget class="QSlider" name="volume_media">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_118">
                         <item>
                          <widget class="QLabel" name="label_17">
@@ -4587,6 +4671,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

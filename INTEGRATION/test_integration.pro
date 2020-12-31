@@ -18,6 +18,7 @@ SOURCES += \
     dialog.cpp \
     excel.cpp \
     fournisseurs.cpp \
+    historique.cpp \
     invite.cpp \
     login.cpp \
     main.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     dialog.h \
     excel.h \
     fournisseurs.h \
+    historique.h \
     invite.h \
     login.h \
     mainwindow.h \
@@ -57,8 +59,18 @@ FORMS += \
     mainwindow.ui \
     stat.ui \
     stats.ui
+     RC_ICONS = myappico.ico
+    QMAKE_CXXFLAGS += -std=gnu++14
+    QMAKE_CXXFLAGS += -std=gnu++11
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    histo.txt
+
+RESOURCES += \
+    res.qrc \
+    son.qrc

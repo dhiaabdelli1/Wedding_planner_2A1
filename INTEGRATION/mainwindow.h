@@ -5,6 +5,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QSystemTrayIcon>
 #include <QRegularExpression>
 #include <QTableWidgetItem>
 #include <QItemSelectionModel>
@@ -13,10 +14,15 @@
 #include <QDialog>
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QTextDocument>
 #include <qtextbrowser.h>
+#include <QUrl>
+
 
 #include <QPropertyAnimation>
 #include <QSound>
+#include <QMediaPlayer>
+#include <QFileDialog>
 #include <QInputDialog>
 
 #include <QTranslator>
@@ -32,6 +38,7 @@
 #include"excel.h"
 #include "collaborateur.h"
 #include "service.h"
+#include "historique.h"
 #include "fournisseurs.h"
 
 #include "arduino.h"
@@ -45,6 +52,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class QSytstemTrayIcon;
+class QMediaPlayer;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -262,8 +271,27 @@ private slots:
 
     void on_radioButton_triDate_clicked();
 
+    void on_web_clicked();
+
+    void on_ouvrir_media_clicked();
+
+    void on_play_media_clicked();
+
+    void on_pause_media_clicked();
+
+    void on_stop_media_clicked();
+
+    void on_mute_media_clicked();
+
+    void on_volume_media_valueChanged(int value);
+
+
+
 private:
     Ui::MainWindow *ui;
+    QSystemTrayIcon *mSystemTrayIcon;
+    QMediaPlayer *mMediaPlayer;
+    QSound *son;
 
     invite tmpinvite;
     table tmptable;
@@ -276,6 +304,7 @@ private:
     collaborateur tmpCollaborateur;
     collaborateur tmpr;
     service tmpservice;
+    historique histo;
 
     enum column
     {
