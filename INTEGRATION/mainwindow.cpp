@@ -31,8 +31,10 @@ MainWindow::MainWindow(QWidget *parent)
     //Controle saisie avec LineEdit_invite/Qdate_recherche_invite
     ui->dateDeNaissanceDateEdit_invite->setMaximumDate(QDate::currentDate().addYears(-18));
     ui->date_recherche_invite->setMaximumDate(QDate::currentDate().addYears(-18));
+    ui->dateEdit_personnel->setMaximumDate(QDate::currentDate().addYears(-18));
     ui->cINLineEdit_invite->setMaxLength(8);
     ui->tLPhoneLineEdit_invite->setMaxLength(8);
+
 
     //Looks
     ui->groupBox_ajouter_table->setMaximumWidth(100);
@@ -170,9 +172,11 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     QSqlQueryModel *model2=new QSqlQueryModel();
-        QString id;
-        model2->setQuery("select * from CLIENT");
+    QString id;
+    model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
+    ui->comboBox_ref_deppersonnel->setModel(tmpdepartement.refdep());
+    ui->comboBox_persodep->setModel(tmpdepartement.nomdep());
 }
 MainWindow::~MainWindow()
 {
@@ -638,10 +642,12 @@ void MainWindow::on_contract_invite_clicked()
 
 void MainWindow::on_lineEdit_recherche_invite_textChanged(const QString &arg1)
 {
-    if (!ui->checkBox_cin_invite->isChecked() && ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
-        ui->tableView_invite->setModel(tmpinvite.rechercher_nom(arg1));
-    else if (ui->checkBox_cin_invite->isChecked() && !ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
-        ui->tableView_invite->setModel(tmpinvite.rechercher_cin(arg1));
+//    if (!ui->checkBox_cin_invite->isChecked() && ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
+//        ui->tableView_invite->setModel(tmpinvite.rechercher_nom(arg1));
+//    else if (ui->checkBox_cin_invite->isChecked() && !ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
+//        ui->tableView_invite->setModel(tmpinvite.rechercher_cin(arg1));
+
+    ui->tableView_invite->setModel(tmpinvite.rechercher(arg1));
 }
 
 void MainWindow::on_ajouter_table_clicked()
@@ -1152,8 +1158,8 @@ void MainWindow::on_ajouter_reservation_clicked()
 
 
         QSqlQueryModel *model2=new QSqlQueryModel();
-            QString id;
-            model2->setQuery("select * from CLIENT");
+        QString id;
+        model2->setQuery("select * from CLIENT");
         ui->comboBox_reservations->removeItem(ui->comboBox_reservations->currentIndex());
         ui->comboBox_reservations->setModel(model2);
 
@@ -1257,12 +1263,12 @@ void MainWindow::update_label()
             QString test=ui->lineEdit_tmp->text();
             if (test.length()>5)
                 tmp_recue="";
-//            if (ui->lineEdit_tmp->text().toStdString().find("23") && tmp_verif==false)
-//            {
-//                QMessageBox::information(nullptr, QObject::tr("Notification"),
-//                                         QObject::tr("TROP CHAUD\n"), QMessageBox::Ok);
-//                tmp_verif=true;
-//            }
+            //            if (ui->lineEdit_tmp->text().toStdString().find("23") && tmp_verif==false)
+            //            {
+            //                QMessageBox::information(nullptr, QObject::tr("Notification"),
+            //                                         QObject::tr("TROP CHAUD\n"), QMessageBox::Ok);
+            //                tmp_verif=true;
+            //            }
 
 
 
@@ -1283,9 +1289,9 @@ void MainWindow::update_label()
 
         tmpinvite.update(cin_recu,"permission","pending");
 
-         ui->tableView_invite->setModel(tmpinvite.afficher());
-         tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-         ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+        ui->tableView_invite->setModel(tmpinvite.afficher());
+        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
         cin_recu="";
@@ -1372,8 +1378,8 @@ void MainWindow::on_envoyer_invite_clicked()
 void MainWindow::on_tabWidget_2_tabBarClicked(int index)
 {
     QSqlQueryModel *model2=new QSqlQueryModel();
-        QString id;
-        model2->setQuery("select * from CLIENT");
+    QString id;
+    model2->setQuery("select * from CLIENT");
     ui->comboBox_reservations->setModel(model2);
 }
 
@@ -1382,7 +1388,7 @@ void MainWindow::on_entrer_clicked()
     QString cin_recu=ui->enter_cin->text();
 
 
-   tmpinvite.update(cin_recu,"permission","pending");
+    tmpinvite.update(cin_recu,"permission","pending");
 
     ui->tableView_invite->setModel(tmpinvite.afficher());
 
@@ -1405,28 +1411,61 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 void MainWindow::on_ajouter_departement_clicked()
 {
 
+    QString nom= ui->lineEdit_nomm->text();
+    QString reference= ui->lineEdit_reference->text();
+    QString nb_employes= ui->lineEdit_nbemployes->text();
 
-        QString reference= ui->lineEdit_reference->text();
-        QString nom= ui->lineEdit_nomm->text();
-        int nb_employes= ui->lineEdit_nbemployes->text().toInt();
-
-        departement d(reference,nom,nb_employes);
-        bool test=d.ajouter();
+    bool verif_nom=nom_regex.exactMatch(nom);
+    bool verif_reference=cin_regex.exactMatch(reference);
 
 
-        if(test)
+    departement d(nom,reference,nb_employes);
 
-      {ui->tableView_departement->setModel(tmpdepartement.afficher());
-              ui->comboBox_ref_deppersonnel->setModel(tmpdepartement.refdep());
-        QMessageBox::information(nullptr, QObject::tr("ajout departement"),
-                                  QObject::tr("departement ajoutè.\n"
-                                              "Click Cancel to exit."), QMessageBox::Cancel);
 
-              }
-                  else
-                      QMessageBox::information(nullptr, QObject::tr("ajout departement"),
-                                  QObject::tr("ajout echouèe.\n"
-                                              "Click Cancel to exit."), QMessageBox::Cancel);}
+
+    if (verif_nom && verif_reference && nb_employes.toInt()>0 && nb_employes.toInt()<=50)
+    {
+        if(d.ajouter())
+
+        {ui->tableView_departement->setModel(tmpdepartement.afficher());
+            ui->comboBox_ref_deppersonnel->setModel(tmpdepartement.refdep());
+            ui->comboBox_persodep->setModel(tmpdepartement.nomdep());
+
+
+            ui->lineEdit_nomm->setStyleSheet("color: black");
+
+            ui->lineEdit_reference->setStyleSheet("color: black");
+
+            ui->lineEdit_nbemployes->setStyleSheet("color: black");
+
+            ui->lineEdit_nomm->text().clear();
+
+            ui->lineEdit_reference->text().clear();
+
+            ui->lineEdit_nbemployes->text().clear();
+
+            QMessageBox::information(nullptr, QObject::tr("ajout departement"),
+                                     QObject::tr("departement ajoutè.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+
+
+
+        }
+        else
+            QMessageBox::information(nullptr, QObject::tr("ajout departement"),
+                                     QObject::tr("ajout echouèe.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+    else
+    {
+        if (!verif_nom)
+            ui->lineEdit_nomm->setStyleSheet("color: red");
+        if (!verif_reference)
+            ui->lineEdit_reference->setStyleSheet("color: red");
+        if (nb_employes.toInt()<0 || nb_employes.toInt()>50)
+            ui->lineEdit_nbemployes->setStyleSheet("color: red");
+    }
+}
 
 
 
@@ -1441,56 +1480,76 @@ void MainWindow::on_reset_departement_clicked()
 
 void MainWindow::on_modifier_departement_clicked()
 {
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    if (ui->modifier_departement->isChecked())
     {
 
-              QString reference= ui->lineEdit_reference->text();
-              QString nom= ui->lineEdit_nomm->text();
-              int nb_employes = ui->lineEdit_nbemployes->text().toInt();
-
-                     departement d(reference,nom,nb_employes);
-
-            bool test = tmpdepartement.update(reference,nom,nb_employes);
-
-
-            if(test)
-
-            {
-                 ui->tableView_departement->setModel(tmpdepartement.afficher());
-                QMessageBox::information(nullptr, QObject::tr("update "),
-                            QObject::tr("departement modifie\n"
-            "Click Cancel to exit."), QMessageBox::Cancel);}
-            else
-                QMessageBox::critical(nullptr, QObject::tr("update "),
-                            QObject::tr("departement non modifie\n"
-            "Click Cancel to exit."), QMessageBox::Cancel);}
+        ui->modifier_departement->setText("Modifiable");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("DEPARTEMENTS");
+        tableModel->select();
+        ui->tableView_departement->setModel(tableModel);
+    }
+    else
+    {
+        ui->modifier_departement->setText("Modifier");
+        ui->tableView_departement->setModel(tmpdepartement.afficher());
 
     }
+    //    {
+
+    //        QString reference= ui->lineEdit_reference->text();
+    //        QString nom= ui->lineEdit_nomm->text();
+    //        QString nb_employes = ui->lineEdit_nbemployes->text();
+
+    //        departement d(reference,nom,nb_employes);
+
+    //        bool test = tmpdepartement.update(reference,nom,nb_employes);
+
+
+    //        if(test)
+
+    //        {
+    //            ui->tableView_departement->setModel(tmpdepartement.afficher());
+    //            QMessageBox::information(nullptr, QObject::tr("update "),
+    //                                     QObject::tr("departement modifie\n"
+    //                                                 "Click Cancel to exit."), QMessageBox::Cancel);}
+    //        else
+    //            QMessageBox::critical(nullptr, QObject::tr("update "),
+    //                                  QObject::tr("departement non modifie\n"
+    //                                              "Click Cancel to exit."), QMessageBox::Cancel);}
+
+}
 
 
 
 
 void MainWindow::on_sypprimer_departement_clicked()
 {
-    QString nom=ui->lineEdit_nomm->text();
-    QString reference= ui->lineEdit_reference->text();
-    int nb_employes= ui->lineEdit_nbemployes->text().toInt();
+    QItemSelectionModel *select = ui->tableView_departement->selectionModel();
+
+    QString reference =select->selectedRows(1).value(0).data().toString();
 
 
 
     bool test=tmpdepartement.supprimer(reference);
 
     if(test)
-    {             ui->tableView_departement->setModel(tmpdepartement.afficher());
+    {
+        qDebug()<< reference;
+        ui->tableView_departement->setModel(tmpdepartement.afficher());
+
+        ui->comboBox_persodep->setModel(tmpdepartement.nomdep());
 
         QMessageBox::information(nullptr, QObject::tr("supprimer departemnt"),
-                              QObject::tr("supp ressuie.\n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("supp ressuie.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
-          }
-              else
-                {  QMessageBox::information(nullptr, QObject::tr("supprimer departement"),
-                              QObject::tr("supp echouèe.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);}
+    }
+    else
+    {  QMessageBox::information(nullptr, QObject::tr("supprimer departement"),
+                                QObject::tr("supp echouèe.\n"
+                                            "Click Cancel to exit."), QMessageBox::Cancel);}
 }
 
 
@@ -1502,36 +1561,73 @@ void MainWindow::on_sypprimer_departement_clicked()
 void MainWindow::on_ajouter_personnel_clicked()
 
 {
-          QString cin= ui->lineEdit_cinpersonnel->text();
-          QString nom= ui->lineEdit_nompersonnel->text();
-          QString prenom= ui->lineEdit_prenompersonnel->text();
-          QString departement=ui->comboBox_persodep->currentText();
-          QString mobile= ui->lineEdit_mobilepersonnel->text();
-          QDate date_naissance=ui->dateEdit_personnel->date();
-          QString salaire=ui->lineEdit_salairepersonnel->text();
-           QString ref_dep=ui->comboBox_ref_deppersonnel->currentText();
+    QString cin= ui->lineEdit_cinpersonnel->text();
+    QString nom= ui->lineEdit_nompersonnel->text();
+    QString prenom= ui->lineEdit_prenompersonnel->text();
+    QString departement=ui->comboBox_persodep->currentText();
+    QString mobile= ui->lineEdit_mobilepersonnel->text();
+    QDate date_naissance=ui->dateEdit_personnel->date();
+    QString salaire=ui->lineEdit_salairepersonnel->text();
+    QString ref_dep=ui->comboBox_ref_deppersonnel->currentText();
+
+    bool verif_cin=cin_regex.exactMatch(cin);
+    bool verif_nom=nom_regex.exactMatch(nom);
+    bool verif_prenom=nom_regex.exactMatch(prenom);
+    bool verif_salaire=budget_regex.exactMatch(salaire);
+    bool verif_mobile=telephone_regex.exactMatch(mobile);
 
 
 
-          personnel p(cin,nom,prenom,departement,mobile,date_naissance,salaire,ref_dep);
+
+    personnel p(cin,nom,prenom,departement,mobile,date_naissance,salaire,ref_dep);
 
 
-          if(mobile.size()<8)
 
-
+    if (verif_cin && verif_nom && verif_prenom && verif_salaire)
+    {
+        if (p.ajouter())
         {
-              p.ajouter();
+            ui->tableView_personnel->setModel(tmppersonnel.afficher());
+            QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
+                                     QObject::tr("personnel ajoutè.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
 
-              ui->tableView_personnel->setModel(tmppersonnel.afficher());
-          QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
-                                    QObject::tr("personnel ajoutè.\n"
-                                                "Click Cancel to exit."), QMessageBox::Cancel);
 
-                }
-                    else
-                        QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
-                                    QObject::tr("ajout echouèe.\n"
-                                                "Click Cancel to exit."), QMessageBox::Cancel);}
+            ui->lineEdit_cinpersonnel->setStyleSheet("color: black");
+            ui->lineEdit_nompersonnel->setStyleSheet("color: black");
+            ui->lineEdit_prenompersonnel->setStyleSheet("color: black");
+            ui->lineEdit_mobilepersonnel->setStyleSheet("color: black");
+            ui->lineEdit_salairepersonnel->setStyleSheet("color: black");
+
+            ui->lineEdit_cinpersonnel->text().clear();
+            ui->lineEdit_nompersonnel->text().clear();
+            ui->lineEdit_prenompersonnel->text().clear();
+            ui->lineEdit_mobilepersonnel->text().clear();
+            ui->lineEdit_salairepersonnel->text().clear();
+        }
+
+
+
+
+        else
+            QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
+                                     QObject::tr("ajout echouèe.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+    else
+    {
+        if (!verif_cin)
+            ui->lineEdit_cinpersonnel->setStyleSheet("color: red");
+        if (!verif_nom)
+            ui->lineEdit_nompersonnel->setStyleSheet("color: red");
+        if (!verif_prenom)
+            ui->lineEdit_prenompersonnel->setStyleSheet("color: red");
+        if(!verif_mobile)
+            ui->lineEdit_mobilepersonnel->setStyleSheet("color: red");
+        if(verif_salaire)
+            ui->lineEdit_salairepersonnel->setStyleSheet("color: red");
+    }
+}
 
 
 
@@ -1542,50 +1638,70 @@ void MainWindow::on_reset_personnel_clicked()
 
 void MainWindow::on_modifier_personnel_clicked()
 {
-          QString cin= ui->lineEdit_cinpersonnel->text();
-          QString nom= ui->lineEdit_nompersonnel->text();
-          QString prenom= ui->lineEdit_prenompersonnel->text();
-          QString departement=ui->comboBox_persodep->currentText();
-          QString mobile= ui->lineEdit_mobilepersonnel->text();
-          QDate date_naissance=ui->dateEdit_personnel->date();
-          QString salaire=ui->lineEdit_salairepersonnel->text();
-          QString ref_dep=ui->comboBox_ref_deppersonnel->currentText();
-         personnel p(cin,nom,prenom,mobile,departement,date_naissance,salaire,ref_dep);
+    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
+    if (ui->modifier_personnel->isChecked())
+    {
 
-        bool test = tmppersonnel.update(cin,nom,prenom,departement,mobile,date_naissance,salaire,ref_dep);
+        ui->modifier_personnel->setText("Modifiable");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("PERSONNEL");
+        tableModel->select();
+        ui->tableView_personnel->setModel(tableModel);
+    }
+    else
+    {
+        ui->modifier_personnel->setText("Modifier");
+        ui->tableView_personnel->setModel(tmppersonnel.afficher());
+
+    }
+    //    QString cin= ui->lineEdit_cinpersonnel->text();
+    //    QString nom= ui->lineEdit_nompersonnel->text();
+    //    QString prenom= ui->lineEdit_prenompersonnel->text();
+    //    QString departement=ui->comboBox_persodep->currentText();
+    //    QString mobile= ui->lineEdit_mobilepersonnel->text();
+    //    QDate date_naissance=ui->dateEdit_personnel->date();
+    //    QString salaire=ui->lineEdit_salairepersonnel->text();
+
+    //    personnel p(cin,nom,prenom,mobile,departement,date_naissance,salaire);
+
+    //    bool test = tmppersonnel.update(cin,nom,prenom,departement,mobile,date_naissance,salaire);
 
 
-        if(test)
+    //    if(test)
 
-        {
-             ui->tableView_personnel->setModel(tmppersonnel.afficher());
-            QMessageBox::information(nullptr, QObject::tr("update "),
-                        QObject::tr("personnel modifie\n"
-        "Click Cancel to exit."), QMessageBox::Cancel);}
-        else
-            QMessageBox::critical(nullptr, QObject::tr("update "),
-                        QObject::tr("personnel non modifie\n"
-        "Click Cancel to exit."), QMessageBox::Cancel);
+    //    {
+    //        ui->tableView_personnel->setModel(tmppersonnel.afficher());
+    //        QMessageBox::information(nullptr, QObject::tr("update "),
+    //                                 QObject::tr("personnel modifie\n"
+    //                                             "Click Cancel to exit."), QMessageBox::Cancel);}
+    //    else
+    //        QMessageBox::critical(nullptr, QObject::tr("update "),
+    //                              QObject::tr("personnel non modifie\n"
+    //                                          "Click Cancel to exit."), QMessageBox::Cancel);
 
 }
 void MainWindow::on_supprimer_personnel_clicked()
 {
     QItemSelectionModel *select = ui->tableView_personnel->selectionModel();
 
-    QString cin =select->selectedRows(0).value(0).data().toString();
+    QString cin =select->selectedRows(5).value(0).data().toString();
 
-    if(tmppersonnel.supprimer(cin))
-    {
-        ui->tableView_personnel->setModel(tmppersonnel.afficher());
-        QMessageBox::information(nullptr, QObject::tr("supression"),
-                                  QObject::tr("personnel supprimé.\n"
-                                              "Click Cancel to exit."), QMessageBox::Cancel);
 
-              }
-                  else
-                      QMessageBox::information(nullptr, QObject::tr("supression"),
-                                  QObject::tr("supression echouèe.\n"
-                                              "Click Cancel to exit."), QMessageBox::Cancel);
+
+    bool test=tmppersonnel.supprimer(cin);
+
+    if(test)
+    {             ui->tableView_personnel->setModel(tmppersonnel.afficher());
+
+        QMessageBox::information(nullptr, QObject::tr("supprimer Perso"),
+                                 QObject::tr("supp ressuie.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+
+    }
+    else
+    {  QMessageBox::information(nullptr, QObject::tr("supprimer Perso"),
+                                QObject::tr("supp echouèe.\n"
+                                            "Click Cancel to exit."), QMessageBox::Cancel);}
 }
 
 
@@ -1599,7 +1715,7 @@ void MainWindow::on_pdf_personnel_clicked()
 void MainWindow::on_lineEdit_recherchepersonnel_textChanged(const QString &arg1)
 {
     personnel p;
-        ui->tableView_personnel->setModel(p.chercher(ui->lineEdit_recherchepersonnel->text()));
+    ui->tableView_personnel->setModel(p.chercher(ui->lineEdit_recherchepersonnel->text()));
 }
 
 void MainWindow::on_stat_personnel_clicked()
@@ -1615,95 +1731,96 @@ void MainWindow::on_stat_personnel_clicked()
 void MainWindow::on_tri_cin_personnel_clicked()
 {
     QMessageBox msgBox ;
-            QSqlQueryModel * model= new QSqlQueryModel();
+    QSqlQueryModel * model= new QSqlQueryModel();
 
 
 
-               model->setQuery("select * from personnel order by CAST(cin as INT) asc");
+    model->setQuery("select * from personnel order by CAST(cin as INT) asc");
 
-               model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
-               model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
-               model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
-               model->setHeaderData(4, Qt::Horizontal, QObject::tr("departement"));
-               model->setHeaderData(3, Qt::Horizontal, QObject::tr("mobile"));
-               model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
-               model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
-               model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
-                        ui->tableView_personnel->setModel(model);
-                        ui->tableView_personnel->show();
-                        msgBox.setText("Tri avec succés.");
-                        msgBox.exec();
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("departement"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("mobile"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
+
+    ui->tableView_personnel->setModel(model);
+    ui->tableView_personnel->show();
+    msgBox.setText("Tri avec succés.");
+    msgBox.exec();
 }
 
 void MainWindow::on_tri_salaire_personnel_clicked()
 {
     QMessageBox msgBox ;
-            QSqlQueryModel * model= new QSqlQueryModel();
+    QSqlQueryModel * model= new QSqlQueryModel();
 
 
 
-               model->setQuery("select * from personnel order by CAST(salaire as INT) asc");
+    model->setQuery("select * from personnel order by CAST(salaire as INT) asc");
 
-               model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
-               model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
-               model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
-                model->setHeaderData(3, Qt::Horizontal, QObject::tr("departement"));
-               model->setHeaderData(4, Qt::Horizontal, QObject::tr("mobile"));
-               model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
-               model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
-               model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
-                        ui->tableView_personnel->setModel(model);
-                        ui->tableView_personnel->show();
-                        msgBox.setText("Tri avec succés.");
-                        msgBox.exec();
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("departement"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("mobile"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
+    ui->tableView_personnel->setModel(model);
+    ui->tableView_personnel->show();
+    msgBox.setText("Tri avec succés.");
+    msgBox.exec();
 }
 void MainWindow::on_tri_nom_personnel_clicked()
 {
     {
         QMessageBox msgBox ;
-                QSqlQueryModel * model= new QSqlQueryModel();
+        QSqlQueryModel * model= new QSqlQueryModel();
 
 
 
-                   model->setQuery("select * from personnel order by nom");
+        model->setQuery("select * from personnel order by nom");
 
-                   model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
-                   model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
-                   model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
-                   model->setHeaderData(3, Qt::Horizontal, QObject::tr("departement"));
-                   model->setHeaderData(4, Qt::Horizontal, QObject::tr("mobile"));
-                   model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
-                   model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
-                   model->setHeaderData(7, Qt::Horizontal, QObject::tr("ref_dep"));
-                            ui->tableView_personnel->setModel(model);
-                            ui->tableView_personnel->show();
-                            msgBox.setText("Tri avec succés.");
-                            msgBox.exec();
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("cin"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("nom"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("prenom"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("departement"));
+        model->setHeaderData(4, Qt::Horizontal, QObject::tr("mobile"));
+        model->setHeaderData(5, Qt::Horizontal, QObject::tr("date_naissance"));
+        model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+        model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
+        ui->tableView_personnel->setModel(model);
+        ui->tableView_personnel->show();
+        msgBox.setText("Tri avec succés.");
+        msgBox.exec();
     }
 }
 
 void MainWindow::on_pushButton_val_p_clicked()
 {
-            int reference_p = ui->lineEdit_Ref_p->text().toInt();
-            int quantite_p = ui->lineEdit_quantite_p->text().toInt();
-            QString type_p= ui->comboBox_Type_p->currentText();
-            qreal prix_p= ui->lineEdit_Prix_p->text().toFloat();
-            QDate date_p = ui->dateEdit_p->date();
-            produits p (reference_p,quantite_p,type_p,prix_p,date_p);
-            bool test=p.ajouter_p();
+    int reference_p = ui->lineEdit_Ref_p->text().toInt();
+    int quantite_p = ui->lineEdit_quantite_p->text().toInt();
+    QString type_p= ui->comboBox_Type_p->currentText();
+    qreal prix_p= ui->lineEdit_Prix_p->text().toFloat();
+    QDate date_p = ui->dateEdit_p->date();
+    produits p (reference_p,quantite_p,type_p,prix_p,date_p);
+    bool test=p.ajouter_p();
 
-            if (test)
-            {
-                ui->tableView_Produits->setModel(tmpprod.afficher_p());
-                ui->lineEdit_Ref_p->setText("");
-                ui->lineEdit_quantite_p->setText("");
-                ui->lineEdit_Prix_p->setText("");
-                QMessageBox::information(nullptr,QObject::tr("OK"),
-                                      QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
-            }
-            else
-{QMessageBox::critical(nullptr,QObject::tr("Not OK"),
-                       QObject::tr("Ajout non effectué .\n"),QMessageBox::Cancel);}
+    if (test)
+    {
+        ui->tableView_Produits->setModel(tmpprod.afficher_p());
+        ui->lineEdit_Ref_p->setText("");
+        ui->lineEdit_quantite_p->setText("");
+        ui->lineEdit_Prix_p->setText("");
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                                 QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
+    }
+    else
+    {QMessageBox::critical(nullptr,QObject::tr("Not OK"),
+                           QObject::tr("Ajout non effectué .\n"),QMessageBox::Cancel);}
 }
 void MainWindow::on_pushButton_Supp_p_clicked()
 {
@@ -1715,8 +1832,8 @@ void MainWindow::on_pushButton_Supp_p_clicked()
     {
         ui->tableView_Produits->setModel(tmpprod.afficher_p());
         QMessageBox::information(nullptr,QObject::tr("OK"),
-                              QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
-     }
+                                 QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
+    }
 
 }
 void MainWindow::on_pushButton_Modifier_p_clicked()
@@ -1753,9 +1870,9 @@ void MainWindow::on_pushButton_Recherche_p_clicked()
     {
         QString type_p;
         if (ui->radioButton_perissables->isChecked())
-        type_p=ui->radioButton_perissables->text();
+            type_p=ui->radioButton_perissables->text();
         else if (ui->radioButton_durables->isChecked())
-        type_p=ui->radioButton_durables->text();
+            type_p=ui->radioButton_durables->text();
 
         QSqlQueryModel *verif_type=tmpprod.rechercher_type_p(type_p);
         if (verif_type!=nullptr)
@@ -1783,7 +1900,7 @@ void MainWindow::on_pushButton_Recherche_p_clicked()
         if (verif_reference!=nullptr)
         {
             if (ui->radioButton_perissables->isChecked())
-               type_p=ui->radioButton_perissables->text();
+                type_p=ui->radioButton_perissables->text();
             else if (ui->radioButton_durables->isChecked())
                 type_p=ui->radioButton_durables->text();
             QSqlQueryModel *verif_critere=tmpprod.rechercher_critere_p(quantite_p,type_p,date_p);
@@ -1805,26 +1922,26 @@ void MainWindow::on_pushButton_afficher_p_clicked()
 
 void MainWindow::on_pushButton_val_f_clicked()
 {
-            QString CIN_f = ui->lineEdit_CIN_f->text();
-            QString telephone_f = ui->lineEdit_tel_f->text();
-            QString type_f = ui->comboBox_type_f->currentText();
-            QString RIB_f = ui->lineEdit_RIB_f->text();
+    QString CIN_f = ui->lineEdit_CIN_f->text();
+    QString telephone_f = ui->lineEdit_tel_f->text();
+    QString type_f = ui->comboBox_type_f->currentText();
+    QString RIB_f = ui->lineEdit_RIB_f->text();
 
-            fournisseurs f (CIN_f,telephone_f,type_f,RIB_f);
-            bool test=f.ajouter_f();
+    fournisseurs f (CIN_f,telephone_f,type_f,RIB_f);
+    bool test=f.ajouter_f();
 
-            if (test)
-            {
-                ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
-                ui->lineEdit_CIN_f->setText("");
-                ui->lineEdit_tel_f->setText("");
-                ui->lineEdit_RIB_f->setText("");
-                QMessageBox::information(nullptr,QObject::tr("OK"),
-                                      QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
-            }
-            else
-{       QMessageBox::critical(nullptr,QObject::tr("Not OK"),
-                       QObject::tr("Ajout non effectué .\n"),QMessageBox::Cancel);}
+    if (test)
+    {
+        ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+        ui->lineEdit_CIN_f->setText("");
+        ui->lineEdit_tel_f->setText("");
+        ui->lineEdit_RIB_f->setText("");
+        QMessageBox::information(nullptr,QObject::tr("OK"),
+                                 QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
+    }
+    else
+    {       QMessageBox::critical(nullptr,QObject::tr("Not OK"),
+                                  QObject::tr("Ajout non effectué .\n"),QMessageBox::Cancel);}
 }
 void MainWindow::on_pushButton_supp_f_clicked()
 {
@@ -1836,8 +1953,8 @@ void MainWindow::on_pushButton_supp_f_clicked()
     {
         ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
         QMessageBox::information(nullptr,QObject::tr("OK"),
-                              QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
-     }
+                                 QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
+    }
 }
 
 
@@ -1845,33 +1962,33 @@ void MainWindow::on_pushButton_modifier_f_clicked()
 {
 
     if (ui->pushButton_modifier_f->isChecked())
-               {
-                  // ui->pushButton_modifier->setDisabled(true);
-                   ui->pushButton_modifier_f->setText("Modifiable");
-                   QSqlTableModel *tableModel= new QSqlTableModel();
-                   tableModel->setTable("fournisseurs");
-                   tableModel->select();
-                   ui->tableView_Fournisseurs->setModel(tableModel);
-               }
-               else
-               {
-                   ui->pushButton_modifier_f->setText("Modifier");
-                   ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+    {
+        // ui->pushButton_modifier->setDisabled(true);
+        ui->pushButton_modifier_f->setText("Modifiable");
+        QSqlTableModel *tableModel= new QSqlTableModel();
+        tableModel->setTable("fournisseurs");
+        tableModel->select();
+        ui->tableView_Fournisseurs->setModel(tableModel);
+    }
+    else
+    {
+        ui->pushButton_modifier_f->setText("Modifier");
+        ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
 
-               }
+    }
 }
 
 
-    void MainWindow::on_pushButton_afficher_f_clicked()
-    {
-        ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
-    }
+void MainWindow::on_pushButton_afficher_f_clicked()
+{
+    ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
+}
 
 void MainWindow::on_pushButton_rechercher_f_clicked()
 {
     ui->tableView_Fournisseurs->setModel(tmpf.afficher_f(  ));
-     QString CIN_f= ui->lineEdit_rechercher_f->text();
-     ui->tableView_Fournisseurs->setModel(tmpf.rechercher_fournisseurs(CIN_f));
+    QString CIN_f= ui->lineEdit_rechercher_f->text();
+    ui->tableView_Fournisseurs->setModel(tmpf.rechercher_fournisseurs(CIN_f));
 }
 
 
@@ -1879,29 +1996,29 @@ void MainWindow::on_pushButton_rechercher_f_clicked()
 void MainWindow::on_pushButton_Exporter_p_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
-        if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_produits.pdf"); }
+    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_produits.pdf"); }
 
-        QPrinter printer(QPrinter::PrinterResolution);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setPaperSize(QPrinter::A4);
-        printer.setOutputFileName(fileName);
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(fileName);
 
-        QTextDocument doc;
-        QSqlQuery q;
+    QTextDocument doc;
+    QSqlQuery q;
 
-        q.prepare("SELECT * FROM produits ");
-        q.exec();
-        QString pdf="<br> <img src='C:/Users/lenovo/Documents/Gestion_stock/wedding bells.png' height='20' width='50'/> <h1  style='color:blue'>       LISTE DES PRODUITS  <br></h1>\n <br> <table>  <tr>  <th> REFERENCE </th>  <th> QUANTITE </th>  <th>TYPE </th>  <th> PRIX  " ;
+    q.prepare("SELECT * FROM produits ");
+    q.exec();
+    QString pdf="<br> <img src='C:/Users/lenovo/Documents/Gestion_stock/wedding bells.png' height='20' width='50'/> <h1  style='color:blue'>       LISTE DES PRODUITS  <br></h1>\n <br> <table>  <tr>  <th> REFERENCE </th>  <th> QUANTITE </th>  <th>TYPE </th>  <th> PRIX  " ;
 
 
-        while ( q.next()) {
+    while ( q.next()) {
 
-            pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"    </td>  <td>    " +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"</td>             </td>" ;
+        pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"    </td>  <td>    " +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"</td>             </td>" ;
 
-        }
-        doc.setHtml(pdf);
-        doc.setPageSize(printer.pageRect().size());
-        doc.print(&printer);
+    }
+    doc.setHtml(pdf);
+    doc.setPageSize(printer.pageRect().size());
+    doc.print(&printer);
 }
 
 void MainWindow::on_pushButton_exporter_f_clicked()
@@ -1947,8 +2064,8 @@ void MainWindow::on_confirmer_langue_clicked()
     {
         //translator->load("D:\\Users\\dhiaa\\Desktop\\working_on\\wedding_planner_en");
         translator->load("D:\\Users\\dhiaa\\Desktop\\Wedding_planner_2A1\\INTEGRATION\\wedding_planner_en");
-//        qDebug() << QDir::currentPath().append("/wedding_planner_en");
-//        translator->load(QDir::currentPath().append("/wedding_planner_en"));
+        //        qDebug() << QDir::currentPath().append("/wedding_planner_en");
+        //        translator->load(QDir::currentPath().append("/wedding_planner_en"));
         qApp->installTranslator(translator);
         ui->retranslateUi(this);
         ui->comboBox_langue->setCurrentText("English");
@@ -1989,34 +2106,34 @@ void MainWindow::on_ajouterC_2_clicked()
 
         {
             QMessageBox::warning(nullptr, QObject::tr("Ajouter collaborateur"),
-                        QObject::tr("Vérifier Nom ! .\n"
-                                    "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("Vérifier Nom ! .\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
         }else if (!verifier_mail)
         {
 
             QMessageBox::warning(nullptr, QObject::tr("Ajouter collaborateur"),
-                        QObject::tr("Vérifier E-mail ! .\n"
-                                    "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("Vérifier E-mail ! .\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
         }
 
         else if (!verifier_reference)
-                {
-                    QMessageBox::warning(nullptr, QObject::tr("Ajouter collaborateur"),
-                                QObject::tr("Vérifier Reference ! .\n"
-                                            "Click Cancel to exit."), QMessageBox::Cancel);
-                }
+        {
+            QMessageBox::warning(nullptr, QObject::tr("Ajouter collaborateur"),
+                                 QObject::tr("Vérifier Reference ! .\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        }
 
         else
         {
 
-    QString nom= ui->lineEdit_NomC_2->text();
-    QString telephone= ui->lineEdit_TelephoneC_2->text();
-    QString email= ui->lineEdit_EmailC_2->text();
-    QString rib= ui->lineEdit_RibC_2->text();
-    QString reference= ui->lineEdit_ReferenceC_2->text();
-    QString service=ui->comboBox_C_2->currentText();
+            QString nom= ui->lineEdit_NomC_2->text();
+            QString telephone= ui->lineEdit_TelephoneC_2->text();
+            QString email= ui->lineEdit_EmailC_2->text();
+            QString rib= ui->lineEdit_RibC_2->text();
+            QString reference= ui->lineEdit_ReferenceC_2->text();
+            QString service=ui->comboBox_C_2->currentText();
 
-    collaborateur e(nom,telephone,email,rib,reference,service);
+            collaborateur e(nom,telephone,email,rib,reference,service);
 
             bool test=e.ajouter();
             if(test)
@@ -2031,24 +2148,24 @@ void MainWindow::on_ajouterC_2_clicked()
                 ui->lineEdit_ReferenceC_2->setText("");
 
                 QMessageBox::information(nullptr, QObject::tr("Ajouter collaborateur"),
-                            QObject::tr("Collaborateur ajouté.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
+                                         QObject::tr("Collaborateur ajouté.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
             }
             else
             {
                 QMessageBox::information(nullptr, QObject::tr("Ajouter collaborateur"),
-                            QObject::tr("Ajout echoué.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
+                                         QObject::tr("Ajout echoué.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
             }
-         }
+        }
 
 
     }
     else
     {
         QMessageBox::warning(nullptr, QObject::tr("Ajouter collaborateur"),
-                    QObject::tr("Ajout echoué ! Cases vides ! .\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
+                             QObject::tr("Ajout echoué ! Cases vides ! .\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
 }
@@ -2071,14 +2188,14 @@ void MainWindow::on_supprimerC_2_clicked()
     {
         ui->tableView_colab->setModel(tmpCollaborateur.afficher());
         QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
-                    QObject::tr("Collaborateur supprimé.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("Collaborateur supprimé.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
     }
     else
     {
         QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
-                    QObject::tr("Suppression echoué.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("Suppression echoué.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
 }
@@ -2093,84 +2210,84 @@ void MainWindow::on_pushButton_ajouterS_clicked()
     int prix= ui->lineEdit_prix->text().toInt();
     QString proprietaire;
     bool b=ui->radioButton_e->isChecked();
-   if (b)
-   { proprietaire="Entreprise";}
-   else
-     { proprietaire="Free-lance"; }
+    if (b)
+    { proprietaire="Entreprise";}
+    else
+    { proprietaire="Free-lance"; }
 
 
     service e(type,date_service,prix,proprietaire);
 
-            bool test=e.ajouter_service();
-            if(test)
-            {
-                ui->tableView_service->setModel(tmpservice.afficher_service());
-                ui->lineEdit_type->setText("");
-                ui->lineEdit_prix->setText("");
-                QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
-                            QObject::tr("service ajouté.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
+    bool test=e.ajouter_service();
+    if(test)
+    {
+        ui->tableView_service->setModel(tmpservice.afficher_service());
+        ui->lineEdit_type->setText("");
+        ui->lineEdit_prix->setText("");
+        QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
+                                 QObject::tr("service ajouté.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
-                int nb=ui->tableView_service->model()->rowCount();
-                ui->comboBox_C_2->clear();
+        int nb=ui->tableView_service->model()->rowCount();
+        ui->comboBox_C_2->clear();
 
-                for (int i=0;i<nb;i++)
-                {
-                    QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
-                    ui->comboBox_C_2->addItem(type_service);
-                }
-            }
-            else
-            {
-                QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
-                            QObject::tr("Ajout echoué.\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
-            }
+        for (int i=0;i<nb;i++)
+        {
+            QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
+            ui->comboBox_C_2->addItem(type_service);
+        }
+    }
+    else
+    {
+        QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
+                                 QObject::tr("Ajout echoué.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    }
 }
 
 void MainWindow::on_pushButton_supprimerS_clicked()
 {
     QItemSelectionModel *select = ui->tableView_service->selectionModel();
 
-       QString type =select->selectedRows(0).value(0).data().toString();
+    QString type =select->selectedRows(0).value(0).data().toString();
 
-       if(tmpservice.supprimer_service(type))
-       {
-           ui->tableView_service->setModel(tmpservice.afficher_service());
-           ui->statusbar->showMessage("service supprimé");
-           int n=ui->tableView_service->model()->rowCount();
-           ui->comboBox_C_2->clear();
+    if(tmpservice.supprimer_service(type))
+    {
+        ui->tableView_service->setModel(tmpservice.afficher_service());
+        ui->statusbar->showMessage("service supprimé");
+        int n=ui->tableView_service->model()->rowCount();
+        ui->comboBox_C_2->clear();
 
-           for (int i=0;i<n;i++)
-           {
-               QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
-               ui->comboBox_C_2->addItem(type_service);
-           }
-       }
+        for (int i=0;i<n;i++)
+        {
+            QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
+            ui->comboBox_C_2->addItem(type_service);
+        }
+    }
 
-//   QString type= ui->lineEdit_type->text();
-//    bool test=tmpservice.supprimer_service(type);
-//    if(test)
-//    {
-//        ui->tableView_service->setModel(tmpservice.afficher_service());
-//        QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
-//                    QObject::tr("service supprimé.\n"
-//                                "Click Cancel to exit."), QMessageBox::Cancel);
-//        int n=ui->tableView_service->model()->rowCount();
-//        ui->comboBox_C_2->clear();
+    //   QString type= ui->lineEdit_type->text();
+    //    bool test=tmpservice.supprimer_service(type);
+    //    if(test)
+    //    {
+    //        ui->tableView_service->setModel(tmpservice.afficher_service());
+    //        QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
+    //                    QObject::tr("service supprimé.\n"
+    //                                "Click Cancel to exit."), QMessageBox::Cancel);
+    //        int n=ui->tableView_service->model()->rowCount();
+    //        ui->comboBox_C_2->clear();
 
-//        for (int i=0;i<n;i++)
-//        {
-//            QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
-//            ui->comboBox_C_2->addItem(type_service);
-//        }
-//    }
-//    else
-//    {
-//        QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
-//                    QObject::tr("Suppression echoué.\n"
-//                                "Click Cancel to exit."), QMessageBox::Cancel);
-//    }
+    //        for (int i=0;i<n;i++)
+    //        {
+    //            QString type_service = ui->tableView_service->model()->index(i, 0).data().toString();
+    //            ui->comboBox_C_2->addItem(type_service);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
+    //                    QObject::tr("Suppression echoué.\n"
+    //                                "Click Cancel to exit."), QMessageBox::Cancel);
+    //    }
 }
 
 void MainWindow::on_modifierC_2_clicked()
@@ -2204,36 +2321,36 @@ void MainWindow::on_pushButton_modifierS_clicked()
     int prix= ui->lineEdit_prix->text().toInt();
     QString proprietaire;
     bool b=ui->radioButton_e->isChecked();
-   if (b)
-   { proprietaire="Entreprise";}
-   else
-     { proprietaire="Free-lance"; }
+    if (b)
+    { proprietaire="Entreprise";}
+    else
+    { proprietaire="Free-lance"; }
 
 
-      bool test = tmpservice.modifier_service(type,date_service,prix,proprietaire);
-      if(test)
+    bool test = tmpservice.modifier_service(type,date_service,prix,proprietaire);
+    if(test)
 
-      {
-           ui->tableView_service->setModel(tmpservice.afficher_service());
-          QMessageBox::information(nullptr, QObject::tr("Modifier service"),
-                      QObject::tr("Service modifié\n"
-      "Click Cancel to exit."), QMessageBox::Cancel);}
-      else
-      {
-          QMessageBox::information(nullptr, QObject::tr("Modifier service"),
-                      QObject::tr("Modification echoué.\n"
-                                  "Click Cancel to exit."), QMessageBox::Cancel);
-      }
+    {
+        ui->tableView_service->setModel(tmpservice.afficher_service());
+        QMessageBox::information(nullptr, QObject::tr("Modifier service"),
+                                 QObject::tr("Service modifié\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);}
+    else
+    {
+        QMessageBox::information(nullptr, QObject::tr("Modifier service"),
+                                 QObject::tr("Modification echoué.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    }
 
 }
 
 void MainWindow::on_resetC_2_clicked()
 {
-     ui->lineEdit_NomC_2->setText("");
-     ui->lineEdit_TelephoneC_2->setText("");
-     ui->lineEdit_EmailC_2->setText("");
-     ui->lineEdit_RibC_2->setText("");
-     ui->lineEdit_ReferenceC_2->setText("");
+    ui->lineEdit_NomC_2->setText("");
+    ui->lineEdit_TelephoneC_2->setText("");
+    ui->lineEdit_EmailC_2->setText("");
+    ui->lineEdit_RibC_2->setText("");
+    ui->lineEdit_ReferenceC_2->setText("");
 }
 
 void MainWindow::on_resetS_clicked()
@@ -2246,103 +2363,103 @@ void MainWindow::on_resetS_clicked()
 
 void MainWindow::on_rechercher_colab_clicked()
 {
-   if (ui->checkBox_rib->isChecked())
-   { int rib=ui->rech_rib->text().toInt();
-       QSqlQueryModel *verif=tmpCollaborateur.rechercher_rib(rib);
-       if (verif!=nullptr)
-       {
-           ui->tableView_colab->setModel(verif);
+    if (ui->checkBox_rib->isChecked())
+    { int rib=ui->rech_rib->text().toInt();
+        QSqlQueryModel *verif=tmpCollaborateur.rechercher_rib(rib);
+        if (verif!=nullptr)
+        {
+            ui->tableView_colab->setModel(verif);
 
-       }
+        }
     }
 
-   else if (ui->checkBox_ref->isChecked())
-   { QString reference=ui->rech_ref->text();
-       QSqlQueryModel *verif=tmpCollaborateur.rechercher_ref(reference);
-       if (verif!=nullptr)
-       {
+    else if (ui->checkBox_ref->isChecked())
+    { QString reference=ui->rech_ref->text();
+        QSqlQueryModel *verif=tmpCollaborateur.rechercher_ref(reference);
+        if (verif!=nullptr)
+        {
 
-           ui->tableView_colab->setModel(verif);
+            ui->tableView_colab->setModel(verif);
 
-       }
+        }
     }
-   else if (ui->checkBox_service->isChecked())
-   { QString service=ui->rech_service->currentText();
-       QSqlQueryModel *verif=tmpCollaborateur.rechercher_service(service);
-       if (verif!=nullptr)
-       {
+    else if (ui->checkBox_service->isChecked())
+    { QString service=ui->rech_service->currentText();
+        QSqlQueryModel *verif=tmpCollaborateur.rechercher_service(service);
+        if (verif!=nullptr)
+        {
 
-           ui->tableView_colab->setModel(verif);
+            ui->tableView_colab->setModel(verif);
 
-       }
+        }
     }
-   else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_ref->isChecked()))
-   {
-       int rib=ui->rech_rib->text().toInt();
-       QString reference=ui->rech_ref->text();
+    else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_ref->isChecked()))
+    {
+        int rib=ui->rech_rib->text().toInt();
+        QString reference=ui->rech_ref->text();
 
-                   if (rib!=0)
-                     {
-                       if (reference!="")
-                          {
-                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibRef(rib,reference);
-                   if (verif!=nullptr)
-                   {
-                       ui->tableView_colab->setModel(verif);
+        if (rib!=0)
+        {
+            if (reference!="")
+            {
+                QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibRef(rib,reference);
+                if (verif!=nullptr)
+                {
+                    ui->tableView_colab->setModel(verif);
 
-                   }
-                       } else
-                           QMessageBox::warning(this,"erreur","Champ reference est vide");
-                   } else
-                       QMessageBox::warning(this,"erreur","Champ rib est vide");
-   }
-   else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked()))
-   {
-       int rib=ui->rech_rib->text().toInt();
-      QString service=ui->rech_service->currentText();
+                }
+            } else
+                QMessageBox::warning(this,"erreur","Champ reference est vide");
+        } else
+            QMessageBox::warning(this,"erreur","Champ rib est vide");
+    }
+    else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked()))
+    {
+        int rib=ui->rech_rib->text().toInt();
+        QString service=ui->rech_service->currentText();
 
-                   if (rib!=0)
-                     {
-                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibSer(rib,service);
-                   if (verif!=nullptr)
-                   {
-                       ui->tableView_colab->setModel(verif);
+        if (rib!=0)
+        {
+            QSqlQueryModel *verif=tmpCollaborateur.rechercher_RibSer(rib,service);
+            if (verif!=nullptr)
+            {
+                ui->tableView_colab->setModel(verif);
 
-                   }
+            }
 
-                   } else
-                       QMessageBox::warning(this,"erreur","Champ rib est vide");
-   }
-   else if ((ui->checkBox_ref->isChecked())&&(ui->checkBox_service->isChecked()))
-   {
-      QString reference=ui->rech_ref->text();
-      QString service=ui->rech_service->currentText();
+        } else
+            QMessageBox::warning(this,"erreur","Champ rib est vide");
+    }
+    else if ((ui->checkBox_ref->isChecked())&&(ui->checkBox_service->isChecked()))
+    {
+        QString reference=ui->rech_ref->text();
+        QString service=ui->rech_service->currentText();
 
-                   if (reference!="")
-                     {
-                   QSqlQueryModel *verif=tmpCollaborateur.rechercher_RefSer(reference,service);
-                   if (verif!=nullptr)
-                   {
-                       ui->tableView_colab->setModel(verif);
+        if (reference!="")
+        {
+            QSqlQueryModel *verif=tmpCollaborateur.rechercher_RefSer(reference,service);
+            if (verif!=nullptr)
+            {
+                ui->tableView_colab->setModel(verif);
 
-                   }
+            }
 
-                   } else
-                       QMessageBox::warning(this,"erreur","Champ Référence est vide");
-   }
+        } else
+            QMessageBox::warning(this,"erreur","Champ Référence est vide");
+    }
 
 
-else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(ui->checkBox_ref->isChecked()))
-{
+    else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(ui->checkBox_ref->isChecked()))
+    {
 
-    QString service=ui->rech_service->currentText();
-    int rib=ui->rech_rib->text().toInt();
-    QString reference=ui->rech_ref->text();
+        QString service=ui->rech_service->currentText();
+        int rib=ui->rech_rib->text().toInt();
+        QString reference=ui->rech_ref->text();
 
-                if (rib!=0)
-                  {
-                    if (reference!="")
-                       {
+        if (rib!=0)
+        {
+            if (reference!="")
+            {
                 QSqlQueryModel *verif=tmpCollaborateur.rechercher_tous(rib,reference,service);
                 if (verif!=nullptr)
                 {
@@ -2350,12 +2467,12 @@ else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked())&&(
                     ui->tableView_colab->setModel(verif);
 
                 }
-                    } else
-                        QMessageBox::warning(this,"erreur","Champ reference est vide");
-                } else
-                    QMessageBox::warning(this,"erreur","Champ rib est vide");
+            } else
+                QMessageBox::warning(this,"erreur","Champ reference est vide");
+        } else
+            QMessageBox::warning(this,"erreur","Champ rib est vide");
 
-} // else QMessageBox::warning(this,"erreur","Aucun critére n'est coché");
+    } // else QMessageBox::warning(this,"erreur","Aucun critére n'est coché");
 }
 
 
@@ -2364,7 +2481,7 @@ void MainWindow::on_reafficher_colab_clicked()
 {
     ui->rech_rib->setText("");
     ui->rech_ref->setText("");
-  ui->tableView_colab->setModel(tmpCollaborateur.afficher());
+    ui->tableView_colab->setModel(tmpCollaborateur.afficher());
 }
 
 
@@ -2386,28 +2503,28 @@ void MainWindow::on_reafficher_colab_clicked()
 void MainWindow::on_exporterC_clicked()
 {
     QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
-       if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_collaborateurs.pdf"); }
+    if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("liste_collaborateurs.pdf"); }
 
-       QPrinter printer(QPrinter::PrinterResolution);
-       printer.setOutputFormat(QPrinter::PdfFormat);
-       printer.setPaperSize(QPrinter::A4);
-       printer.setOutputFileName(fileName);
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(fileName);
 
-       QTextDocument doc;
-       QSqlQuery q;
-       q.prepare("SELECT * FROM collaborateur ");
-       q.exec();
-       QString pdf="<br> <img src='D:/Documents/ftf/CC.png' height='50' width='150'/> <h1  style='color:red'>       LISTE DES COLLABORATEURS  <br></h1>\n <br> <table>  <tr>  <th> NOM </th> <th> TELEPHONE </th> <th> EMAIL </th> <th> RIB  </th> <th>SERVICE </th>  </tr>" ;
+    QTextDocument doc;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM collaborateur ");
+    q.exec();
+    QString pdf="<br> <img src='D:/Documents/ftf/CC.png' height='50' width='150'/> <h1  style='color:red'>       LISTE DES COLLABORATEURS  <br></h1>\n <br> <table>  <tr>  <th> NOM </th> <th> TELEPHONE </th> <th> EMAIL </th> <th> RIB  </th> <th>SERVICE </th>  </tr>" ;
 
 
-       while ( q.next()) {
+    while ( q.next()) {
 
-           pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+"       </td>" ;
+        pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+"       </td>" ;
 
-       }
-       doc.setHtml(pdf);
-       doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
-       doc.print(&printer);
+    }
+    doc.setHtml(pdf);
+    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+    doc.print(&printer);
 
 }
 
@@ -2434,17 +2551,17 @@ void MainWindow::on_radioButton_triType_clicked()
         QSqlQueryModel * model= new QSqlQueryModel();
 
 
-           model->setQuery("select * from service order by type");
+        model->setQuery("select * from service order by type");
 
-           model->setHeaderData(0, Qt::Horizontal, QObject::tr("type"));
-           model->setHeaderData(1, Qt::Horizontal, QObject::tr("date_service"));
-           model->setHeaderData(2, Qt::Horizontal, QObject::tr("prix"));
-           model->setHeaderData(3, Qt::Horizontal, QObject::tr("proprietaire"));
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("type"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("date_service"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("prix"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("proprietaire"));
 
-                    ui->tableView_service->setModel(model);
-                    ui->tableView_service->show();
-                    msgBox.setText("Tri affecté sur le type.");
-                    msgBox.exec();
+        ui->tableView_service->setModel(model);
+        ui->tableView_service->show();
+        msgBox.setText("Tri affecté sur le type.");
+        msgBox.exec();
 
     }
 }
@@ -2456,17 +2573,17 @@ void MainWindow::on_radioButton_triPrix_clicked()
         QSqlQueryModel * model= new QSqlQueryModel();
 
 
-           model->setQuery("select * from service order by prix asc");
+        model->setQuery("select * from service order by prix asc");
 
-           model->setHeaderData(0, Qt::Horizontal, QObject::tr("type"));
-           model->setHeaderData(1, Qt::Horizontal, QObject::tr("date_service"));
-           model->setHeaderData(2, Qt::Horizontal, QObject::tr("prix"));
-           model->setHeaderData(3, Qt::Horizontal, QObject::tr("proprietaire"));
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("type"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("date_service"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("prix"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("proprietaire"));
 
-                    ui->tableView_service->setModel(model);
-                    ui->tableView_service->show();
-                    msgBox.setText("Tri affecté sur le prix.");
-                    msgBox.exec();
+        ui->tableView_service->setModel(model);
+        ui->tableView_service->show();
+        msgBox.setText("Tri affecté sur le prix.");
+        msgBox.exec();
 
     }
 }
@@ -2477,17 +2594,17 @@ void MainWindow::on_radioButton_triDate_clicked()
         QSqlQueryModel * model= new QSqlQueryModel();
 
 
-           model->setQuery("select * from service order by date_service");
+        model->setQuery("select * from service order by date_service");
 
-           model->setHeaderData(0, Qt::Horizontal, QObject::tr("type"));
-           model->setHeaderData(1, Qt::Horizontal, QObject::tr("date_service"));
-           model->setHeaderData(2, Qt::Horizontal, QObject::tr("prix"));
-           model->setHeaderData(3, Qt::Horizontal, QObject::tr("proprietaire"));
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("type"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("date_service"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("prix"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("proprietaire"));
 
-                    ui->tableView_service->setModel(model);
-                    ui->tableView_service->show();
-                    msgBox.setText("Tri affecté sur la date.");
-                    msgBox.exec();
+        ui->tableView_service->setModel(model);
+        ui->tableView_service->show();
+        msgBox.setText("Tri affecté sur la date.");
+        msgBox.exec();
 
     }
 }

@@ -359,28 +359,48 @@ bool invite::ajouter_image(QString cin)
 }
 
 
-QVariant invite::show_image(const QModelIndex &idx, int role) const
+//QVariant invite::show_image(const QModelIndex &idx, int role) const
+//{
+//    if ( idx.column() == 10 )
+//    {
+//        QString imgFile = QSqlTableModel::data( idx, Qt::DisplayRole );
+//        if ( Qt::DisplayRole == role )
+//        {
+//            return QString();
+//        }
+//        if ( !QFile::exists( imgFile )
+//        {
+//             imgFile = ":/centinela/images/picture_unavailable.jpg";
+//    }
+//             QPixmap pixmap( imgFile );
+//             if ( role == Qt::DecorationRole )
+//        {
+//             return pixmap;
+//    }
+//             if(role == Qt::SizeHintRole)
+//        {
+//             return pixmap.size();
+//    }
+//    }
+//             return QSqlTableModel::data( idx, role );
+//    }
+
+
+QSqlQueryModel *invite::rechercher(QString r)
 {
-    if ( idx.column() == 10 )
-    {
-        QString imgFile = QSqlTableModel::data( idx, Qt::DisplayRole );
-        if ( Qt::DisplayRole == role )
-        {
-            return QString();
-        }
-        if ( !QFile::exists( imgFile )
-        {
-             imgFile = ":/centinela/images/picture_unavailable.jpg";
-    }
-             QPixmap pixmap( imgFile );
-             if ( role == Qt::DecorationRole )
-        {
-             return pixmap;
-    }
-             if(role == Qt::SizeHintRole)
-        {
-             return pixmap.size();
-    }
-    }
-             return QSqlTableModel::data( idx, role );
-    }
+    QSqlQueryModel * model= new QSqlQueryModel();
+    model->setQuery("select * from invites where  upper(nom) like upper('%"+r+"%') or upper(prenom) like upper('%"+r+"%') or upper(cin) like upper('%"+r+"%') or upper(mail) like upper('%"+r+"%') or upper(telephone) like upper('%"+r+"%') or upper(permission) like upper('%"+r+"%') or upper(mail) like upper('%"+r+"%')or upper(num_table) like upper('%"+r+"%') or  upper(sexe) like upper('%"+r+"%')");
+
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("CIN"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Prenom"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Date de Naissance"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Mail"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Sexe"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Téléphone"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Numéro table"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Permission"));
+
+    return model;
+}

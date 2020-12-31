@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1202</width>
+    <width>1356</width>
     <height>643</height>
    </rect>
   </property>
@@ -187,7 +187,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>0</number>
+               <number>3</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -2141,49 +2141,49 @@
                               <item row="1" column="0">
                                <widget class="QLabel" name="label_2">
                                 <property name="text">
-                                 <string>cin</string>
+                                 <string>CIN</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="7" column="0">
                                <widget class="QLabel" name="label">
                                 <property name="text">
-                                 <string>salaire</string>
+                                 <string>Salaire</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="2" column="0">
                                <widget class="QLabel" name="label_3">
                                 <property name="text">
-                                 <string>nom</string>
+                                 <string>Nom</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="3" column="0">
                                <widget class="QLabel" name="label_4">
                                 <property name="text">
-                                 <string>prenom</string>
+                                 <string>Prénom</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="6" column="0">
                                <widget class="QLabel" name="label_6">
                                 <property name="text">
-                                 <string>date_naissance</string>
+                                 <string>Date de Naissance</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="5" column="0">
                                <widget class="QLabel" name="label_7">
                                 <property name="text">
-                                 <string>mobile</string>
+                                 <string>Mobile</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="4" column="0">
                                <widget class="QLabel" name="label_8">
                                 <property name="text">
-                                 <string>departement</string>
+                                 <string>Département</string>
                                 </property>
                                </widget>
                               </item>
@@ -2205,7 +2205,7 @@
                               <item row="8" column="0">
                                <widget class="QLabel" name="label_9">
                                 <property name="text">
-                                 <string>ref_dep</string>
+                                 <string>Référence Département</string>
                                 </property>
                                </widget>
                               </item>
@@ -2300,6 +2300,9 @@
                              <widget class="QPushButton" name="modifier_personnel">
                               <property name="text">
                                <string>modifier</string>
+                              </property>
+                              <property name="checkable">
+                               <bool>true</bool>
                               </property>
                              </widget>
                             </item>
@@ -2503,21 +2506,21 @@
                               <item row="1" column="0">
                                <widget class="QLabel" name="label_10">
                                 <property name="text">
-                                 <string>reference</string>
+                                 <string>Référence</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="3" column="0">
                                <widget class="QLabel" name="label_11">
                                 <property name="text">
-                                 <string>nb_employes</string>
+                                 <string>Nombre Employés</string>
                                 </property>
                                </widget>
                               </item>
                               <item row="2" column="0">
                                <widget class="QLabel" name="label_12">
                                 <property name="text">
-                                 <string>nom</string>
+                                 <string>Nom</string>
                                 </property>
                                </widget>
                               </item>
@@ -2601,6 +2604,9 @@
                              <widget class="QPushButton" name="modifier_departement">
                               <property name="text">
                                <string>modifier</string>
+                              </property>
+                              <property name="checkable">
+                               <bool>true</bool>
                               </property>
                              </widget>
                             </item>
@@ -4655,7 +4661,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1202</width>
+     <width>1356</width>
      <height>20</height>
     </rect>
    </property>

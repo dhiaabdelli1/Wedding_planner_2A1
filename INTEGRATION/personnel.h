@@ -8,7 +8,7 @@
 
 class personnel
 {
-    QString cin,c;
+    QString cin;
     QString nom;
     QString prenom;
     QString mobile;
@@ -16,6 +16,7 @@ class personnel
     QDate date_naissance;
     QString salaire;
     QString ref_dep;
+
 public:
     personnel();
 
@@ -26,8 +27,8 @@ public:
     QString getMobile(){return mobile;}
     QString getDepartement(){return departement;}
     QDate getDate_naissance(){return date_naissance;}
-    QString getSalaire(){return salaire;}
-    QString getRef_dep(){return ref_dep;}
+    //QString getSalaire(){return salaire;}
+
 
 
     bool ajouter();

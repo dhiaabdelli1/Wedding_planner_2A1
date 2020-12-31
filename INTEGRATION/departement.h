@@ -9,23 +9,24 @@ class departement
 
     QString reference;
     QString nom;
-    int nb_employes;
+    QString nb_employes;
 
 public:
     departement();
 
-    departement(QString,QString,int);
+    departement(QString,QString,QString);
       QString getReference(){return reference;}
     QString getNom(){return nom;}
-    int getnb_employes(){return nb_employes;}
+    //int getnb_employes(){return nb_employes;}
 
 
 
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(QString);
-    bool update(QString,QString,int);
+    bool update(QString,QString,QString);
     QSqlQueryModel * refdep();
+    QSqlQueryModel *nomdep();
 
 };
 

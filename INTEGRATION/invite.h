@@ -59,6 +59,7 @@ public:
     bool supprimer(QString);
 
     //FCTS Métiers
+    QSqlQueryModel *rechercher(QString);
     QSqlQueryModel *rechercher_cin(QString);
     QSqlQueryModel *rechercher_nom(QString);
     QSqlQueryModel *rechercher_sexe(QString);
