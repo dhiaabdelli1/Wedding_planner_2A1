@@ -271,6 +271,10 @@ private slots:
 
     void on_show_clicked();
 
+    void on_mdp_oublie_label_linkActivated(const QString & link);
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -321,5 +325,8 @@ private:
     login *log;
 
     QString current_user;
+
+    int initial_width;
+    int initial_height;
 };
 #endif // MAINWINDOW_H

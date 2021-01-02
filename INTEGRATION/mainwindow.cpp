@@ -26,6 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
     C=QRegExp("[a-zA-Z]{2,20}$");
     R=QRegExp("[0-9]{11}$");
 
+    //windows size
+    initial_width=this->width()*0.8;
+    initial_height=this->height();
+    int x=this->width()*0.5;
+    int y=this->height()*0.7;
+    this->setFixedSize(x,y);
 
 
     //Controle saisie avec LineEdit_invite/Qdate_recherche_invite
@@ -44,29 +50,29 @@ MainWindow::MainWindow(QWidget *parent)
     QPalette palette;
     //palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
-    ui->cINLineEdit_invite->setPlaceholderText("CIN ...");
-    ui->nomLineEdit_invite->setPlaceholderText("Nom ...");
-    ui->prNomLineEdit_invite->setPlaceholderText("Prénom ...");
-    ui->eMailLineEdit_invite->setPlaceholderText("E-mail ...");
-    ui->tLPhoneLineEdit_invite->setPlaceholderText("Téléphone ...");
+//    ui->cINLineEdit_invite->setPlaceholderText(tr("CIN ..."));
+//    ui->nomLineEdit_invite->setPlaceholderText(tr("Nom ...");
+//    ui->prNomLineEdit_invite->setPlaceholderText("Prénom ...");
+//    ui->eMailLineEdit_invite->setPlaceholderText("E-mail ...");
+//    ui->tLPhoneLineEdit_invite->setPlaceholderText("Téléphone ...");
 
-    ui->nombrePlacesLineEdit_table->setPlaceholderText("Nombre places ...");
-    ui->nomServeurLineEdit_table->setPlaceholderText("Nom serveur");
+//    ui->nombrePlacesLineEdit_table->setPlaceholderText("Nombre places ...");
+//    ui->nomServeurLineEdit_table->setPlaceholderText("Nom serveur");
 
-    ui->lineEdit_Ref_p->setPlaceholderText("Reference ...");
-    ui->lineEdit_quantite_p->setPlaceholderText("Quantite ...");
-    ui->lineEdit_Prix_p->setPlaceholderText("Prix ...");
-    ui->lineEdit_CIN_f->setPlaceholderText("CIN...");
-    ui->lineEdit_RIB_f->setPlaceholderText("RIB");
-    ui->lineEdit_tel_f->setPlaceholderText("Numero de telephone");
+//    ui->lineEdit_Ref_p->setPlaceholderText("Reference ...");
+//    ui->lineEdit_quantite_p->setPlaceholderText("Quantite ...");
+//    ui->lineEdit_Prix_p->setPlaceholderText("Prix ...");
+//    ui->lineEdit_CIN_f->setPlaceholderText("CIN...");
+//    ui->lineEdit_RIB_f->setPlaceholderText("RIB");
+//    ui->lineEdit_tel_f->setPlaceholderText("Numero de telephone");
 
-    ui->lineEdit_NomC_2->setPlaceholderText("Nom ...");
-    ui->lineEdit_TelephoneC_2->setPlaceholderText("Téléphone ...");
-    ui->lineEdit_EmailC_2->setPlaceholderText("E-mail ...");
-    ui->lineEdit_RibC_2->setPlaceholderText("RIB ...");
-    ui->lineEdit_ReferenceC_2->setPlaceholderText("Référence ...");
-    ui->lineEdit_type->setPlaceholderText("Type ...");
-    ui->lineEdit_prix->setPlaceholderText("Prix ...");
+//    ui->lineEdit_NomC_2->setPlaceholderText("Nom ...");
+//    ui->lineEdit_TelephoneC_2->setPlaceholderText("Téléphone ...");
+//    ui->lineEdit_EmailC_2->setPlaceholderText("E-mail ...");
+//    ui->lineEdit_RibC_2->setPlaceholderText("RIB ...");
+//    ui->lineEdit_ReferenceC_2->setPlaceholderText("Référence ...");
+//    ui->lineEdit_type->setPlaceholderText("Type ...");
+//    ui->lineEdit_prix->setPlaceholderText("Prix ...");
 
 
     //Affichage des tableaux au lancement
@@ -118,6 +124,12 @@ MainWindow::MainWindow(QWidget *parent)
     expand_animation->setStartValue(80);
     expand_animation->setEndValue(300);
     ui->contract_invite->setText("Contract");
+
+    ui->groupBox_35->setMaximumWidth(1000);
+
+    //Forgotten password hyperlink
+    ui->mdp_oublie_label->setText(tr("<a href=\"whatever\">(Mot de passe oublié?</a>"));
+    ui->mdp_oublie_label->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
 
     contract_animation_2 = new QPropertyAnimation(ui->groupBox_ajouter_table,"maximumWidth");
@@ -212,29 +224,57 @@ void MainWindow::on_Sara_clicked()
 void MainWindow::on_login_button_clicked()
 {
 
-
-    if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
+    if (ui->passwordLabel->text()=="Code")
     {
-        current_user=ui->usernameLineEdit_login->text();
-        ui->stackedWidget->setCurrentIndex(1);
-        ui->usernameLineEdit_login->clear();
-        ui->passwordLineEdit_login->clear();
+        if (log->sign_in_code(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
+        {
+            current_user=ui->usernameLineEdit_login->text();
+            ui->stackedWidget->setCurrentIndex(1);
+            ui->usernameLineEdit_login->clear();
+            ui->passwordLineEdit_login->clear();
+        }
+        else
+            QMessageBox::warning(this,tr("Connexion"),tr("Erreur de connexion"));
     }
-    else
-        QMessageBox::warning(this,"Login","Erreur de login");
+    else if (ui->passwordLabel->text()=="Mot de Passe")
+    {
+        if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
+        {
+            current_user=ui->usernameLineEdit_login->text();
+            ui->stackedWidget->setCurrentIndex(1);
+            ui->usernameLineEdit_login->clear();
+            ui->passwordLineEdit_login->clear();
+            this->setFixedSize(initial_width,initial_height);
+
+            QRect screenGeometry = QApplication::desktop()->screenGeometry();
+            int x = (screenGeometry.width()-initial_width) / 2;
+            int y = (screenGeometry.height()-initial_height) / 2;
+            this->move(x, y);
+        }
+        else
+            QMessageBox::warning(this,tr("Connexion"),tr("Erreur de connexion"));
+    }
+
 }
 
 void MainWindow::on_sign_up_button_clicked()
 {
 
-    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+    bool confirm_pwd=ui->confimerMotDePasseLineEdit_signup->text()==ui->passwordLineEdit_signup->text();
+
+    if (ui->confimerMotDePasseLineEdit_signup->text()==ui->passwordLineEdit_signup->text())
+        confirm_pwd=true;
+    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text(),ui->eMailLineEdit_signup->text()) && confirm_pwd)
     {
+
+        resize(QDesktopWidget().availableGeometry(this).size() * 1.6);
+
         ui->stackedWidget->setCurrentIndex(1);
         current_user=ui->usernameLineEdit_signup->text();
     }
 
     else
-        QMessageBox::warning(this,"Sign-up","Erreur d'insciption");
+        QMessageBox::warning(this,tr("Inscription"),tr("Erreur d'insciption"));
 }
 
 void MainWindow::on_confirmer_chan_mdp_clicked()
@@ -247,7 +287,7 @@ void MainWindow::on_confirmer_chan_mdp_clicked()
             bool test=log->modifier_mdp(current_user,ui->ancienMotDePasseLineEdit->text(),ui->nouveauMotDePasseLineEdit->text());
 
             if (!test)
-                QMessageBox::warning(this,"Changement du MDP","Erreur lors du changement du MDP");
+                QMessageBox::warning(this,tr("Changement du MDP"),tr("Erreur lors du changement du MDP"));
             else
             {
                 ui->ancienMotDePasseLineEdit->clear();
@@ -256,10 +296,10 @@ void MainWindow::on_confirmer_chan_mdp_clicked()
             }
         }
         else
-            QMessageBox::warning(this,"Changement du MDP","Veuillez remplir tous les champs");
+            QMessageBox::warning(this,tr("Changement du MDP"),tr("Veuillez remplir tous les champs"));
     }
     else
-        QMessageBox::warning(this,"Changement du MDP","Les deux mots de passe ne sont pas identiques");
+        QMessageBox::warning(this,tr("Changement du MDP"),tr("Les deux mots de passe ne sont pas identiques"));
 }
 
 
@@ -350,7 +390,7 @@ void MainWindow::on_ajouter_invite_clicked()
     }
     else
     {
-        QMessageBox::warning(this,"Erreur lors de l'ajout","Veuillez compléter tous les champs");
+        QMessageBox::warning(this,tr("Erreur lors de l'ajout"),tr("Veuillez compléter tous les champs"));
     }
 
 
@@ -401,7 +441,7 @@ void MainWindow::on_modifier_invite_clicked()
     if (ui->modifier_invite->isChecked())
     {
 
-        ui->modifier_invite->setText("Modifiable");
+        ui->modifier_invite->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("INVITES");
         tableModel->select();
@@ -409,7 +449,7 @@ void MainWindow::on_modifier_invite_clicked()
     }
     else
     {
-        ui->modifier_invite->setText("Modifier");
+        ui->modifier_invite->setText(tr("Modifier"));
         ui->tableView_invite->setModel(tmpinvite.afficher());
 
     }
@@ -427,7 +467,7 @@ void MainWindow::on_supprimer_invite_clicked()
     if(tmpinvite.supprimer(cin))
     {
         ui->tableView_invite->setModel(tmpinvite.afficher());
-        ui->statusbar->showMessage("Invité supprimé");
+        ui->statusbar->showMessage(tr("Invité supprimé"));
     }
 
 
@@ -629,12 +669,12 @@ void MainWindow::on_contract_invite_clicked()
     if (turn==1)
     {
         contract_animation->start();
-        ui->contract_invite->setText("Expand");
+        ui->contract_invite->setText(tr("Etendre"));
     }
     else
     {
         expand_animation->start();
-        ui->contract_invite->setText("Contract");
+        ui->contract_invite->setText(tr("Réduire"));
     }
     turn*=-1;
     QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
@@ -642,10 +682,10 @@ void MainWindow::on_contract_invite_clicked()
 
 void MainWindow::on_lineEdit_recherche_invite_textChanged(const QString &arg1)
 {
-//    if (!ui->checkBox_cin_invite->isChecked() && ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
-//        ui->tableView_invite->setModel(tmpinvite.rechercher_nom(arg1));
-//    else if (ui->checkBox_cin_invite->isChecked() && !ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
-//        ui->tableView_invite->setModel(tmpinvite.rechercher_cin(arg1));
+    //    if (!ui->checkBox_cin_invite->isChecked() && ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
+    //        ui->tableView_invite->setModel(tmpinvite.rechercher_nom(arg1));
+    //    else if (ui->checkBox_cin_invite->isChecked() && !ui->checkBox_nom_invite->isChecked() && !ui->checkBox_sexe_invite->isChecked() && !ui->checkBox_date_invite->isChecked() && !ui->checkBox_mail_invite->isChecked())
+    //        ui->tableView_invite->setModel(tmpinvite.rechercher_cin(arg1));
 
     ui->tableView_invite->setModel(tmpinvite.rechercher(arg1));
 }
@@ -664,9 +704,9 @@ void MainWindow::on_ajouter_table_clicked()
     if (ui->nombrePlacesLineEdit_table->text()!="" && ui->nomServeurLineEdit_table->text()!="")
     {
         if (!nom_verif)
-            QMessageBox::warning(this,"Erreur lors de l'ajout","Nom invalid");
+            QMessageBox::warning(this,tr("Erreur lors de l'ajout"),tr("Nom invalid"));
         else if (!nombre_verif)
-            QMessageBox::warning(this,"Erreur lors de l'ajout","Nombre invalid");
+            QMessageBox::warning(this,tr("Erreur lors de l'ajout"),tr("Nombre invalid"));
         else
         {
             bool test=table.ajouter();
@@ -691,7 +731,7 @@ void MainWindow::on_ajouter_table_clicked()
         }
     }
     else
-        QMessageBox::warning(this,"Erreur lors de l'ajout","Veuillez remplir tous les champs");
+        QMessageBox::warning(this,tr("Erreur lors de l'ajout"),tr("Veuillez remplir tous les champs"));
 
 
 }
@@ -703,7 +743,7 @@ void MainWindow::on_modifier_table_clicked()
     if (ui->modifier_table->isChecked())
     {
 
-        ui->modifier_table->setText("Modifiable");
+        ui->modifier_table->setText(tr("Modifiable"));
         QSqlTableModel *tableModel_2= new QSqlTableModel();
         tableModel_2->setTable("TABLES");
         tableModel_2->select();
@@ -711,7 +751,7 @@ void MainWindow::on_modifier_table_clicked()
     }
     else
     {
-        ui->modifier_table->setText("Modifier");
+        ui->modifier_table->setText(tr("Modifier"));
         ui->tableView_table->setModel(tmptable.afficher());
 
     }
@@ -731,7 +771,7 @@ void MainWindow::on_supprimer_table_clicked()
         {
 
             ui->tableView_table->setModel(tmptable.afficher());
-            ui->statusbar->showMessage("Table supprimée");
+            ui->statusbar->showMessage(tr("Table supprimée"));
             int nb=ui->tableView_table->model()->rowCount();
             ui->comboBox_tables->clear();
 
@@ -744,7 +784,7 @@ void MainWindow::on_supprimer_table_clicked()
     }
     else
     {
-        QMessageBox::warning(this,"Erreur lors de la suppression","Table Contient des invites");
+        QMessageBox::warning(this,tr("Erreur lors de la suppression"),tr("Table Contient des invites"));
     }
 }
 
@@ -789,9 +829,9 @@ void MainWindow::on_affecter_table_clicked()
     if (!test)
         ui->tableView_invite->setModel(tmpinvite.afficher());
     else if (test==1)
-        QMessageBox::warning(this,"Erreur lors de l'affectation","Table Inéxistante");
+        QMessageBox::warning(this,tr("Erreur lors de l'affectation"),tr("Table Inéxistante"));
     else if (test==2)
-        QMessageBox::warning(this,"Erreur lors de l'affectation","Table Pleine");
+        QMessageBox::warning(this,tr("Erreur lors de l'affectation"),tr("Table Pleine"));
 
 }
 
@@ -804,13 +844,13 @@ void MainWindow::on_contract_table_clicked()
     if (turn==1)
     {
         contract_animation_2->start();
-        ui->contract_table->setText("Expand");
+        ui->contract_table->setText(tr("Etendre"));
     }
 
     else
     {
         expand_animation_2->start();
-        ui->contract_table->setText("Contract");
+        ui->contract_table->setText(tr("Réduire"));
     }
     turn*=-1;
     QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
@@ -918,7 +958,7 @@ void MainWindow::on_ajouter_client_clicked()
     // qDebug()<<CIN<<nom<<prenom<<date_naissance<<mail<<telephone<<budget;
     if (!mail_verif || !nom_verif || !cin_verif || !budget_verif || !prenom_verif || !tel_verif)
     {
-        QMessageBox::warning(this,"Erreur lors de l'ajout","format non valide");
+        QMessageBox::warning(this,tr("Erreur lors de l'ajout"),tr("format non valide"));
         test2=false;
 
     }
@@ -960,7 +1000,7 @@ void MainWindow::on_modifier_client_clicked()
     if (ui->modifier_client->isChecked())
     {
         //ui->pushButton_4->setDisabled(true);
-        ui->modifier_client->setText("Modifiable");
+        ui->modifier_client->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("CLIENT");
 
@@ -971,7 +1011,7 @@ void MainWindow::on_modifier_client_clicked()
     }
     else
     {
-        ui->modifier_client->setText("modifier client");
+        ui->modifier_client->setText(tr("modifier client"));
         ui->tableView_client->setModel(tempclient.afficher());
 
     }
@@ -1114,7 +1154,6 @@ void MainWindow::on_imprimer_client_clicked()
 
 void MainWindow::on_trier_client_clicked()
 {
-    qDebug() << "clicked";
     if (ui->checkBox_nom_client->isChecked() && !ui->checkBox_prenom_client->isChecked() && !ui->checkBox_budget_client->isChecked())
         ui->tableView_client->setModel(tempclient.trier("nom",ui->ordre_client->currentText()));
     else if (!ui->checkBox_nom_client->isChecked() && ui->checkBox_prenom_client->isChecked() && !ui->checkBox_budget_client->isChecked())
@@ -1179,7 +1218,7 @@ void MainWindow::on_modifier_reservation_clicked()
     if (ui->modifier_reservation->isChecked())
     {
 
-        ui->modifier_reservation->setText("Modifiable");
+        ui->modifier_reservation->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("RESERVATION");
         tableModel->select();
@@ -1187,7 +1226,7 @@ void MainWindow::on_modifier_reservation_clicked()
     }
     else
     {
-        ui->modifier_reservation->setText("Modifier");
+        ui->modifier_reservation->setText(tr("Modifier"));
         ui->tableView_reservation->setModel(tempreservation.afficher());
 
     }
@@ -1220,12 +1259,10 @@ void MainWindow::on_supprimer_reservation_clicked()
 
 void MainWindow::on_trier_reservation_clicked()
 {
-    qDebug() << "clicked";
 
     if (ui->checkBox_localisation_reservation->isChecked() && !ui->checkBox_prix_reservation->isChecked() && !ui->checkBox_nb_invites_reservation->isChecked())
     {
         ui->tableView_reservation->setModel(tempreservation.trier("localisation",ui->ordre_reservation->currentText()));
-        qDebug() << "if";
     }
     else if (!ui->checkBox_localisation_reservation->isChecked() && ui->checkBox_prix_reservation->isChecked() && !ui->checkBox_nb_invites_reservation->isChecked())
         ui->tableView_reservation->setModel(tempreservation.trier("prix",ui->ordre_reservation->currentText()));
@@ -1330,9 +1367,9 @@ void MainWindow::on_accepter_clicked()
     QString msg="";
 
     if (sexe=="Femme")
-        msg= "Bonjour, Mme. "+nom+" Votre num de table est: "+num_table;
+        msg= tr("Bonjour, Mme. ")+nom+tr(" Votre num de table est: ")+num_table;
     else if (sexe=="Homme")
-        msg= "Bonjour, Mr. "+nom+" Votre num de table est: "+num_table;
+        msg= tr("Bonjour, Mr. ")+nom+tr(" Votre num de table est: ")+num_table;
 
 
     const char * p= msg.toStdString().c_str();
@@ -1484,7 +1521,7 @@ void MainWindow::on_modifier_departement_clicked()
     if (ui->modifier_departement->isChecked())
     {
 
-        ui->modifier_departement->setText("Modifiable");
+        ui->modifier_departement->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("DEPARTEMENTS");
         tableModel->select();
@@ -1492,7 +1529,7 @@ void MainWindow::on_modifier_departement_clicked()
     }
     else
     {
-        ui->modifier_departement->setText("Modifier");
+        ui->modifier_departement->setText(tr("Modifier"));
         ui->tableView_departement->setModel(tmpdepartement.afficher());
 
     }
@@ -1642,7 +1679,7 @@ void MainWindow::on_modifier_personnel_clicked()
     if (ui->modifier_personnel->isChecked())
     {
 
-        ui->modifier_personnel->setText("Modifiable");
+        ui->modifier_personnel->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("PERSONNEL");
         tableModel->select();
@@ -1650,7 +1687,7 @@ void MainWindow::on_modifier_personnel_clicked()
     }
     else
     {
-        ui->modifier_personnel->setText("Modifier");
+        ui->modifier_personnel->setText(tr("Modifier"));
         ui->tableView_personnel->setModel(tmppersonnel.afficher());
 
     }
@@ -1748,7 +1785,7 @@ void MainWindow::on_tri_cin_personnel_clicked()
 
     ui->tableView_personnel->setModel(model);
     ui->tableView_personnel->show();
-    msgBox.setText("Tri avec succés.");
+    msgBox.setText(tr("Tri avec succés."));
     msgBox.exec();
 }
 
@@ -1794,7 +1831,7 @@ void MainWindow::on_tri_nom_personnel_clicked()
         model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
         ui->tableView_personnel->setModel(model);
         ui->tableView_personnel->show();
-        msgBox.setText("Tri avec succés.");
+        msgBox.setText(tr("Tri avec succés."));
         msgBox.exec();
     }
 }
@@ -1841,7 +1878,7 @@ void MainWindow::on_pushButton_Modifier_p_clicked()
     if (ui->pushButton_Modifier_p->isChecked())
     {
         //ui->pushButton_Modifier->setDisabled(true);
-        ui->pushButton_Modifier_p->setText("Modifier...");
+        ui->pushButton_Modifier_p->setText(tr("Modifier..."));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("produits");
         tableModel->select();
@@ -1849,7 +1886,7 @@ void MainWindow::on_pushButton_Modifier_p_clicked()
     }
     else
     {
-        ui->pushButton_Modifier_p->setText("Modifier");
+        ui->pushButton_Modifier_p->setText(tr("Modifier"));
         ui->tableView_Produits->setModel(tmpprod.afficher_p());
 
     }
@@ -1910,7 +1947,7 @@ void MainWindow::on_pushButton_Recherche_p_clicked()
             }
         }
         else
-            QMessageBox::warning(this,"Erreur","réessayer");
+            QMessageBox::warning(this,tr("Erreur"),tr("réessayer"));
 
     }
 
@@ -1964,7 +2001,7 @@ void MainWindow::on_pushButton_modifier_f_clicked()
     if (ui->pushButton_modifier_f->isChecked())
     {
         // ui->pushButton_modifier->setDisabled(true);
-        ui->pushButton_modifier_f->setText("Modifiable");
+        ui->pushButton_modifier_f->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("fournisseurs");
         tableModel->select();
@@ -1972,7 +2009,7 @@ void MainWindow::on_pushButton_modifier_f_clicked()
     }
     else
     {
-        ui->pushButton_modifier_f->setText("Modifier");
+        ui->pushButton_modifier_f->setText(tr("Modifier"));
         ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
 
     }
@@ -2254,7 +2291,7 @@ void MainWindow::on_pushButton_supprimerS_clicked()
     if(tmpservice.supprimer_service(type))
     {
         ui->tableView_service->setModel(tmpservice.afficher_service());
-        ui->statusbar->showMessage("service supprimé");
+        ui->statusbar->showMessage(tr("service supprimé"));
         int n=ui->tableView_service->model()->rowCount();
         ui->comboBox_C_2->clear();
 
@@ -2295,7 +2332,7 @@ void MainWindow::on_modifierC_2_clicked()
     if (ui->modifierC_2->isChecked())
     {
 
-        ui->modifierC_2->setText("Modifiable");
+        ui->modifierC_2->setText(tr("Modifiable"));
         QSqlTableModel *tableModel= new QSqlTableModel();
         tableModel->setTable("COLLABORATEUR");
         tableModel->select();
@@ -2303,7 +2340,7 @@ void MainWindow::on_modifierC_2_clicked()
     }
     else
     {
-        ui->modifierC_2->setText("Modifier");
+        ui->modifierC_2->setText(tr("Modifier"));
         ui->tableView_colab->setModel(tmpCollaborateur.afficher());
 
     }
@@ -2409,9 +2446,9 @@ void MainWindow::on_rechercher_colab_clicked()
 
                 }
             } else
-                QMessageBox::warning(this,"erreur","Champ reference est vide");
+                QMessageBox::warning(this,tr("erreur"),tr("Champ reference est vide"));
         } else
-            QMessageBox::warning(this,"erreur","Champ rib est vide");
+            QMessageBox::warning(this,tr("erreur"),tr("Champ rib est vide"));
     }
     else if ((ui->checkBox_rib->isChecked())&&(ui->checkBox_service->isChecked()))
     {
@@ -2428,7 +2465,7 @@ void MainWindow::on_rechercher_colab_clicked()
             }
 
         } else
-            QMessageBox::warning(this,"erreur","Champ rib est vide");
+            QMessageBox::warning(this,tr("erreur"),tr("Champ rib est vide"));
     }
     else if ((ui->checkBox_ref->isChecked())&&(ui->checkBox_service->isChecked()))
     {
@@ -2445,7 +2482,7 @@ void MainWindow::on_rechercher_colab_clicked()
             }
 
         } else
-            QMessageBox::warning(this,"erreur","Champ Référence est vide");
+            QMessageBox::warning(this,tr("erreur"),tr("Champ Référence est vide"));
     }
 
 
@@ -2468,9 +2505,9 @@ void MainWindow::on_rechercher_colab_clicked()
 
                 }
             } else
-                QMessageBox::warning(this,"erreur","Champ reference est vide");
+                QMessageBox::warning(this,tr("erreur"),tr("Champ reference est vide"));
         } else
-            QMessageBox::warning(this,"erreur","Champ rib est vide");
+            QMessageBox::warning(this,tr("erreur"),tr("Champ rib est vide"));
 
     } // else QMessageBox::warning(this,"erreur","Aucun critére n'est coché");
 }
@@ -2560,7 +2597,7 @@ void MainWindow::on_radioButton_triType_clicked()
 
         ui->tableView_service->setModel(model);
         ui->tableView_service->show();
-        msgBox.setText("Tri affecté sur le type.");
+        msgBox.setText(tr("Tri affecté sur le type."));
         msgBox.exec();
 
     }
@@ -2582,7 +2619,7 @@ void MainWindow::on_radioButton_triPrix_clicked()
 
         ui->tableView_service->setModel(model);
         ui->tableView_service->show();
-        msgBox.setText("Tri affecté sur le prix.");
+        msgBox.setText(tr("Tri affecté sur le prix."));
         msgBox.exec();
 
     }
@@ -2622,10 +2659,39 @@ void MainWindow::on_chat_clicked()
 
 void MainWindow::on_signup_button_clicked()
 {
-    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text()))
+    bool email_verif=mail_regex.exactMatch(ui->eMailLineEdit_signup->text());
+
+    bool confirm_pwd=ui->confimerMotDePasseLineEdit_signup->text()==ui->passwordLineEdit_signup->text();
+
+    if (log->sign_up(ui->usernameLineEdit_signup->text(),ui->passwordLineEdit_signup->text(),ui->eMailLineEdit_signup->text()) && confirm_pwd && email_verif)
+    {
         ui->stackedWidget->setCurrentIndex(1);
+        current_user=ui->usernameLineEdit_signup->text();
+
+        ui->confimerMotDePasseLineEdit_signup->text().clear();
+        ui->passwordLineEdit_signup->text().clear();
+        ui->eMailLineEdit_signup->text().clear();
+        ui->usernameLineEdit_signup->text().clear();
+        this->setFixedSize(initial_width,initial_height);
+
+        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        int x = (screenGeometry.width()-initial_width) / 2;
+        int y = (screenGeometry.height()-initial_height) / 2;
+        this->move(x, y);
+        ui->eMailLineEdit_signup->setStyleSheet("color: black");
+
+    }
+
     else
-        QMessageBox::warning(this,"Sign-up","Erreur d'insciption");
+    {
+        if (!email_verif)
+            ui->eMailLineEdit_signup->setStyleSheet("color: red");
+        if (!confirm_pwd)
+            QMessageBox::warning(this,tr("Inscription"),tr("Les deux mots de passe ne sont pas identiques"));
+    }
+
+
+
 }
 
 void MainWindow::on_image_clicked()
@@ -2636,11 +2702,40 @@ void MainWindow::on_image_clicked()
 
     if (!tmpinvite.ajouter_image(cin))
     {
-        QMessageBox::warning(this,"Ajout image","Erreur");
+        QMessageBox::warning(this,tr("Ajout image"),tr("Erreur"));
     }
 }
 
 void MainWindow::on_show_clicked()
 {
     //tmpinvite.show_image("lol");
+}
+
+
+void MainWindow::on_mdp_oublie_label_linkActivated(const QString & link)
+{
+    if (ui->usernameLineEdit_login->text()!="")
+    {
+        login login;
+        QString code=login.code_generator();
+        ui->passwordLabel->setText("Code");
+        QString email = QInputDialog::getText(this, "Mot de passe oublié", "Veuillez saisir votre adresse email");
+        Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
+        smtp->sendMail("dhia.abdelli1@esprit.tn", email , "Mot de Passe oublié" ,code);
+        login.update_mpd_reset(ui->usernameLineEdit_login->text(),code);
+    }
+
+
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    int reponse = QMessageBox::question(this, tr("Suppression du compte"), tr("Voulez-vous vraiment supprimer votre compte?"), QMessageBox ::Yes | QMessageBox::No);
+    if (reponse == QMessageBox::Yes)
+    {
+        login login;
+        login.delete_account(current_user);
+        ui->stackedWidget->setCurrentIndex(0);
+    }
+
 }

@@ -9,7 +9,7 @@ chat::chat(QWidget *parent) :
     ui->setupUi(this);
     socketServerc=new QUdpSocket(this);
     socketServer=new QUdpSocket(this);
-    socketServer->bind(me, 8001);
+    socketServer->bind(QHostAddress::LocalHost, 8001);
 
     connect(socketServer,SIGNAL(readyRead()),this,SLOT(readPendingDatagrams()));
 
@@ -35,7 +35,7 @@ void chat::on_sendButton_clicked()
     QHostAddress sender;
     quint16 senderPort;
     //socketServerc->writeDatagram(buffer.data(), QHostAddress::LocalHost, 7000 );
-    socketServerc->writeDatagram(buffer.data(), QHostAddress::Broadcast, 7000 );
+    socketServerc->writeDatagram(buffer.data(), QHostAddress::LocalHost, 7000 );
 
 }
 

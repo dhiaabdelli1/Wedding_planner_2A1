@@ -25,7 +25,7 @@
      <item>
       <widget class="QPushButton" name="sendButton">
        <property name="text">
-        <string>Send</string>
+        <string>Envoyer</string>
        </property>
       </widget>
      </item>
