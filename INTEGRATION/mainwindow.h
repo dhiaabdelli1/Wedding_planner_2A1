@@ -14,6 +14,8 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <qtextbrowser.h>
+#include <QMediaPlayer>
+#include <QSystemTrayIcon>
 
 #include <QPropertyAnimation>
 #include <QSound>
@@ -39,6 +41,8 @@
 #include "smtp.h"
 #include "stats.h"
 #include "chat.h"
+#include "windows.h"
+#include <vector>
 //#include "stats.h"
 //#include "arduino.h"
 
@@ -53,6 +57,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    //bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
     void on_Dhia_clicked();
@@ -283,6 +288,13 @@ private slots:
 
     void on_test_clicked();
 
+    void on_radioButton_nuit_toggled(bool checked);
+
+    void on_radioButton_jour_toggled(bool checked);
+
+    void on_cant_touch_this_pressed();
+
+
 private:
     Ui::MainWindow *ui;
 
@@ -329,7 +341,7 @@ private:
     int num_entree=0;
     int num_entree_personnel=0;
 
-     QTranslator *translator=new QTranslator;
+    QTranslator *translator=new QTranslator;
 
     login *log;
 
@@ -341,5 +353,20 @@ private:
 
     int initial_width;
     int initial_height;
+
+    int login_width;
+    int login_height;
+
+    int center_main_x=0;
+    int center_main_y=0;
+    int center_login_x=0;
+    int center_login_y=0;
+
+    QMediaPlayer *player;
+
+    QSystemTrayIcon *mSystemTrayIcon;
+    QMediaPlayer *mMediaPlayer;
+    QSound *son;
+
 };
 #endif // MAINWINDOW_H

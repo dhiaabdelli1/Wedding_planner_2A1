@@ -8,6 +8,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
+    mSystemTrayIcon = new QSystemTrayIcon(this);
+    mSystemTrayIcon->setIcon(QIcon("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/icon.png"));
+    mSystemTrayIcon->setVisible(true);
+
+
+    player = new QMediaPlayer(this);
+    player->setMedia(QUrl::fromLocalFile("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/cant.wav"));
+
+    player->setVolume(50);
+
+
+    //connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
+
     current_user="";
 
     //Regex (pour contrôle de saisie)
@@ -26,12 +40,24 @@ MainWindow::MainWindow(QWidget *parent)
     C=QRegExp("[a-zA-Z]{2,20}$");
     R=QRegExp("[0-9]{11}$");
 
+    ui->stackedWidget->setCurrentIndex(0);
+
     //windows size
- initial_width=this->width()*0.8;
+    initial_width=this->width()*0.8;
     initial_height=this->height();
-    int x=this->width()*0.5;
-    int y=this->height()*0.7;
-    this->setFixedSize(x,y);
+
+    login_width=this->width()*0.5;
+    login_height=this->height()*0.7;
+
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    center_main_x=(screenGeometry.width()-initial_width) / 2;
+    center_main_y=(screenGeometry.height()-initial_height) / 2;
+    center_login_x=(screenGeometry.width()-login_width) / 2;;
+    center_login_y=(screenGeometry.height()-login_height) / 2;
+
+
+
+    this->setFixedSize(login_width,login_height);
 
 
     //Controle saisie avec LineEdit_invite/Qdate_recherche_invite
@@ -45,34 +71,38 @@ MainWindow::MainWindow(QWidget *parent)
     //Looks
     ui->groupBox_ajouter_table->setMaximumWidth(100);
     ui->groupBox_ajouter_invites->setMaximumWidth(400);
-    QPixmap bkgnd("C:/Users/asus/Desktop/Wedding_planner_2A1/INTEGRATION/bg.jpg");
+    QPixmap bkgnd("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/bg.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
-//    ui->cINLineEdit_invite->setPlaceholderText(tr("CIN ..."));
-//    ui->nomLineEdit_invite->setPlaceholderText(tr("Nom ...");
-//    ui->prNomLineEdit_invite->setPlaceholderText("Prénom ...");
-//    ui->eMailLineEdit_invite->setPlaceholderText("E-mail ...");
-//    ui->tLPhoneLineEdit_invite->setPlaceholderText("Téléphone ...");
 
-//    ui->nombrePlacesLineEdit_table->setPlaceholderText("Nombre places ...");
-//    ui->nomServeurLineEdit_table->setPlaceholderText("Nom serveur");
 
-//    ui->lineEdit_Ref_p->setPlaceholderText("Reference ...");
-//    ui->lineEdit_quantite_p->setPlaceholderText("Quantite ...");
-//    ui->lineEdit_Prix_p->setPlaceholderText("Prix ...");
-//    ui->lineEdit_CIN_f->setPlaceholderText("CIN...");
-//    ui->lineEdit_RIB_f->setPlaceholderText("RIB");
-//    ui->lineEdit_tel_f->setPlaceholderText("Numero de telephone");
 
-//    ui->lineEdit_NomC_2->setPlaceholderText("Nom ...");
-//    ui->lineEdit_TelephoneC_2->setPlaceholderText("Téléphone ...");
-//    ui->lineEdit_EmailC_2->setPlaceholderText("E-mail ...");
-//    ui->lineEdit_RibC_2->setPlaceholderText("RIB ...");
-//    ui->lineEdit_ReferenceC_2->setPlaceholderText("Référence ...");
-//    ui->lineEdit_type->setPlaceholderText("Type ...");
-//    ui->lineEdit_prix->setPlaceholderText("Prix ...");
+
+    //    ui->cINLineEdit_invite->setPlaceholderText(tr("CIN ..."));
+    //    ui->nomLineEdit_invite->setPlaceholderText(tr("Nom ...");
+    //    ui->prNomLineEdit_invite->setPlaceholderText("Prénom ...");
+    //    ui->eMailLineEdit_invite->setPlaceholderText("E-mail ...");
+    //    ui->tLPhoneLineEdit_invite->setPlaceholderText("Téléphone ...");
+
+    //    ui->nombrePlacesLineEdit_table->setPlaceholderText("Nombre places ...");
+    //    ui->nomServeurLineEdit_table->setPlaceholderText("Nom serveur");
+
+    //    ui->lineEdit_Ref_p->setPlaceholderText("Reference ...");
+    //    ui->lineEdit_quantite_p->setPlaceholderText("Quantite ...");
+    //    ui->lineEdit_Prix_p->setPlaceholderText("Prix ...");
+    //    ui->lineEdit_CIN_f->setPlaceholderText("CIN...");
+    //    ui->lineEdit_RIB_f->setPlaceholderText("RIB");
+    //    ui->lineEdit_tel_f->setPlaceholderText("Numero de telephone");
+
+    //    ui->lineEdit_NomC_2->setPlaceholderText("Nom ...");
+    //    ui->lineEdit_TelephoneC_2->setPlaceholderText("Téléphone ...");
+    //    ui->lineEdit_EmailC_2->setPlaceholderText("E-mail ...");
+    //    ui->lineEdit_RibC_2->setPlaceholderText("RIB ...");
+    //    ui->lineEdit_ReferenceC_2->setPlaceholderText("Référence ...");
+    //    ui->lineEdit_type->setPlaceholderText("Type ...");
+    //    ui->lineEdit_prix->setPlaceholderText("Prix ...");
 
 
     //Affichage des tableaux au lancement
@@ -193,6 +223,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox_reservations->setModel(model2);
     ui->comboBox_ref_deppersonnel->setModel(tmpdepartement.refdep());
     ui->comboBox_persodep->setModel(tmpdepartement.nomdep());
+
+
+
 }
 MainWindow::~MainWindow()
 {
@@ -236,6 +269,8 @@ void MainWindow::on_login_button_clicked()
             ui->stackedWidget->setCurrentIndex(1);
             ui->usernameLineEdit_login->clear();
             ui->passwordLineEdit_login->clear();
+            this->setFixedSize(initial_width,initial_height);
+            this->move(center_main_x, center_main_y);
         }
         else
             QMessageBox::warning(this,tr("Connexion"),tr("Erreur de connexion"));
@@ -250,10 +285,7 @@ void MainWindow::on_login_button_clicked()
             ui->passwordLineEdit_login->clear();
             this->setFixedSize(initial_width,initial_height);
 
-            QRect screenGeometry = QApplication::desktop()->screenGeometry();
-            int x = (screenGeometry.width()-initial_width) / 2;
-            int y = (screenGeometry.height()-initial_height) / 2;
-            this->move(x, y);
+            this->move(center_main_x, center_main_y);
         }
         else
         {
@@ -313,6 +345,9 @@ void MainWindow::on_confirmer_chan_mdp_clicked()
 
 void MainWindow::on_logout_button_clicked()
 {
+
+    this->setFixedSize(login_width,login_height);
+    this->move(center_login_x,center_login_y);
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -1315,64 +1350,64 @@ void MainWindow::update_label()
 
     }
 
-//    for (int i=pos;i<pos+40;i++)
-//    {
-//        qDebug() << myid[i];
-//    }
+    //    for (int i=pos;i<pos+40;i++)
+    //    {
+    //        qDebug() << myid[i];
+    //    }
 
 
     //qDebug() << pos;
 
-//    if (data!="#")
-//    {
+    //    if (data!="#")
+    //    {
 
-//        cin_recu+=data;
+    //        cin_recu+=data;
 
-//        if (data!="\r")//  || data!="\n" || data!="x")
-//        {
-//            tmp_recue+=data;
-//            qDebug() << data;
-//            ui->lcdNumber->display(data.toInt());
-//            ui->lineEdit_tmp->setText(tmp_recue);
-//            QString test=ui->lineEdit_tmp->text();
-//            if (test.length()>5)
-//                tmp_recue="";
-//            //            if (ui->lineEdit_tmp->text().toStdString().find("23") && tmp_verif==false)
-//            //            {
-//            //                QMessageBox::information(nullptr, QObject::tr("Notification"),
-//            //                                         QObject::tr("TROP CHAUD\n"), QMessageBox::Ok);
-//            //                tmp_verif=true;
-//            //            }
-
-
-
-//        }
+    //        if (data!="\r")//  || data!="\n" || data!="x")
+    //        {
+    //            tmp_recue+=data;
+    //            qDebug() << data;
+    //            ui->lcdNumber->display(data.toInt());
+    //            ui->lineEdit_tmp->setText(tmp_recue);
+    //            QString test=ui->lineEdit_tmp->text();
+    //            if (test.length()>5)
+    //                tmp_recue="";
+    //            //            if (ui->lineEdit_tmp->text().toStdString().find("23") && tmp_verif==false)
+    //            //            {
+    //            //                QMessageBox::information(nullptr, QObject::tr("Notification"),
+    //            //                                         QObject::tr("TROP CHAUD\n"), QMessageBox::Ok);
+    //            //                tmp_verif=true;
+    //            //            }
 
 
 
-
-//    }
-
-//    else
-//    {
-//        //ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
-//        QMessageBox::information(nullptr, QObject::tr("Notification"),
-//                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
-
-//        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
-
-//        tmpinvite.update(cin_recu,"permission","pending");
-
-//        ui->tableView_invite->setModel(tmpinvite.afficher());
-//        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-//        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
-
-
-//        cin_recu="";
+    //        }
 
 
 
-//    }
+
+    //    }
+
+    //    else
+    //    {
+    //        //ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
+    //        QMessageBox::information(nullptr, QObject::tr("Notification"),
+    //                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+
+    //        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+
+    //        tmpinvite.update(cin_recu,"permission","pending");
+
+    //        ui->tableView_invite->setModel(tmpinvite.afficher());
+    //        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+    //        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+
+
+    //        cin_recu="";
+
+
+
+    //    }
 
 
 
@@ -2122,6 +2157,7 @@ void MainWindow::on_pushButton_exporter_f_clicked()
 void MainWindow::on_configuration_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(5);
+    player->stop();
 }
 
 void MainWindow::on_confirmer_langue_clicked()
@@ -2712,10 +2748,7 @@ void MainWindow::on_signup_button_clicked()
         ui->usernameLineEdit_signup->text().clear();
         this->setFixedSize(initial_width,initial_height);
 
-        QRect screenGeometry = QApplication::desktop()->screenGeometry();
-        int x = (screenGeometry.width()-initial_width) / 2;
-        int y = (screenGeometry.height()-initial_height) / 2;
-        this->move(x, y);
+        this->move(center_main_x, center_main_y);
         ui->eMailLineEdit_signup->setStyleSheet("color: black");
 
     }
@@ -2796,7 +2829,7 @@ void MainWindow::on_enter_personnel_clicked()
     myid=ui->lineEdit_enter_personnel->text();
 
 
-   tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
+    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
 
     ui->tableView_personnel->setModel(tmppersonnel.afficher());
 
@@ -2813,11 +2846,71 @@ void MainWindow::on_enter_personnel_clicked()
 
 void MainWindow::on_test_clicked()
 {
-   ui->stackedWidget->setCurrentIndex(1);
-   this->setFixedSize(initial_width,initial_height);
+    ui->stackedWidget->setCurrentIndex(1);
+    this->setFixedSize(initial_width,initial_height);
 
-   QRect screenGeometry = QApplication::desktop()->screenGeometry();
-   int x = (screenGeometry.width()-initial_width) / 2;
-   int y = (screenGeometry.height()-initial_height) / 2;
-   this->move(x, y);
+    this->move(center_main_x, center_main_y);
 }
+
+void MainWindow::on_radioButton_nuit_toggled(bool checked)
+{
+    this->setStyleSheet("font: 8pt \"Pacifico\";"
+                "background-color: rgb(43, 40, 38);"
+                        "color: rgb(255, 255, 255);");
+
+
+        QList<QPushButton *> butts = this->findChildren<QPushButton *>();
+
+        for (int i=0; i<butts.size();i++)
+        {
+            butts.at(i)->setStyleSheet("QPushButton { background-color: #444444; }");
+       }
+
+
+        QList<QTabWidget *> tabs = this->findChildren<QTabWidget *>();
+
+        for (int i=0; i<tabs.size();i++)
+        {
+            tabs.at(i)->setStyleSheet("QTabBar::tab { background-color: rgb(68, 68, 68);}");
+       }
+
+//        QList<QTableView *> tabviews = this->findChildren<QTableView *>();
+
+//        for (int i=0; i<tabviews.size();i++)
+//        {
+//            tabs.at(i)->setStyleSheet("QTableView::tab { background-color: rgb(68, 68, 68);}");
+//       }
+
+
+}
+
+void MainWindow::on_radioButton_jour_toggled(bool checked)
+{
+
+    this->setStyleSheet("font: 8pt \"Pacifico\";");
+
+
+        QList<QPushButton *> butts = this->findChildren<QPushButton *>();
+
+        for (int i=0; i<butts.size();i++)
+        {
+            butts.at(i)->setStyleSheet("QPushButton { background-color: grey; }");
+       }
+        QList<QTabWidget *> tabs = this->findChildren<QTabWidget *>();
+
+        for (int i=0; i<tabs.size();i++)
+        {
+            tabs.at(i)->setStyleSheet("QTabBar::tab { background-color: grey;}");
+       }
+
+}
+
+
+void MainWindow::on_cant_touch_this_pressed()
+{
+    int x = rand() % 200 - 100;
+    int y = rand() % 200 - 100;
+    this->move(x,y);
+    player->play();
+}
+
