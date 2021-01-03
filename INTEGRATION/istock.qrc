@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/istock">
+        <file>istock.png</file>
+    </qresource>
+</RCC>

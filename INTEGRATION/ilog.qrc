@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ilog">
+        <file>ilog.png</file>
+    </qresource>
+</RCC>

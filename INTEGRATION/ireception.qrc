@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ireception">
+        <file>ireception.png</file>
+    </qresource>
+</RCC>

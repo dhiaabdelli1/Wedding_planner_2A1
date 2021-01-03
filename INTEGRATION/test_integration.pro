@@ -72,5 +72,15 @@ DISTFILES += \
     histo.txt
 
 RESOURCES += \
+    bg1.qrc \
+    icolab.qrc \
+    iconfiguration.qrc \
+    ilog.qrc \
+    ilogin.qrc \
+    ireception.qrc \
+    ireservation.qrc \
+    isignin.qrc \
+    istaff.qrc \
+    istock.qrc \
     res.qrc \
     son.qrc

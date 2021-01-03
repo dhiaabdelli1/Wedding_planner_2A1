@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ilogin">
+        <file>ilogin.png</file>
+    </qresource>
+</RCC>

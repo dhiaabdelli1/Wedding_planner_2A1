@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/istaff">
+        <file>istaff.png</file>
+    </qresource>
+</RCC>

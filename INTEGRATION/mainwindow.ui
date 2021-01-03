@@ -17,6 +17,15 @@
    <iconset resource="res.qrc">
     <normaloff>:/myappico.png</normaloff>:/myappico.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/bg1/bg.jpg);</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
@@ -63,11 +72,58 @@
                   </layout>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="login_button">
+                  <layout class="QHBoxLayout" name="horizontalLayout_133">
+                   <item>
+                    <spacer name="horizontalSpacer_8">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="login_button">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="ilogin.qrc">
+                       <normaloff>:/ilogin/ilogin.png</normaloff>:/ilogin/ilogin.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>50</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_53">
                    <property name="text">
-                    <string>Login</string>
+                    <string>                                                                                                                                                                        Login</string>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_28">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                 </layout>
                </item>
@@ -107,11 +163,58 @@
                   </layout>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="signup_button">
+                  <layout class="QHBoxLayout" name="horizontalLayout_149">
+                   <item>
+                    <spacer name="horizontalSpacer_6">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="signup_button">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="isignin.qrc">
+                       <normaloff>:/isignin/isignin.png</normaloff>:/isignin/isignin.png</iconset>
+                     </property>
+                     <property name="iconSize">
+                      <size>
+                       <width>50</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_54">
                    <property name="text">
-                    <string>Sign-up</string>
+                    <string>                                                                                                                                                                      Sign-up</string>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_27">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                 </layout>
                </item>
@@ -129,7 +232,7 @@
             <item>
              <widget class="QGroupBox" name="groupBox_3">
               <property name="title">
-               <string>Modules</string>
+               <string>Menu</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_6">
                <item>
@@ -137,51 +240,260 @@
                  <item>
                   <widget class="QPushButton" name="Dhia">
                    <property name="text">
-                    <string>Dhia</string>
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ireception.qrc">
+                     <normaloff>:/ireception/ireception.png</normaloff>:/ireception/ireception.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="Iheb">
+                  <widget class="QLabel" name="label_33">
                    <property name="text">
-                    <string>Barkia</string>
+                    <string>  Gestion reception</string>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_17">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Iheb">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icolab.qrc">
+                     <normaloff>:/icolab/icolab.png</normaloff>:/icolab/icolab.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_34">
+                   <property name="text">
+                    <string>Gestion collaboration</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_21">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="Barkia">
                    <property name="text">
-                    <string>Iheb</string>
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="ireservation.qrc">
+                     <normaloff>:/ireservation/ireservation.png</normaloff>:/ireservation/ireservation.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_35">
+                   <property name="text">
+                    <string> Gestion reservation</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_22">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="Elaa">
                    <property name="text">
-                    <string>Elaa</string>
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="istaff.qrc">
+                     <normaloff>:/istaff/istaff.png</normaloff>:/istaff/istaff.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_36">
+                   <property name="text">
+                    <string>      Gestion staff</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_23">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="Sara">
                    <property name="text">
-                    <string>Sara</string>
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="istock.qrc">
+                     <normaloff>:/istock/istock.png</normaloff>:/istock/istock.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="configuration">
+                  <widget class="QLabel" name="label_37">
                    <property name="text">
-                    <string>Configuration</string>
+                    <string>      Gestion stock</string>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_24">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="configuration">
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="iconfiguration.qrc">
+                     <normaloff>:/iconfiguration/iconfiguration.png</normaloff>:/iconfiguration/iconfiguration.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_52">
+                   <property name="text">
+                    <string>      Configuration</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_25">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                 </layout>
                </item>
                <item>
+                <spacer name="verticalSpacer_26">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
                 <widget class="QPushButton" name="logout_button">
                  <property name="text">
-                  <string>Logout</string>
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="ilog.qrc">
+                   <normaloff>:/ilog/ilog.png</normaloff>:/ilog/ilog.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>50</width>
+                   <height>30</height>
+                  </size>
                  </property>
                 </widget>
                </item>
@@ -817,7 +1129,7 @@
                 <item>
                  <widget class="QTabWidget" name="tabWidget_CS">
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="tab_C">
                    <attribute name="title">
@@ -1537,8 +1849,8 @@
                </layout>
               </widget>
               <widget class="QWidget" name="page_5">
-               <layout class="QHBoxLayout" name="horizontalLayout_9">
-                <item>
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="0" column="0">
                  <widget class="QTabWidget" name="tabWidget_2">
                   <property name="currentIndex">
                    <number>0</number>
@@ -4672,7 +4984,16 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
+  <include location="istock.qrc"/>
+  <include location="ilog.qrc"/>
+  <include location="ireception.qrc"/>
+  <include location="ilogin.qrc"/>
+  <include location="isignin.qrc"/>
   <include location="res.qrc"/>
+  <include location="ireservation.qrc"/>
+  <include location="istaff.qrc"/>
+  <include location="icolab.qrc"/>
+  <include location="iconfiguration.qrc"/>
  </resources>
  <connections/>
 </ui>
