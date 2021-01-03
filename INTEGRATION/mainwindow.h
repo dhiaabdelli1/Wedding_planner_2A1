@@ -279,6 +279,10 @@ private slots:
 
     void on_enter_personnel_clicked();
 
+
+
+    void on_test_clicked();
+
 private:
     Ui::MainWindow *ui;
 

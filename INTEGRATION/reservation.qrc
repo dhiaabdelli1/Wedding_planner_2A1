@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/reservation">
+        <file>ireservation.png</file>
+    </qresource>
+</RCC>

@@ -27,11 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
     R=QRegExp("[0-9]{11}$");
 
     //windows size
-//    initial_width=this->width()*0.8;
-//    initial_height=this->height();
-//    int x=this->width()*0.5;
-//    int y=this->height()*0.7;
-//    this->setFixedSize(x,y);
+ initial_width=this->width()*0.8;
+    initial_height=this->height();
+    int x=this->width()*0.5;
+    int y=this->height()*0.7;
+    this->setFixedSize(x,y);
 
 
     //Controle saisie avec LineEdit_invite/Qdate_recherche_invite
@@ -45,10 +45,10 @@ MainWindow::MainWindow(QWidget *parent)
     //Looks
     ui->groupBox_ajouter_table->setMaximumWidth(100);
     ui->groupBox_ajouter_invites->setMaximumWidth(400);
-    QPixmap bkgnd("D:/Users/dhiaa/Desktop/gestion_invités/background.jpg");
+    QPixmap bkgnd("C:/Users/asus/Desktop/Wedding_planner_2A1/INTEGRATION/bg.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
-    //palette.setBrush(QPalette::Background, bkgnd);
+    palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
 //    ui->cINLineEdit_invite->setPlaceholderText(tr("CIN ..."));
 //    ui->nomLineEdit_invite->setPlaceholderText(tr("Nom ...");
@@ -2809,4 +2809,15 @@ void MainWindow::on_enter_personnel_clicked()
 
     myid="";
 
+}
+
+void MainWindow::on_test_clicked()
+{
+   ui->stackedWidget->setCurrentIndex(1);
+   this->setFixedSize(initial_width,initial_height);
+
+   QRect screenGeometry = QApplication::desktop()->screenGeometry();
+   int x = (screenGeometry.width()-initial_width) / 2;
+   int y = (screenGeometry.height()-initial_height) / 2;
+   this->move(x, y);
 }

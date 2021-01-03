@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/signin">
+        <file>isignin.png</file>
+    </qresource>
+</RCC>

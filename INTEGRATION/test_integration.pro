@@ -68,4 +68,18 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+RESOURCES += \
+    colab.qrc \
+    configuration.qrc \
+    log.qrc \
+    login.qrc \
+    reception.qrc \
+    reservation.qrc \
+    signin.qrc \
+    staff.qrc \
+    stock.qrc
+
+DISTFILES += \
+    ireception.png
+
 

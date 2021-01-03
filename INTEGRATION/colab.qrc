@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/colab">
+        <file>icolab.png</file>
+    </qresource>
+</RCC>
