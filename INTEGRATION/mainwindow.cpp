@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     center_main_x=(screenGeometry.width()-initial_width) / 2;
     center_main_y=(screenGeometry.height()-initial_height) / 2;
-    center_login_x=(screenGeometry.width()-login_width) / 2;;
+    center_login_x=(screenGeometry.width()-login_width) / 2;
     center_login_y=(screenGeometry.height()-login_height) / 2;
 
 
@@ -2807,6 +2807,8 @@ void MainWindow::on_pushButton_3_clicked()
         login login;
         login.delete_account(current_user);
         ui->stackedWidget->setCurrentIndex(0);
+        this->move(center_login_x,center_login_y);
+        this->setFixedSize(login_width,login_height);
     }
 
 }
