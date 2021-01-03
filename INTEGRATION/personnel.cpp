@@ -9,7 +9,7 @@ personnel::personnel()
 
 }
 
-personnel::personnel(QString cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire, QString ref_dep)
+personnel::personnel(QString cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire, QString ref_dep,QString entree)
 {
 
         this->cin=cin;
@@ -20,6 +20,7 @@ personnel::personnel(QString cin, QString nom, QString prenom, QString departeme
         this->date_naissance=date_naissance;
         this->salaire=salaire;
         this->ref_dep=ref_dep;
+        this->entree=entree;
 
 
 
@@ -32,8 +33,8 @@ bool personnel::ajouter()
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO personnel (nom, prenom,departement,mobile,date_naissance,salaire,cin,ref_dep) "
-                  "VALUES (:nom, :prenom,:departement,:mobile,:date_naissance,:salaire,:cin,:ref_dep)");
+    query.prepare("INSERT INTO personnel (nom, prenom,departement,mobile,date_naissance,salaire,cin,ref_dep,entree) "
+                  "VALUES (:nom, :prenom,:departement,:mobile,:date_naissance,:salaire,:cin,:ref_dep,:entree)");
     query.bindValue(":cin",cin);
     query.bindValue(":nom",nom);
     query.bindValue(":prenom",prenom);
@@ -42,6 +43,7 @@ bool personnel::ajouter()
     query.bindValue(":date_naissance",date_naissance);
     query.bindValue(":salaire",salaire);
     query.bindValue(":ref_dep",ref_dep);
+    query.bindValue(":entree","-");
 
 
 
@@ -67,6 +69,8 @@ model->setHeaderData(4, Qt::Horizontal, QObject::tr("date_naissance"));
 model->setHeaderData(5, Qt::Horizontal, QObject::tr("salaire"));
 model->setHeaderData(6, Qt::Horizontal, QObject::tr("cin"));
 model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
+model->setHeaderData(8, Qt::Horizontal, QObject::tr("Code RFID"));
+model->setHeaderData(9, Qt::Horizontal, QObject::tr("Entrée"));
 
 
 
@@ -87,10 +91,10 @@ bool personnel::supprimer(QString cin)
 
 
 
-bool personnel::update(QString cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire, QString ref_dep)
+bool personnel::update(QString cin, QString nom, QString prenom, QString departement, QString mobile, QDate date_naissance, QString salaire, QString ref_dep,QString entree)
 {
     QSqlQuery query;
-    query.prepare("UPDATE personnel SET cin= :cin , nom= :nom , prenom= :prenom , departement= :departement , mobile= :mobile , date_naissance = :date_naissance , salaire= :salaire ,ref_dep=:ref_dep WHERE cin = :cin");
+    query.prepare("UPDATE personnel SET cin= :cin , nom= :nom , prenom= :prenom , departement= :departement , mobile= :mobile , date_naissance = :date_naissance , salaire= :salaire ,ref_dep=:ref_dep,entree=:entree WHERE cin = :cin");
 
     query.bindValue(":cin", cin);
     query.bindValue(":nom",nom );
@@ -100,6 +104,7 @@ bool personnel::update(QString cin, QString nom, QString prenom, QString departe
     query.bindValue(":date_naissance", date_naissance);
     query.bindValue(":salaire", salaire);
     query.bindValue(":ref_dep",ref_dep);
+    query.bindValue(":entree",entree);
 
 
     return    query.exec();
@@ -140,7 +145,7 @@ pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"</td>   <td> " + q.value(1).
 QSqlQueryModel * personnel::chercher(QString r)
 {
     QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("select * from personnel where upper(nom) like upper('%"+r+"%') or upper(prenom) like upper('%"+r+"%') or upper(cin) like upper('%"+r+"%') ");
+    model->setQuery("select * from personnel where upper(nom) like upper('%"+r+"%') or upper(prenom) like upper('%"+r+"%') or upper(cin) like upper('%"+r+"%') or upper(entree) like upper('%"+r+"%')");
 
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("nom"));
@@ -151,10 +156,25 @@ QSqlQueryModel * personnel::chercher(QString r)
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("cin"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
     model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Code RFID"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("Entree"));
+    model->setHeaderData(10, Qt::Horizontal, QObject::tr("Numéro Entrée"));
 
 
 
         return model;
+}
+
+QSqlQueryModel * personnel::search_rfid(QString code_rfid)
+{
+    QSqlQuery qry;
+    qry.prepare("select * from personnel where code_rfid=:code_rfid");
+    qry.bindValue(":code_rfid",code_rfid);
+    qry.exec();
+    QSqlQueryModel * model= new QSqlQueryModel();
+    model->setQuery(qry);
+    return model;
+
 }
 
 
@@ -176,4 +196,58 @@ bool personnel::ajouter_image(QString cin)
     qry.bindValue(":cin",cin);
 
     return qry.exec();
+}
+bool personnel::update_rfid(QString cin,QString code_rfid)
+{
+    QSqlQuery qry;
+    qry.prepare("UPDATE personnel SET code_rfid= :code_rfid where cin=:cin");
+    qry.bindValue(":cin",cin);
+    qry.bindValue(":code_rfid",code_rfid);
+
+    return qry.exec();
+}
+bool personnel::verify_rfid(QString code_rfid)
+{
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM personnel WHERE code_rfid=:code_rfid");
+    qry.bindValue(":code_rfid",code_rfid);
+
+    return qry.exec() && qry.next();
+}
+
+bool personnel::update_num_entree(QString code,int i)
+{
+    QSqlQuery query;
+    query.prepare("update personnel set num_entree=:num_entree, entree=:entree where code_rfid=:code_rfid");
+    query.bindValue(":num_entree",i);
+    query.bindValue(":code_rfid",code);
+    query.bindValue(":entree","pending");
+
+
+    return query.exec();
+}
+
+QSqlQueryModel *personnel::afficher_notifications()
+{
+    QSqlQueryModel *model=new QSqlQueryModel();
+    QSqlQuery *qry= new QSqlQuery;
+    qry->prepare("select * from personnel where entree!='-' order by num_entree DESC");
+    qry->exec();
+    model->setQuery(*qry);
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("nom"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("prenom"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("departement"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("mobile"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("date_naissance"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("cin"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("salaire"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Référence Département"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Code RFID"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("Entree"));
+    model->setHeaderData(10, Qt::Horizontal, QObject::tr("Numéro Entrée"));
+
+
+
+        return model;
 }

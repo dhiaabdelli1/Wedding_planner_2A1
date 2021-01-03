@@ -2796,7 +2796,7 @@ void MainWindow::on_enter_personnel_clicked()
     myid=ui->lineEdit_enter_personnel->text();
 
 
-   tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
+    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
 
     ui->tableView_personnel->setModel(tmppersonnel.afficher());
 

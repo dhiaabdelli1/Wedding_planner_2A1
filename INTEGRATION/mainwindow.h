@@ -275,6 +275,10 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_affecter_code_clicked();
+
+    void on_enter_personnel_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -319,12 +323,17 @@ private:
     bool tmp_verif=false;
 
     int num_entree=0;
+    int num_entree_personnel=0;
 
      QTranslator *translator=new QTranslator;
 
     login *log;
 
     QString current_user;
+
+    QString myid="";
+    int counter=0;
+    bool test=false;
 
     int initial_width;
     int initial_height;

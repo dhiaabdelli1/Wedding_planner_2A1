@@ -16,11 +16,14 @@ class personnel
     QDate date_naissance;
     QString salaire;
     QString ref_dep;
+    QString code_rfid;
+    QString entree;
+    QString num_entree;
 
 public:
     personnel();
 
-    personnel(QString,QString,QString,QString,QString,QDate,QString,QString);
+    personnel(QString,QString,QString,QString,QString,QDate,QString,QString,QString);
     //int getCin(){return cin;}
     QString getNom(){return nom;}
     QString getPrenom(){return prenom;}
@@ -34,9 +37,18 @@ public:
     bool ajouter();
     QSqlQueryModel * afficher();
     bool supprimer(QString);
-    bool update(QString,QString,QString,QString,QString,QDate,QString,QString);
+    bool update(QString,QString,QString,QString,QString,QDate,QString,QString,QString);
     void creerpdf();
     bool ajouter_image(QString);
+    bool update_rfid(QString,QString);
+
+    bool verify_rfid(QString);
+
+    QSqlQueryModel * search_rfid(QString);
+
+    bool update_num_entree(QString cin,int i);
+
+    QSqlQueryModel  * afficher_notifications();
 
 
 

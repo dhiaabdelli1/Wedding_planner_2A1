@@ -399,7 +399,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>0</number>
+               <number>3</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -2324,7 +2324,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget_3">
                     <property name="currentIndex">
-                     <number>2</number>
+                     <number>1</number>
                     </property>
                     <widget class="QWidget" name="tab_6">
                      <attribute name="title">
@@ -2482,13 +2482,6 @@
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout_54">
                             <item>
-                             <widget class="QPushButton" name="ajouter_personnel">
-                              <property name="text">
-                               <string>Ajouter</string>
-                              </property>
-                             </widget>
-                            </item>
-                            <item>
                              <widget class="QPushButton" name="reset_personnel">
                               <property name="text">
                                <string>Vider champs</string>
@@ -2509,12 +2502,9 @@
                              </spacer>
                             </item>
                             <item>
-                             <widget class="QPushButton" name="modifier_personnel">
+                             <widget class="QPushButton" name="ajouter_personnel">
                               <property name="text">
-                               <string>Modifier</string>
-                              </property>
-                              <property name="checkable">
-                               <bool>true</bool>
+                               <string>Ajouter</string>
                               </property>
                              </widget>
                             </item>
@@ -2532,11 +2522,21 @@
                             <rect>
                              <x>10</x>
                              <y>410</y>
-                             <width>481</width>
+                             <width>526</width>
                              <height>41</height>
                             </rect>
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout_55">
+                            <item>
+                             <widget class="QPushButton" name="modifier_personnel">
+                              <property name="text">
+                               <string>Modifier</string>
+                              </property>
+                              <property name="checkable">
+                               <bool>true</bool>
+                              </property>
+                             </widget>
+                            </item>
                             <item>
                              <widget class="QPushButton" name="supprimer_personnel">
                               <property name="text">
@@ -2545,22 +2545,9 @@
                              </widget>
                             </item>
                             <item>
-                             <spacer name="horizontalSpacer_2">
-                              <property name="orientation">
-                               <enum>Qt::Horizontal</enum>
-                              </property>
-                              <property name="sizeHint" stdset="0">
-                               <size>
-                                <width>40</width>
-                                <height>20</height>
-                               </size>
-                              </property>
-                             </spacer>
-                            </item>
-                            <item>
                              <widget class="QPushButton" name="affecter_code">
                               <property name="text">
-                               <string>Affecter code</string>
+                               <string>Enregistrer RFID</string>
                               </property>
                              </widget>
                             </item>
