@@ -302,6 +302,10 @@ private slots:
     void on_cant_touch_this_pressed();
 
 
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 
