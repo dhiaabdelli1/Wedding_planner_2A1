@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1372</width>
-    <height>624</height>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -632,7 +632,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>5</number>
+               <number>3</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -2889,7 +2889,7 @@
                              <x>0</x>
                              <y>20</y>
                              <width>491</width>
-                             <height>41</height>
+                             <height>45</height>
                             </rect>
                            </property>
                            <layout class="QHBoxLayout" name="horizontalLayout_61">
@@ -3150,6 +3150,9 @@
                         </item>
                         <item>
                          <layout class="QHBoxLayout" name="horizontalLayout_120">
+                          <item>
+                           <widget class="QLCDNumber" name="tmp"/>
+                          </item>
                           <item>
                            <widget class="QLineEdit" name="lineEdit_enter_personnel"/>
                           </item>
@@ -5279,15 +5282,15 @@
   </widget>
  </widget>
  <resources>
-  <include location="staff.qrc"/>
-  <include location="configuration.qrc"/>
-  <include location="colab.qrc"/>
-  <include location="reception.qrc"/>
-  <include location="reservation.qrc"/>
-  <include location="signin.qrc"/>
-  <include location="stock.qrc"/>
-  <include location="login.qrc"/>
   <include location="log.qrc"/>
+  <include location="stock.qrc"/>
+  <include location="colab.qrc"/>
+  <include location="signin.qrc"/>
+  <include location="configuration.qrc"/>
+  <include location="login.qrc"/>
+  <include location="reservation.qrc"/>
+  <include location="reception.qrc"/>
+  <include location="staff.qrc"/>
  </resources>
  <connections/>
 </ui>

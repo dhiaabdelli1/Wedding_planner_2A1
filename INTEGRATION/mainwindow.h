@@ -16,6 +16,8 @@
 #include <qtextbrowser.h>
 #include <QMediaPlayer>
 #include <QSystemTrayIcon>
+#include <QtConcurrent>
+#include <QFuture>
 
 #include <QPropertyAnimation>
 #include <QSound>
@@ -269,6 +271,7 @@ private slots:
     void on_radioButton_triDate_clicked();
 
     void on_chat_clicked();
+    bool launch_chat(chat&);
 
     void on_signup_button_clicked();
 
@@ -283,6 +286,10 @@ private slots:
     void on_affecter_code_clicked();
 
     void on_enter_personnel_clicked();
+
+    bool notifications_feed(QString);
+
+    bool notifications_invite(QString);
 
 
 
@@ -367,6 +374,8 @@ private:
     QSystemTrayIcon *mSystemTrayIcon;
     QMediaPlayer *mMediaPlayer;
     QSound *son;
+
+    QString tmp;
 
 };
 #endif // MAINWINDOW_H

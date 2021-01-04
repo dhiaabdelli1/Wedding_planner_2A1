@@ -1925,7 +1925,57 @@ release/chat.o: ../chat_test/chat.cpp ../chat_test/chat.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/qtnetwork-config.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/qabstractsocket.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/qhostaddress.h \
-		ui_chat.h
+		ui_chat.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/QVariant \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QAction \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qicon.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QApplication \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qapplication.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qcoreapplication.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qeventloop.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qguiapplication.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qinputmethod.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qframe.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstyleoption.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qvalidator.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qregularexpression.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qslider.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractslider.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstyle.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtabbar.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtabwidget.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlineedit.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextcursor.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextformat.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qpen.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QPushButton \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QTextBrowser \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtextbrowser.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtextedit.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextdocument.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QVBoxLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\chat.o ..\chat_test\chat.cpp
 
 release/client.o: ../chat_test/client.cpp ../chat_test/client.h \
@@ -2452,6 +2502,61 @@ release/dialog.o: ../chat_test/dialog.cpp ../chat_test/dialog.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/qvector2d.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtouchdevice.h \
 		ui_dialog.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/QVariant \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QAction \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qicon.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QApplication \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qapplication.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qcoreapplication.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qeventloop.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qguiapplication.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qinputmethod.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QFormLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qformlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHBoxLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qframe.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstyleoption.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qvalidator.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtCore/qregularexpression.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qslider.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractslider.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstyle.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtabbar.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtabwidget.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlineedit.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextcursor.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextformat.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qpen.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QPushButton \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QTextEdit \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qtextedit.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextdocument.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QVBoxLayout \
 		../chat_test/smtp.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/QAbstractSocket \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/qabstractsocket.h \
@@ -3605,6 +3710,53 @@ release/mainwindow.o: ../chat_test/mainwindow.cpp ../chat_test/mainwindow.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/qudpsocket.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtNetwork/qhostaddress.h \
 		ui_mainwindow.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QAction \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QCheckBox \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcheckbox.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QFormLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qformlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QGridLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QGroupBox \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgroupbox.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHBoxLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLCDNumber \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlcdnumber.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QMenuBar \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmenubar.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmenu.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QPlainTextEdit \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qplaintextedit.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qabstracttextdocumentlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qglyphrun.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qrawfont.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtGui/qfontdatabase.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QPushButton \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QRadioButton \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qradiobutton.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QSpacerItem \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QStackedWidget \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstackedwidget.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QStatusBar \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstatusbar.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QTabWidget \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QVBoxLayout \
 		../chat_test/stat.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtCharts/QtCharts \
 		D:/Qt/5.9.9/mingw53_32/include/QtCharts/QtChartsDepends \
@@ -3708,11 +3860,6 @@ release/mainwindow.o: ../chat_test/mainwindow.cpp ../chat_test/mainwindow.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtCore/qtcoreversion.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/QtGui \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/QtGuiDepends \
-		D:/Qt/5.9.9/mingw53_32/include/QtGui/qabstracttextdocumentlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtextlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtGui/qglyphrun.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtGui/qrawfont.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtGui/qfontdatabase.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/qaccessible.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/qaccessiblebridge.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/qaccessibleobject.h \
@@ -3799,22 +3946,12 @@ release/mainwindow.o: ../chat_test/mainwindow.cpp ../chat_test/mainwindow.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/qtguiversion.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QtWidgets \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QtWidgetsDepends \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qaccessiblewidget.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qaction.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qactiongroup.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qboxlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgridlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcalendarwidget.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcheckbox.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcolordialog.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcolormap.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcolumnview.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcommandlinkbutton.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qpushbutton.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcommonstyle.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qcompleter.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qdatawidgetmapper.h \
@@ -3829,8 +3966,6 @@ release/mainwindow.o: ../chat_test/mainwindow.cpp ../chat_test/mainwindow.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qfocusframe.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qfontcombobox.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qfontdialog.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qformlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QLayout \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgesture.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgesturerecognizer.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgraphicsanchorlayout.h \
@@ -3843,28 +3978,20 @@ release/mainwindow.o: ../chat_test/mainwindow.cpp ../chat_test/mainwindow.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgraphicssceneevent.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgraphicstransform.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtGui/QVector3D \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgroupbox.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qheaderview.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qitemdelegate.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qitemeditorfactory.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qkeyeventtransition.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qkeysequenceedit.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlabel.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlcdnumber.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlistview.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlistwidget.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmdiarea.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmdisubwindow.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmenu.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmenubar.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmouseeventtransition.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qopenglwidget.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qplaintextedit.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qprogressbar.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qprogressdialog.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qproxystyle.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QCommonStyle \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qradiobutton.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qscrollbar.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qscroller.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtCore/QPointF \
@@ -3877,8 +4004,6 @@ release/mainwindow.o: ../chat_test/mainwindow.cpp ../chat_test/mainwindow.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qsplashscreen.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qsplitter.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstackedlayout.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstackedwidget.h \
-		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstatusbar.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstyleditemdelegate.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstylefactory.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qstylepainter.h \
@@ -5080,6 +5205,11 @@ release/stat.o: ../chat_test/stat.cpp ../chat_test/stat.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtCharts/qtchartsversion.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtCharts/QChartView \
 		ui_stat.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QAction \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QApplication \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QVBoxLayout \
 		D:/Qt/5.9.9/mingw53_32/include/QtCore/QString \
 		../chat_test/personnel.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtSql/QSqlQuery \
@@ -5306,7 +5436,22 @@ release/stats.o: ../chat_test/stats.cpp ../chat_test/stats.h \
 		../chat_test/table.h \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		ui_stats.h
+		ui_stats.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QAction \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QFrame \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHBoxLayout \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QTabWidget \
+		D:/Qt/5.9.9/mingw53_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\stats.o ..\chat_test\stats.cpp
 
 release/table.o: ../chat_test/table.cpp ../chat_test/table.h \
