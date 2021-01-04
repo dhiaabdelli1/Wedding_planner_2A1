@@ -10,6 +10,7 @@ LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
 
 String a;
+String temperature;
 
 const byte ROWS = 4;
 const byte COLS = 4;
@@ -38,7 +39,7 @@ void setup() {
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
   pinMode(9, OUTPUT);
-  digitalWrite(9, HIGH);
+  digitalWrite(9, LOW);
 
   Serial.begin(9600) ;
   analogReference(INTERNAL);
@@ -47,12 +48,12 @@ void setup() {
 
 void loop() {
   char customKey = customKeypad.getKey();
-  // Mesure la tension sur la broche A0
   int valeur_brute = analogRead(A0);
 
-  // Transforme la mesure (nombre entier) en température via un produit en croix
   float temperature_celcius = valeur_brute * (1.1 / 1023.0 * 100.0);
   int tmp = trunc(temperature_celcius);
+
+
 
   // Envoi la mesure au PC pour affichage et attends 250ms
   /*Serial.println(tmp);
@@ -87,18 +88,33 @@ void loop() {
       cin += customKey;
       lcd.print(cin);
 
-
     }
 
 
+
   }
-  Serial.println(tmp);
-  lcd.setCursor(12, 0);
-  lcd.print(tmp);
-  Serial.write(tmp/10);
-  delay(300);
-  Serial.write(tmp%10);
-  delay(300);
+
+  else
+  {
+    lcd.setCursor(12, 0);
+    lcd.print(tmp);
+
+    //Serial.write(tmp / 10);
+
+    //Serial.write(tmp % 10);
+
+    //delay(3000);
+
+
+
+  }
+  /*Serial.println(tmp);
+    lcd.setCursor(12, 0);
+    lcd.print(tmp);
+    Serial.write(tmp/10);
+    delay(300);
+    Serial.write(tmp%10);
+    delay(300);*/
 
   lcd.setCursor(0, 0);
 
@@ -133,9 +149,9 @@ void loop() {
     {
       lcd.setCursor(0, 1);
       lcd.clear();
-      digitalWrite(PIN_LED_2, LOW);
-      delay(4000);
       digitalWrite(PIN_LED_2, HIGH);
+      delay(4000);
+      digitalWrite(PIN_LED_2, LOW);
       lcd.print(a);
       delay(4000);
       lcd.clear();

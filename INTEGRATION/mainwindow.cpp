@@ -1331,24 +1331,33 @@ void MainWindow::update_label()
 
     data=A.read_from_arduino();
 
-    myid+=data;
-
-    int pos=myid.toStdString().find("key");
-    //qDebug() << myid;
-    //qDebug() << myid.mid(pos+5,17);
 
 
-    if (test==false)
-    {
-        qDebug() << myid.mid(pos+5,17);
-        test=true;
-        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
-        {
-            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
 
-        }
+    qDebug() << data.toHex().toInt()/10+data.toHex().toInt()%10;
 
-    }
+
+
+    ui->tmp->display(data.toHex().toInt()/10+data.toHex().toInt()%10);
+
+    //myid+=data;
+
+//    int pos=myid.toStdString().find("key");
+//    //qDebug() << myid;
+//    //qDebug() << myid.mid(pos+5,17);
+
+
+//    if (test==false)
+//    {
+//        qDebug() << myid.mid(pos+5,17);
+//        test=true;
+//        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
+//        {
+//            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
+
+//        }
+
+//    }
 
     //    for (int i=pos;i<pos+40;i++)
     //    {
@@ -1358,58 +1367,38 @@ void MainWindow::update_label()
 
     //qDebug() << pos;
 
-    //    if (data!="#")
-    //    {
+        if (data!="#")
+        {
 
-    //        cin_recu+=data;
+            cin_recu+=data;
 
-    //        if (data!="\r")//  || data!="\n" || data!="x")
-    //        {
-    //            tmp_recue+=data;
-    //            qDebug() << data;
-    //            ui->lcdNumber->display(data.toInt());
-    //            ui->lineEdit_tmp->setText(tmp_recue);
-    //            QString test=ui->lineEdit_tmp->text();
-    //            if (test.length()>5)
-    //                tmp_recue="";
-    //            //            if (ui->lineEdit_tmp->text().toStdString().find("23") && tmp_verif==false)
-    //            //            {
-    //            //                QMessageBox::information(nullptr, QObject::tr("Notification"),
-    //            //                                         QObject::tr("TROP CHAUD\n"), QMessageBox::Ok);
-    //            //                tmp_verif=true;
-    //            //            }
+        }
 
+        else
+        {
 
+            QMessageBox::information(nullptr, QObject::tr("Notification"),
+                                     QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
 
-    //        }
+            ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+
+            tmpinvite.update(cin_recu,"permission","pending");
+
+            ui->tableView_invite->setModel(tmpinvite.afficher());
+            tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+            ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
+            cin_recu="";
 
-
-    //    }
-
-    //    else
-    //    {
-    //        //ui->tableView_notifications->setModel(tmpinvite.rechercher_cin(cin_recu));
-    //        QMessageBox::information(nullptr, QObject::tr("Notification"),
-    //                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
-
-    //        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
-
-    //        tmpinvite.update(cin_recu,"permission","pending");
-
-    //        ui->tableView_invite->setModel(tmpinvite.afficher());
-    //        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-    //        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
-
-
-    //        cin_recu="";
+        }
 
 
 
-    //    }
+}
 
-
+bool MainWindow::notifications_invite(QString cin_recu)
+{
 
 }
 void MainWindow::on_refuser_clicked()
@@ -2722,11 +2711,33 @@ void MainWindow::on_radioButton_triDate_clicked()
 
 void MainWindow::on_chat_clicked()
 {
-    QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
-    chat chat_window(this);
+
+    chat *chat_window= new chat(this);
+    chat_window->setModal(true);
+    chat_window->show();
+
+    //qDebug()<< "Chat is running on " << QThread::currentThread();
+
+    chat_window->exec();
+
+
+
+//    QFuture<bool> future= QtConcurrent::run(this,&MainWindow::launch_chat,chat_window);
+
+//    qDebug() << "Min thread free ...";
+//    qDebug() << "Result: " << future.result();
+
+
+}
+
+bool MainWindow::launch_chat(chat &chat_window)
+{
     chat_window.setModal(true);
     chat_window.show();
-    chat_window.exec();
+
+    qDebug()<< "Chat is running on " << QThread::currentThread();
+
+    return chat_window.exec();
 }
 
 
@@ -2830,20 +2841,33 @@ void MainWindow::on_enter_personnel_clicked()
 {
     myid=ui->lineEdit_enter_personnel->text();
 
+    QFuture <bool> future= QtConcurrent::run(this,&MainWindow::notifications_feed,myid);
 
+    qDebug() << "Min thread free ...";
+    qDebug() << "Result: " << future.result();
+
+
+//    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
+
+//    ui->tableView_personnel->setModel(tmppersonnel.afficher());
+
+//    ui->tableView_notifications_personnel->setModel(tmppersonnel.afficher_notifications());
+
+//    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+
+//    myid="";
+
+}
+
+bool MainWindow::notifications_feed(QString myid)
+{
+
+    qDebug() << "Notifications feed is running on: " << QThread::currentThread();
     tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
-
     ui->tableView_personnel->setModel(tmppersonnel.afficher());
-
-
-
-
     ui->tableView_notifications_personnel->setModel(tmppersonnel.afficher_notifications());
-
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
-
     myid="";
-
 }
 
 void MainWindow::on_test_clicked()

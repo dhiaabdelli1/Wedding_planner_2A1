@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QUdpSocket>
+#include <QtConcurrent>
+#include <QFuture>
 
 namespace Ui {
 class chat;
@@ -19,6 +21,8 @@ public:
 private slots:
     void on_sendButton_clicked();
     void readPendingDatagrams();
+    bool send(QString);
+    QString read(QString);
 
 private:
     Ui::chat *ui;
