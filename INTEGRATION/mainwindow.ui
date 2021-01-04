@@ -632,7 +632,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>3</number>
+               <number>5</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -2567,7 +2567,7 @@
                   <item>
                    <widget class="QTabWidget" name="tabWidget_3">
                     <property name="currentIndex">
-                     <number>2</number>
+                     <number>0</number>
                     </property>
                     <widget class="QWidget" name="tab_6">
                      <attribute name="title">
@@ -5069,41 +5069,7 @@
                         </spacer>
                        </item>
                        <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_151">
-                         <item>
-                          <spacer name="horizontalSpacer_29">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
-                           </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                          </spacer>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="cant_touch_this">
-                           <property name="text">
-                            <string>Click me</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <spacer name="horizontalSpacer_30">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
-                           </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                          </spacer>
-                         </item>
-                        </layout>
+                        <layout class="QHBoxLayout" name="horizontalLayout_151"/>
                        </item>
                        <item>
                         <spacer name="verticalSpacer_5">
@@ -5139,6 +5105,13 @@
                             </size>
                            </property>
                           </spacer>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="cant_touch_this">
+                           <property name="text">
+                            <string>Click me</string>
+                           </property>
+                          </widget>
                          </item>
                          <item>
                           <widget class="QPushButton" name="pushButton_5">
@@ -5283,14 +5256,14 @@
  </widget>
  <resources>
   <include location="signin.qrc"/>
-  <include location="reception.qrc"/>
-  <include location="staff.qrc"/>
-  <include location="login.qrc"/>
-  <include location="log.qrc"/>
-  <include location="reservation.qrc"/>
-  <include location="colab.qrc"/>
-  <include location="configuration.qrc"/>
   <include location="stock.qrc"/>
+  <include location="configuration.qrc"/>
+  <include location="staff.qrc"/>
+  <include location="reservation.qrc"/>
+  <include location="login.qrc"/>
+  <include location="colab.qrc"/>
+  <include location="log.qrc"/>
+  <include location="reception.qrc"/>
  </resources>
  <connections/>
 </ui>

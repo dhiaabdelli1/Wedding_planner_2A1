@@ -21,15 +21,15 @@ public:
 private slots:
     void on_sendButton_clicked();
     void readPendingDatagrams();
-    bool send(QString);
-    QString read(QString);
+    //bool send(QString);
+    //QString read(QString);
 
 private:
     Ui::chat *ui;
-    QUdpSocket *socketServer;
-    QUdpSocket *socketServerc;
-//    QUdpSocket *clientSocket;
-//    QUdpSocket *clientSocketc;
+//    QUdpSocket *socketServer;
+//    QUdpSocket *socketServerc;
+    QUdpSocket *clientSocket;
+    QUdpSocket *clientSocketc;
 
 };
 
