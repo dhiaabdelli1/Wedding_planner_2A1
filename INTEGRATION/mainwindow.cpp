@@ -183,6 +183,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->passwordLineEdit_signup->setEchoMode(QLineEdit::Password);
 
     int ret=A.connect_arduino();
+
+
     switch (ret)
     {
     case 0:
@@ -1342,22 +1344,22 @@ void MainWindow::update_label()
 
     //myid+=data;
 
-//    int pos=myid.toStdString().find("key");
-//    //qDebug() << myid;
-//    //qDebug() << myid.mid(pos+5,17);
+    //    int pos=myid.toStdString().find("key");
+    //    //qDebug() << myid;
+    //    //qDebug() << myid.mid(pos+5,17);
 
 
-//    if (test==false)
-//    {
-//        qDebug() << myid.mid(pos+5,17);
-//        test=true;
-//        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
-//        {
-//            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
+    //    if (test==false)
+    //    {
+    //        qDebug() << myid.mid(pos+5,17);
+    //        test=true;
+    //        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
+    //        {
+    //            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
 
-//        }
+    //        }
 
-//    }
+    //    }
 
     //    for (int i=pos;i<pos+40;i++)
     //    {
@@ -1367,31 +1369,31 @@ void MainWindow::update_label()
 
     //qDebug() << pos;
 
-        if (data!="#")
-        {
+    if (data!="#")
+    {
 
-            cin_recu+=data;
+        cin_recu+=data;
 
-        }
+    }
 
-        else
-        {
+    else
+    {
 
-            QMessageBox::information(nullptr, QObject::tr("Notification"),
-                                     QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+        QMessageBox::information(nullptr, QObject::tr("Notification"),
+                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
 
-            ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
 
-            tmpinvite.update(cin_recu,"permission","pending");
+        tmpinvite.update(cin_recu,"permission","pending");
 
-            ui->tableView_invite->setModel(tmpinvite.afficher());
-            tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-            ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+        ui->tableView_invite->setModel(tmpinvite.afficher());
+        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
-            cin_recu="";
+        cin_recu="";
 
-        }
+    }
 
 
 
@@ -1409,7 +1411,6 @@ void MainWindow::on_refuser_clicked()
     ui->tableView_invite->setModel(tmpinvite.afficher());
     A.write_to_arduino("Acces Refuse");
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
-
 }
 
 
@@ -2722,10 +2723,10 @@ void MainWindow::on_chat_clicked()
 
 
 
-//    QFuture<bool> future= QtConcurrent::run(this,&MainWindow::launch_chat,chat_window);
+    //    QFuture<bool> future= QtConcurrent::run(this,&MainWindow::launch_chat,chat_window);
 
-//    qDebug() << "Min thread free ...";
-//    qDebug() << "Result: " << future.result();
+    //    qDebug() << "Min thread free ...";
+    //    qDebug() << "Result: " << future.result();
 
 
 }
@@ -2847,15 +2848,15 @@ void MainWindow::on_enter_personnel_clicked()
     qDebug() << "Result: " << future.result();
 
 
-//    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
+    //    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
 
-//    ui->tableView_personnel->setModel(tmppersonnel.afficher());
+    //    ui->tableView_personnel->setModel(tmppersonnel.afficher());
 
-//    ui->tableView_notifications_personnel->setModel(tmppersonnel.afficher_notifications());
+    //    ui->tableView_notifications_personnel->setModel(tmppersonnel.afficher_notifications());
 
-//    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+    //    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
-//    myid="";
+    //    myid="";
 
 }
 
@@ -2881,31 +2882,31 @@ void MainWindow::on_test_clicked()
 void MainWindow::on_radioButton_nuit_toggled(bool checked)
 {
     this->setStyleSheet("font: 8pt \"Pacifico\";"
-                "background-color: rgb(43, 40, 38);"
+                        "background-color: rgb(43, 40, 38);"
                         "color: rgb(255, 255, 255);");
 
 
-        QList<QPushButton *> butts = this->findChildren<QPushButton *>();
+    QList<QPushButton *> butts = this->findChildren<QPushButton *>();
 
-        for (int i=0; i<butts.size();i++)
-        {
-            butts.at(i)->setStyleSheet("QPushButton { background-color: #444444; }");
-       }
+    for (int i=0; i<butts.size();i++)
+    {
+        butts.at(i)->setStyleSheet("QPushButton { background-color: #444444; }");
+    }
 
 
-        QList<QTabWidget *> tabs = this->findChildren<QTabWidget *>();
+    QList<QTabWidget *> tabs = this->findChildren<QTabWidget *>();
 
-        for (int i=0; i<tabs.size();i++)
-        {
-            tabs.at(i)->setStyleSheet("QTabBar::tab { background-color: rgb(68, 68, 68);}");
-       }
+    for (int i=0; i<tabs.size();i++)
+    {
+        tabs.at(i)->setStyleSheet("QTabBar::tab { background-color: rgb(68, 68, 68);}");
+    }
 
-//        QList<QTableView *> tabviews = this->findChildren<QTableView *>();
+    //        QList<QTableView *> tabviews = this->findChildren<QTableView *>();
 
-//        for (int i=0; i<tabviews.size();i++)
-//        {
-//            tabs.at(i)->setStyleSheet("QTableView::tab { background-color: rgb(68, 68, 68);}");
-//       }
+    //        for (int i=0; i<tabviews.size();i++)
+    //        {
+    //            tabs.at(i)->setStyleSheet("QTableView::tab { background-color: rgb(68, 68, 68);}");
+    //       }
 
 
 }
@@ -2916,18 +2917,18 @@ void MainWindow::on_radioButton_jour_toggled(bool checked)
     this->setStyleSheet("font: 8pt \"Pacifico\";");
 
 
-        QList<QPushButton *> butts = this->findChildren<QPushButton *>();
+    QList<QPushButton *> butts = this->findChildren<QPushButton *>();
 
-        for (int i=0; i<butts.size();i++)
-        {
-            butts.at(i)->setStyleSheet("QPushButton { background-color: grey; }");
-       }
-        QList<QTabWidget *> tabs = this->findChildren<QTabWidget *>();
+    for (int i=0; i<butts.size();i++)
+    {
+        butts.at(i)->setStyleSheet("QPushButton { background-color: grey; }");
+    }
+    QList<QTabWidget *> tabs = this->findChildren<QTabWidget *>();
 
-        for (int i=0; i<tabs.size();i++)
-        {
-            tabs.at(i)->setStyleSheet("QTabBar::tab { background-color: grey;}");
-       }
+    for (int i=0; i<tabs.size();i++)
+    {
+        tabs.at(i)->setStyleSheet("QTabBar::tab { background-color: grey;}");
+    }
 
 }
 
@@ -2940,3 +2941,22 @@ void MainWindow::on_cant_touch_this_pressed()
     player->play();
 }
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    QItemSelectionModel *select = ui->tableView_notifications_personnel->selectionModel();
+
+    QString prenom =select->selectedRows(1).value(0).data().toString();
+
+    QString msg="Bonjour, "+prenom+"!";
+
+
+    A.write_to_arduino(msg.toStdString().c_str());
+
+
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    A.write_to_arduino("Accès refusé");
+}

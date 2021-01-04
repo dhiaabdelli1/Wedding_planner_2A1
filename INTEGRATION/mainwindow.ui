@@ -5282,15 +5282,15 @@
   </widget>
  </widget>
  <resources>
-  <include location="log.qrc"/>
-  <include location="stock.qrc"/>
-  <include location="colab.qrc"/>
   <include location="signin.qrc"/>
-  <include location="configuration.qrc"/>
-  <include location="login.qrc"/>
-  <include location="reservation.qrc"/>
   <include location="reception.qrc"/>
   <include location="staff.qrc"/>
+  <include location="login.qrc"/>
+  <include location="log.qrc"/>
+  <include location="reservation.qrc"/>
+  <include location="colab.qrc"/>
+  <include location="configuration.qrc"/>
+  <include location="stock.qrc"/>
  </resources>
  <connections/>
 </ui>
