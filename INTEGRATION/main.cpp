@@ -18,18 +18,18 @@ int main(int argc, char *argv[])
     bool test=c.createConnexion();
     MainWindow w;
 
-//    QMovie *movie = new QMovie("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/splash.gif");
-//    QLabel *processLabel = new QLabel(NULL);
-//    processLabel->setMovie(movie);
-//    processLabel->setWindowFlag(Qt::FramelessWindowHint );
+    QMovie *movie = new QMovie("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/splash.gif");
+    QLabel *processLabel = new QLabel(NULL);
+    processLabel->setMovie(movie);
+    processLabel->setWindowFlag(Qt::FramelessWindowHint );
 
-//    processLabel->setAlignment(Qt::AlignCenter);
-//    movie->start();
-//    processLabel->show();
+    processLabel->setAlignment(Qt::AlignCenter);
+    movie->start();
+    processLabel->show();
 
 
-//    QTimer::singleShot(5000,processLabel,SLOT(close()));
-//    QTimer::singleShot(5000,&w,SLOT(show()));
+    QTimer::singleShot(5000,processLabel,SLOT(close()));
+    QTimer::singleShot(5000,&w,SLOT(show()));
 
 
     if (test)
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
 
 
-    w.show();
+    //w.show();
 
     return app.exec();
 }

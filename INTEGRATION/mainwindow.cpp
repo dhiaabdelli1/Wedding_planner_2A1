@@ -70,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->dateDeNaissanceDateEdit_invite->setMaximumDate(QDate::currentDate().addYears(-18));
     ui->date_recherche_invite->setMaximumDate(QDate::currentDate().addYears(-18));
     ui->dateEdit_personnel->setMaximumDate(QDate::currentDate().addYears(-18));
+    ui->date_reservation->setMinimumDate(QDate::currentDate());
     ui->cINLineEdit_invite->setMaxLength(8);
     ui->tLPhoneLineEdit_invite->setMaxLength(8);
 
@@ -187,6 +188,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->passwordLineEdit_login->setEchoMode(QLineEdit::Password);
     ui->passwordLineEdit_signup->setEchoMode(QLineEdit::Password);
+    ui->confimerMotDePasseLineEdit_signup->setEchoMode(QLineEdit::Password);
 
     int ret=A.connect_arduino();
 
@@ -335,6 +337,18 @@ void MainWindow::on_sign_up_button_clicked()
 
         ui->stackedWidget->setCurrentIndex(1);
         current_user=ui->usernameLineEdit_signup->text();
+
+        QPixmap outPixmap = QPixmap();
+        outPixmap.loadFromData(log->fetch_image(current_user),"PNG");
+        outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
+        ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
+
+        ui->uname_label->setText(current_user);
+
+        ui->usernameLineEdit_signup->clear();
+        ui->eMailLineEdit_signup->clear();
+        ui->passwordLineEdit_signup->clear();
+        ui->confimerMotDePasseLineEdit_signup->clear();
     }
 
     else
@@ -800,6 +814,8 @@ void MainWindow::on_ajouter_table_clicked()
 
             ui->nombrePlacesLineEdit_table->setText("");
             ui->nomServeurLineEdit_table->setText("");
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Table ajoutée"));
         }
     }
     else
@@ -1049,7 +1065,8 @@ void MainWindow::on_ajouter_client_clicked()
         bool test=c.ajouter();
         if(test)
         {
-
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Client ajouté"));
             QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
             ui->tableView_client->setModel(tempclient.afficher());
 
@@ -1114,9 +1131,8 @@ void MainWindow::on_supprimer_client_clicked()
         ui->tableView_client->setModel(tempclient.afficher());
 
         //w.show();
-        QMessageBox::information(nullptr, QObject::tr("ajout client"),
-                                 QObject::tr("suppression réussie\n"
-                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Réservation supprimée"));
 
 
 
@@ -1264,6 +1280,9 @@ void MainWindow::on_ajouter_reservation_clicked()
     {
         QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
         ui->tableView_reservation->setModel(tempreservation.afficher());
+
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Réservation ajoutée"));
 
         //int nb=ui->tableView_reservation->model()->rowCount();
 
@@ -1584,9 +1603,8 @@ void MainWindow::on_ajouter_departement_clicked()
 
             ui->lineEdit_nbemployes->text().clear();
 
-            QMessageBox::information(nullptr, QObject::tr("ajout departement"),
-                                     QObject::tr("departement ajoutè.\n"
-                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Département ajouté"));
 
 
 
@@ -1729,9 +1747,8 @@ void MainWindow::on_ajouter_personnel_clicked()
         if (p.ajouter())
         {
             ui->tableView_personnel->setModel(tmppersonnel.afficher());
-            QMessageBox::information(nullptr, QObject::tr("ajout personnel"),
-                                     QObject::tr("personnel ajoutè.\n"
-                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Personnel ajouté"));
 
 
             ui->lineEdit_cinpersonnel->setStyleSheet("color: black");
@@ -1956,8 +1973,8 @@ void MainWindow::on_pushButton_val_p_clicked()
         ui->lineEdit_Ref_p->setText("");
         ui->lineEdit_quantite_p->setText("");
         ui->lineEdit_Prix_p->setText("");
-        QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Produit ajouté"));
     }
     else
     {QMessageBox::critical(nullptr,QObject::tr("Not OK"),
@@ -2077,8 +2094,8 @@ void MainWindow::on_pushButton_val_f_clicked()
         ui->lineEdit_CIN_f->setText("");
         ui->lineEdit_tel_f->setText("");
         ui->lineEdit_RIB_f->setText("");
-        QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("Ajout effectué .\n"),QMessageBox::Cancel);
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Fournisseur ajouté"));
     }
     else
     {       QMessageBox::critical(nullptr,QObject::tr("Not OK"),
@@ -2093,8 +2110,8 @@ void MainWindow::on_pushButton_supp_f_clicked()
     if(tmpf.supprimer_f(CIN_f))
     {
         ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
-        QMessageBox::information(nullptr,QObject::tr("OK"),
-                                 QObject::tr("suppression effectué .\n"),QMessageBox::Cancel);
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Fournisseur supprimé"));
     }
 }
 
@@ -2247,9 +2264,8 @@ void MainWindow::on_ajouterC_2_clicked()
         if (!verifier_nom)
 
         {
-            QMessageBox::warning(nullptr, QObject::tr("Ajouter collaborateur"),
-                                 QObject::tr("Vérifier Nom ! .\n"
-                                             "Click Cancel to exit."), QMessageBox::Cancel);
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Collaborateur ajouté"));
         }else if (!verifier_mail)
         {
 
@@ -2289,9 +2305,8 @@ void MainWindow::on_ajouterC_2_clicked()
                 ui->lineEdit_RibC_2->setText("");
                 ui->lineEdit_ReferenceC_2->setText("");
 
-                QMessageBox::information(nullptr, QObject::tr("Ajouter collaborateur"),
-                                         QObject::tr("Collaborateur ajouté.\n"
-                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+                mSystemTrayIcon->showMessage(tr("Notification"),
+                                             tr("Collaborateur ajouté"));
             }
             else
             {
@@ -2366,9 +2381,8 @@ void MainWindow::on_pushButton_ajouterS_clicked()
         ui->tableView_service->setModel(tmpservice.afficher_service());
         ui->lineEdit_type->setText("");
         ui->lineEdit_prix->setText("");
-        QMessageBox::information(nullptr, QObject::tr("Ajouter service"),
-                                 QObject::tr("service ajouté.\n"
-                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Service ajouté"));
 
         int nb=ui->tableView_service->model()->rowCount();
         ui->comboBox_C_2->clear();
@@ -2396,7 +2410,8 @@ void MainWindow::on_pushButton_supprimerS_clicked()
     if(tmpservice.supprimer_service(type))
     {
         ui->tableView_service->setModel(tmpservice.afficher_service());
-        ui->statusbar->showMessage(tr("service supprimé"));
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Service ajouté"));
         int n=ui->tableView_service->model()->rowCount();
         ui->comboBox_C_2->clear();
 
@@ -2474,9 +2489,7 @@ void MainWindow::on_pushButton_modifierS_clicked()
 
     {
         ui->tableView_service->setModel(tmpservice.afficher_service());
-        QMessageBox::information(nullptr, QObject::tr("Modifier service"),
-                                 QObject::tr("Service modifié\n"
-                                             "Click Cancel to exit."), QMessageBox::Cancel);}
+        mSystemTrayIcon->showMessage(tr("Notification"), tr("Service mod"));}
     else
     {
         QMessageBox::information(nullptr, QObject::tr("Modifier service"),
@@ -2843,15 +2856,19 @@ void MainWindow::on_mdp_oublie_label_linkActivated(const QString &)
         login login;
         QString code=login.code_generator();
         QString email=login.fetch_email(ui->usernameLineEdit_login->text());
-        ui->usernameLineEdit_login->text().clear();
-        ui->passwordLineEdit_login->text().clear();
-        ui->passwordLabel->setText("Code");
-        //QString email = QInputDialog::getText(this, "Mot de passe oublié", "Veuillez saisir votre adresse email");
+        login.update_mpd_reset(ui->usernameLineEdit_login->text(),code);
 
-        ui->login_button->setText("Envoyer Code");
+        QMessageBox::information(this, tr("Mot de passe oublié"), tr("Un code de vérification a été envoyé à votre adresse e-mail."));
+
+
+        ui->passwordLabel->setText("Code");
+
         Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
         smtp->sendMail("dhia.abdelli1@esprit.tn", email , "Mot de Passe oublié" ,code);
-        login.update_mpd_reset(ui->usernameLineEdit_login->text(),code);
+
+        ui->usernameLineEdit_login->text().clear();
+        ui->passwordLineEdit_login->text().clear();
+
     }
 
 

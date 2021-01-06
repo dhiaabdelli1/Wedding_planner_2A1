@@ -104,11 +104,11 @@ QString login::code_generator()
 }
 
 
-bool login::update_mpd_reset(QString email,QString code)
+bool login::update_mpd_reset(QString uname,QString code)
 {
     QSqlQuery qry;
-    qry.prepare("UPDATE USERS SET pwd_reset=:pwd_reset WHERE (email=:email)");
-    qry.bindValue(":email",email);
+    qry.prepare("UPDATE USERS SET pwd_reset=:pwd_reset WHERE (username=:username)");
+    qry.bindValue(":username",uname);
     qry.bindValue(":pwd_reset",this->hash(code));
 
     return qry.exec();

@@ -5,20 +5,10 @@ chat::chat(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::chat)
 {
-    //QHostAddress me("192.168.1.27");
+
     QHostAddress me(get_ip());
 
 
-//    QList<QHostAddress> list = QNetworkInterface::allAddresses();
-
-//     for(int nIter=0; nIter<list.count(); nIter++)
-
-//      {
-//          if(!list[nIter].isLoopback())
-//              if (list[nIter].protocol() == QAbstractSocket::IPv4Protocol && list[nIter].toString().contains("172.16.161"))
-//            qDebug() << list[nIter].toString();
-
-//      }
 
 
     ui->setupUi(this);
@@ -26,6 +16,7 @@ chat::chat(QWidget *parent) :
     clientSocketc=new QUdpSocket(this);
     clientSocketc->bind(me, 7000);
     connect(clientSocketc,SIGNAL(readyRead()),this,SLOT(readPendingDatagrams()));
+
 }
 
 chat::~chat()
@@ -43,6 +34,7 @@ void chat::on_sendButton_clicked()
     quint16 senderPort;
     buffer=word.toUtf8();
     clientSocketc->writeDatagram(buffer.data(), QHostAddress::Broadcast, 8001 );
+    ui->lineEdit->clear();
 }
 void chat::readPendingDatagrams()
 {
@@ -68,9 +60,13 @@ QString chat::get_ip()
     QString errors = process.readAllStandardError();
 
 
-    int pos=output.toStdString().find("Adresse IPv4. . . . . . . . . . . . . .:");
-    QRegularExpression ip_regex("(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])");
-    QRegularExpressionMatch ip_match=ip_regex.match(output.mid(pos+34,20));
+
+    int pos=output.toStdString().find("Wi-Fi");
+    QRegularExpression ip_regex("(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]+)");
+    QRegularExpressionMatch ip_match=ip_regex.match(output.mid(pos+50,220));
+
+
+    qDebug() <<ip_match.captured(0);
 
     return ip_match.captured(0);
 }
@@ -125,3 +121,12 @@ void chat::readPendingDatagrams()
 
 }*/
 
+
+void chat::on_connect_udp_clicked()
+{
+//    QHostAddress me(ui->lineEdit_ip->text());
+//    clientSocket=new QUdpSocket(this);
+//    clientSocketc=new QUdpSocket(this);
+//    clientSocketc->bind(me, 7000);
+////    connect(clientSocketc,SIGNAL(readyRead()),this,SLOT(readPendingDatagrams()));
+}

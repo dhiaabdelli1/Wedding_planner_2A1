@@ -26,6 +26,8 @@ private slots:
     //QString read(QString);
     QString get_ip();
 
+    void on_connect_udp_clicked();
+
 private:
     Ui::chat *ui;
 //    QUdpSocket *socketServer;

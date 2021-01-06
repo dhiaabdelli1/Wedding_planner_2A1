@@ -166,19 +166,6 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="test">
-                   <property name="text">
-                    <string>test</string>
-                   </property>
-                   <property name="iconSize">
-                    <size>
-                     <width>50</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <spacer name="horizontalSpacer_22">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -333,13 +320,6 @@
                        <width>50</width>
                        <height>30</height>
                       </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="upload_image">
-                     <property name="text">
-                      <string>image</string>
                      </property>
                     </widget>
                    </item>
@@ -653,7 +633,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>5</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -1795,7 +1775,7 @@
                              <item row="1" column="1">
                               <widget class="QLineEdit" name="lineEdit_type">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                <string notr="true"/>
                                </property>
                               </widget>
                              </item>
@@ -1809,7 +1789,7 @@
                              <item row="2" column="1">
                               <widget class="QDateEdit" name="dateEdit">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                <string notr="true"/>
                                </property>
                               </widget>
                              </item>
@@ -1823,7 +1803,7 @@
                              <item row="3" column="1">
                               <widget class="QLineEdit" name="lineEdit_prix">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                <string notr="true"/>
                                </property>
                               </widget>
                              </item>
@@ -1950,7 +1930,7 @@
                              <item>
                               <widget class="QPushButton" name="pushButton_ajouterS">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                                <string notr="true"/>
                                </property>
                                <property name="text">
                                 <string>Ajouter</string>
@@ -1960,7 +1940,7 @@
                              <item>
                               <widget class="QPushButton" name="pushButton_modifierS">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                                <string notr="true"/>
                                </property>
                                <property name="text">
                                 <string>Modifier</string>
@@ -1970,7 +1950,7 @@
                              <item>
                               <widget class="QPushButton" name="pushButton_supprimerS">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                                <string notr="true"/>
                                </property>
                                <property name="text">
                                 <string>Supprimer</string>
@@ -1980,7 +1960,7 @@
                              <item>
                               <widget class="QPushButton" name="resetS">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(179, 207, 194);</string>
+                                <string notr="true"/>
                                </property>
                                <property name="text">
                                 <string>Reset</string>
@@ -2007,7 +1987,7 @@
                              <item>
                               <widget class="QTableView" name="tableView_service">
                                <property name="styleSheet">
-                                <string notr="true">background-color: rgb(251, 255, 176);</string>
+                                <string notr="true"/>
                                </property>
                               </widget>
                              </item>
@@ -2073,7 +2053,7 @@
                 <item>
                  <widget class="QTabWidget" name="tabWidget_2">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -5263,15 +5243,15 @@
   </widget>
  </widget>
  <resources>
+  <include location="staff.qrc"/>
+  <include location="login.qrc"/>
+  <include location="reception.qrc"/>
   <include location="colab.qrc"/>
   <include location="configuration.qrc"/>
-  <include location="staff.qrc"/>
-  <include location="log.qrc"/>
-  <include location="reception.qrc"/>
-  <include location="login.qrc"/>
-  <include location="reservation.qrc"/>
-  <include location="signin.qrc"/>
   <include location="stock.qrc"/>
+  <include location="log.qrc"/>
+  <include location="signin.qrc"/>
+  <include location="reservation.qrc"/>
  </resources>
  <connections/>
 </ui>
