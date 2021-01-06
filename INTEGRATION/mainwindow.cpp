@@ -9,6 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
+
+    ui->stackedWidget->setCurrentIndex(0);
+
+
     mSystemTrayIcon = new QSystemTrayIcon(this);
     mSystemTrayIcon->setIcon(QIcon("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/icon.png"));
     mSystemTrayIcon->setVisible(true);
@@ -40,7 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
     C=QRegExp("[a-zA-Z]{2,20}$");
     R=QRegExp("[0-9]{11}$");
 
-    ui->stackedWidget->setCurrentIndex(0);
+    ip_regex=QRegExp("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})");
+
+
 
     //windows size
     initial_width=this->width()*0.8;
@@ -265,6 +271,7 @@ void MainWindow::on_login_button_clicked()
 
     if (ui->passwordLabel->text()=="Code")
     {
+
         if (log->sign_in_code(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
         {
             current_user=ui->usernameLineEdit_login->text();
@@ -273,6 +280,14 @@ void MainWindow::on_login_button_clicked()
             ui->passwordLineEdit_login->clear();
             this->setFixedSize(initial_width,initial_height);
             this->move(center_main_x, center_main_y);
+
+            QPixmap outPixmap = QPixmap();
+            outPixmap.loadFromData(log->fetch_image(current_user),"PNG");
+            outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
+            ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
+
+            ui->uname_label->setText(current_user);
+
         }
         else
             QMessageBox::warning(this,tr("Connexion"),tr("Erreur de connexion"));
@@ -288,6 +303,13 @@ void MainWindow::on_login_button_clicked()
             this->setFixedSize(initial_width,initial_height);
 
             this->move(center_main_x, center_main_y);
+
+            ui->uname_label->setText(current_user);
+
+            QPixmap outPixmap = QPixmap();
+            outPixmap.loadFromData(log->fetch_image(current_user),"PNG");
+            outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
+            ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
         }
         else
         {
@@ -389,7 +411,12 @@ void MainWindow::on_ajouter_invite_clicked()
             bool test=inv.ajouter();
 
             if (test)
+            {
+                mSystemTrayIcon->showMessage(tr("Notification"),
+                                             tr("Invité ajouté"));
                 ui->tableView_invite->setModel(tmpinvite.afficher());
+            }
+
 
 
             ui->cINLineEdit_invite->setText("");
@@ -1334,74 +1361,85 @@ void MainWindow::update_label()
     data=A.read_from_arduino();
 
 
+    //BIKOU
+
+    //    qDebug() << data.toHex().toInt()/10+data.toHex().toInt()%10;
 
 
-    qDebug() << data.toHex().toInt()/10+data.toHex().toInt()%10;
+
+    //    ui->tmp->display(data.toHex().toInt()/10+data.toHex().toInt()%10);
+
+    //SARA ELAA
+
+    myid+=data;
+
+    int pos=myid.toStdString().find("key");
+    //qDebug() << myid;
+    //qDebug() << myid.mid(pos+5,17);
 
 
-
-    ui->tmp->display(data.toHex().toInt()/10+data.toHex().toInt()%10);
-
-    //myid+=data;
-
-    //    int pos=myid.toStdString().find("key");
-    //    //qDebug() << myid;
-    //    //qDebug() << myid.mid(pos+5,17);
+    if (test==false)
+    {
+        qDebug() << myid.mid(pos+5,17);
+        test=true;
+        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
+        {
 
 
-    //    if (test==false)
-    //    {
-    //        qDebug() << myid.mid(pos+5,17);
-    //        test=true;
-    //        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
-    //        {
-    //            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
+            for (int i=pos;i<pos+40;i++)
+            {
+                qDebug() << myid[i];
+                id_entree+=myid[i];
+            }
+            qDebug() << myid.mid(pos+5,17);
+            notifications_feed(myid.mid(pos+5,17));
 
-    //        }
+            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
 
-    //    }
+        }
 
-    //    for (int i=pos;i<pos+40;i++)
-    //    {
-    //        qDebug() << myid[i];
-    //    }
+    }
+
+
 
 
     //qDebug() << pos;
 
-    if (data!="#")
-    {
+    //DHIA IHEB
 
-        cin_recu+=data;
+    //    if (data!="#")
+    //    {
 
-    }
+    //        cin_recu+=data;
 
-    else
-    {
+    //    }
 
-        QMessageBox::information(nullptr, QObject::tr("Notification"),
-                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+    //    else
+    //    {
 
-        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+    //        QMessageBox::information(nullptr, QObject::tr("Notification"),
+    //                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
 
-        tmpinvite.update(cin_recu,"permission","pending");
+    //        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
 
-        ui->tableView_invite->setModel(tmpinvite.afficher());
-        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+    //        tmpinvite.update(cin_recu,"permission","pending");
+
+    //        ui->tableView_invite->setModel(tmpinvite.afficher());
+    //        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+    //        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
-        cin_recu="";
+    //        cin_recu="";
 
-    }
+    //    }
 
 
 
 }
 
-bool MainWindow::notifications_invite(QString cin_recu)
+bool MainWindow::notifications_invite(QString)
 {
-
+    return false;
 }
 void MainWindow::on_refuser_clicked()
 {
@@ -1474,7 +1512,7 @@ void MainWindow::on_envoyer_invite_clicked()
     d->exec();
 }
 
-void MainWindow::on_tabWidget_2_tabBarClicked(int index)
+void MainWindow::on_tabWidget_2_tabBarClicked(int)
 {
     QSqlQueryModel *model2=new QSqlQueryModel();
     QString id;
@@ -1497,10 +1535,13 @@ void MainWindow::on_entrer_clicked()
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
+
+    mSystemTrayIcon->showMessage(tr("Notification"),
+                                 tr("Invité à la porte"));
     cin_recu="";
 }
 
-void MainWindow::on_tabWidget_tabBarClicked(int index)
+void MainWindow::on_tabWidget_tabBarClicked(int)
 {
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
     // ui->tabWidget->setTabText(1,"Notifcations");
@@ -1812,7 +1853,7 @@ void MainWindow::on_pdf_personnel_clicked()
 }
 
 
-void MainWindow::on_lineEdit_recherchepersonnel_textChanged(const QString &arg1)
+void MainWindow::on_lineEdit_recherchepersonnel_textChanged(const QString &)
 {
     personnel p;
     ui->tableView_personnel->setModel(p.chercher(ui->lineEdit_recherchepersonnel->text()));
@@ -2795,14 +2836,19 @@ void MainWindow::on_show_clicked()
 }
 
 
-void MainWindow::on_mdp_oublie_label_linkActivated(const QString & link)
+void MainWindow::on_mdp_oublie_label_linkActivated(const QString &)
 {
     if (ui->usernameLineEdit_login->text()!="")
     {
         login login;
         QString code=login.code_generator();
+        QString email=login.fetch_email(ui->usernameLineEdit_login->text());
+        ui->usernameLineEdit_login->text().clear();
+        ui->passwordLineEdit_login->text().clear();
         ui->passwordLabel->setText("Code");
-        QString email = QInputDialog::getText(this, "Mot de passe oublié", "Veuillez saisir votre adresse email");
+        //QString email = QInputDialog::getText(this, "Mot de passe oublié", "Veuillez saisir votre adresse email");
+
+        ui->login_button->setText("Envoyer Code");
         Smtp* smtp = new Smtp("dhia.abdelli1@esprit.tn", "Dpstream1", "smtp.gmail.com", 465);
         smtp->sendMail("dhia.abdelli1@esprit.tn", email , "Mot de Passe oublié" ,code);
         login.update_mpd_reset(ui->usernameLineEdit_login->text(),code);
@@ -2840,12 +2886,12 @@ void MainWindow::on_affecter_code_clicked()
 
 void MainWindow::on_enter_personnel_clicked()
 {
-    myid=ui->lineEdit_enter_personnel->text();
+    //    myid=ui->lineEdit_enter_personnel->text();
 
-    QFuture <bool> future= QtConcurrent::run(this,&MainWindow::notifications_feed,myid);
+    //    QFuture <bool> future= QtConcurrent::run(this,&MainWindow::notifications_feed,myid);
 
-    qDebug() << "Min thread free ...";
-    qDebug() << "Result: " << future.result();
+    //    qDebug() << "Min thread free ...";
+    //    qDebug() << "Result: " << future.result();
 
 
     //    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
@@ -2863,12 +2909,12 @@ void MainWindow::on_enter_personnel_clicked()
 bool MainWindow::notifications_feed(QString myid)
 {
 
-    qDebug() << "Notifications feed is running on: " << QThread::currentThread();
     tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
     ui->tableView_personnel->setModel(tmppersonnel.afficher());
     ui->tableView_notifications_personnel->setModel(tmppersonnel.afficher_notifications());
     ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
     myid="";
+    return true;
 }
 
 void MainWindow::on_test_clicked()
@@ -2879,7 +2925,7 @@ void MainWindow::on_test_clicked()
     this->move(center_main_x, center_main_y);
 }
 
-void MainWindow::on_radioButton_nuit_toggled(bool checked)
+void MainWindow::on_radioButton_nuit_toggled(bool)
 {
     this->setStyleSheet("font: 8pt \"Pacifico\";"
                         "background-color: rgb(43, 40, 38);"
@@ -2911,7 +2957,7 @@ void MainWindow::on_radioButton_nuit_toggled(bool checked)
 
 }
 
-void MainWindow::on_radioButton_jour_toggled(bool checked)
+void MainWindow::on_radioButton_jour_toggled(bool)
 {
 
     this->setStyleSheet("font: 8pt \"Pacifico\";");
@@ -2959,4 +3005,49 @@ void MainWindow::on_pushButton_6_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     A.write_to_arduino("Accès refusé");
+}
+
+void MainWindow::on_email_clicked()
+{
+    QProcess process;
+    process.start("ipconfig");
+    process.waitForFinished(-1); // will wait forever until finished
+
+    QString output = process.readAllStandardOutput();
+    QString errors = process.readAllStandardError();
+
+
+    int pos=output.toStdString().find("Adresse IPv4. . . . . . . . . . . . . .:");
+    QRegularExpression ip_regex("(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])");
+    QRegularExpressionMatch ip_match=ip_regex.match(output.mid(pos+34,20));
+
+    qDebug() << ip_match.captured(0);
+
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    test=false;
+}
+
+void MainWindow::on_upload_image_clicked()
+{
+
+}
+
+void MainWindow::on_ajouter_image_clicked()
+{
+    login login;
+    login.ajouter_image(current_user);
+
+
+
+    QPixmap outPixmap = QPixmap();
+    outPixmap.loadFromData(log->fetch_image(current_user),"PNG");
+    outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
+
+   // ui->image_pos->setPixmap(outPixmap);
+
+    ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
+
 }

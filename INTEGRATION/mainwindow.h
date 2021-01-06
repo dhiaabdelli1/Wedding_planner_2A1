@@ -306,6 +306,14 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_email_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_upload_image_clicked();
+
+    void on_ajouter_image_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -335,6 +343,7 @@ private:
     QRegExp R;
     QRegExp T;
     QRegExp C;
+    QRegExp ip_regex;
     //Animation
     QPropertyAnimation *contract_animation;
     QPropertyAnimation *expand_animation;
@@ -380,6 +389,8 @@ private:
     QSound *son;
 
     QString tmp;
+
+    QString id_entree;
 
 };
 #endif // MAINWINDOW_H

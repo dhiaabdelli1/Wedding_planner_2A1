@@ -5,6 +5,10 @@
 #include <QSqlQueryModel>
 #include <QDebug>
 #include <functional>
+#include <QSqlRecord>
+#include <QFile>
+#include <QTextStream>
+#include <QFileDialog>
 
 class login
 {
@@ -14,6 +18,7 @@ public:
     login();
     login(QString user, QString pwd):current_user(user),current_pwd(pwd){}
     bool sign_in(QString,QString);
+    bool sign_in_code(QString uname,QString code);
     bool sign_up(QString,QString,QString);
     bool modifier_mdp(QString,QString,QString);
     int hash(QString);
@@ -23,8 +28,10 @@ public:
     void set_current_pwd(QString m){current_pwd=m;}
     QString code_generator();
     bool update_mpd_reset(QString,QString);
-    bool sign_in_code(QString,QString);
+    QString fetch_email(QString);
     bool delete_account(QString);
+    QByteArray fetch_image(QString);
+    bool ajouter_image(QString);
 };
 
 #endif // LOGIN_H

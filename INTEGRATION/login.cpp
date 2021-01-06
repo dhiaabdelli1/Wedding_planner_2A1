@@ -31,6 +31,28 @@ bool login::sign_in_code(QString uname,QString code)
 
 }
 
+QString login::fetch_email(QString uname)
+{
+    QSqlQuery qry;
+    QString email;
+
+
+    qry.prepare("SELECT * FROM USERS WHERE username=:username");
+    qry.bindValue(":username",uname);
+
+    qry.first();
+    qry.exec();
+
+    while(qry.next())
+    {
+        email=qry.value(2).toString();
+
+    }
+    return email;
+
+
+}
+
 bool login::sign_up(QString uname,QString pwd,QString email)
 {
     QSqlQuery qry;
@@ -82,11 +104,11 @@ QString login::code_generator()
 }
 
 
-bool login::update_mpd_reset(QString uname,QString code)
+bool login::update_mpd_reset(QString email,QString code)
 {
     QSqlQuery qry;
-    qry.prepare("UPDATE USERS SET pwd_reset=:pwd_reset WHERE (username=:user)");
-    qry.bindValue(":user",uname);
+    qry.prepare("UPDATE USERS SET pwd_reset=:pwd_reset WHERE (email=:email)");
+    qry.bindValue(":email",email);
     qry.bindValue(":pwd_reset",this->hash(code));
 
     return qry.exec();
@@ -96,5 +118,41 @@ bool login::delete_account(QString uname)
     QSqlQuery qry;
     qry.prepare("Delete from USERS where username = :username");
     qry.bindValue(":username",uname);
+    return qry.exec();
+}
+
+
+QByteArray login::fetch_image(QString uname)
+{
+    QSqlQuery qry;
+    qry.prepare("Select * from USERS where username =:username");
+    qry.bindValue(":username",uname);
+    qry.exec();
+    QSqlQueryModel * model = new QSqlQueryModel;
+    model->setQuery(qry);
+    QSqlRecord rec = model->record(0);
+    QByteArray img=rec.value("image").toByteArray();
+    return img;
+
+}
+
+
+bool login::ajouter_image(QString username)
+{
+    QByteArray byte;
+    QString filename=QFileDialog::getOpenFileName(0,"open image","D:\\",0);
+    QFile file(filename);
+
+    if (file.open(QIODevice::ReadOnly))
+    {
+        byte=file.readAll();
+        file.close();
+    }
+
+    QSqlQuery qry;
+    qry.prepare("UPDATE users SET image=:image where username=:username");
+    qry.bindValue(":image",byte,QSql::In | QSql::Binary);
+    qry.bindValue(":username",username);
+
     return qry.exec();
 }

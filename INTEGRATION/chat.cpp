@@ -5,7 +5,21 @@ chat::chat(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::chat)
 {
-    QHostAddress me("192.168.1.27");
+    //QHostAddress me("192.168.1.27");
+    QHostAddress me(get_ip());
+
+
+//    QList<QHostAddress> list = QNetworkInterface::allAddresses();
+
+//     for(int nIter=0; nIter<list.count(); nIter++)
+
+//      {
+//          if(!list[nIter].isLoopback())
+//              if (list[nIter].protocol() == QAbstractSocket::IPv4Protocol && list[nIter].toString().contains("172.16.161"))
+//            qDebug() << list[nIter].toString();
+
+//      }
+
 
     ui->setupUi(this);
     clientSocket=new QUdpSocket(this);
@@ -42,6 +56,23 @@ void chat::readPendingDatagrams()
 
     }
 
+}
+
+QString chat::get_ip()
+{
+    QProcess process;
+    process.start("ipconfig");
+    process.waitForFinished(-1); // will wait forever until finished
+
+    QString output = process.readAllStandardOutput();
+    QString errors = process.readAllStandardError();
+
+
+    int pos=output.toStdString().find("Adresse IPv4. . . . . . . . . . . . . .:");
+    QRegularExpression ip_regex("(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])");
+    QRegularExpressionMatch ip_match=ip_regex.match(output.mid(pos+34,20));
+
+    return ip_match.captured(0);
 }
 
 

@@ -5,6 +5,7 @@
 #include <QUdpSocket>
 #include <QtConcurrent>
 #include <QFuture>
+#include <QNetworkInterface>
 
 namespace Ui {
 class chat;
@@ -23,6 +24,7 @@ private slots:
     void readPendingDatagrams();
     //bool send(QString);
     //QString read(QString);
+    QString get_ip();
 
 private:
     Ui::chat *ui;
