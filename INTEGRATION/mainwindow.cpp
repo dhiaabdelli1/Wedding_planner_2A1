@@ -78,6 +78,8 @@ MainWindow::MainWindow(QWidget *parent)
     //Looks
     ui->groupBox_ajouter_table->setMaximumWidth(100);
     ui->groupBox_ajouter_invites->setMaximumWidth(400);
+    //ui->groupBox_34->setMaximumWidth(200);
+    ui->groupBox_35->setMaximumWidth(600);
     QPixmap bkgnd("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/bg.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
@@ -276,6 +278,10 @@ void MainWindow::on_login_button_clicked()
 
         if (log->sign_in_code(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
         {
+            QString pref=log->fetch_preferences(ui->usernameLineEdit_login->text());
+
+            qDebug()<< pref;
+
             current_user=ui->usernameLineEdit_login->text();
             ui->stackedWidget->setCurrentIndex(1);
             ui->usernameLineEdit_login->clear();
@@ -298,6 +304,10 @@ void MainWindow::on_login_button_clicked()
     {
         if (log->sign_in(ui->usernameLineEdit_login->text(),ui->passwordLineEdit_login->text()))
         {
+            QString pref=log->fetch_preferences(ui->usernameLineEdit_login->text());
+
+            qDebug()<< pref;
+
             current_user=ui->usernameLineEdit_login->text();
             ui->stackedWidget->setCurrentIndex(1);
             ui->usernameLineEdit_login->clear();
@@ -1390,34 +1400,34 @@ void MainWindow::update_label()
 
     //SARA ELAA
 
-    myid+=data;
+//    myid+=data;
 
-    int pos=myid.toStdString().find("key");
+//    int pos=myid.toStdString().find("key");
     //qDebug() << myid;
     //qDebug() << myid.mid(pos+5,17);
 
 
-    if (test==false)
-    {
-        qDebug() << myid.mid(pos+5,17);
-        test=true;
-        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
-        {
+//    if (test==false)
+//    {
+//        qDebug() << myid.mid(pos+5,17);
+//        test=true;
+//        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
+//        {
 
 
-            for (int i=pos;i<pos+40;i++)
-            {
-                qDebug() << myid[i];
-                id_entree+=myid[i];
-            }
-            qDebug() << myid.mid(pos+5,17);
-            notifications_feed(myid.mid(pos+5,17));
+//            for (int i=pos;i<pos+40;i++)
+//            {
+//                qDebug() << myid[i];
+//                id_entree+=myid[i];
+//            }
+//            qDebug() << myid.mid(pos+5,17);
+//            notifications_feed(myid.mid(pos+5,17));
 
-            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
+//            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
 
-        }
+//        }
 
-    }
+//    }
 
 
 
@@ -1426,31 +1436,31 @@ void MainWindow::update_label()
 
     //DHIA IHEB
 
-    //    if (data!="#")
-    //    {
+        if (data!="#")
+        {
 
-    //        cin_recu+=data;
+            cin_recu+=data;
 
-    //    }
+        }
 
-    //    else
-    //    {
+        else
+        {
 
-    //        QMessageBox::information(nullptr, QObject::tr("Notification"),
-    //                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+            QMessageBox::information(nullptr, QObject::tr("Notification"),
+                                     QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
 
-    //        ui->tabWidget->setTabText(1,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+            ui->tabWidget->setTabText(2,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
 
-    //        tmpinvite.update(cin_recu,"permission","pending");
+            tmpinvite.update(cin_recu,"permission","pending");
 
-    //        ui->tableView_invite->setModel(tmpinvite.afficher());
-    //        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-    //        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+            ui->tableView_invite->setModel(tmpinvite.afficher());
+            tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+            ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
-    //        cin_recu="";
+            cin_recu="";
 
-    //    }
+        }
 
 
 
@@ -2944,9 +2954,16 @@ void MainWindow::on_test_clicked()
 
 void MainWindow::on_radioButton_nuit_toggled(bool)
 {
+    login login;
+    QString pref=login.fetch_preferences(current_user);
+
+
+
+    pref[0]='N';
     this->setStyleSheet("font: 8pt \"Pacifico\";"
                         "background-color: rgb(43, 40, 38);"
                         "color: rgb(255, 255, 255);");
+
 
 
     QList<QPushButton *> butts = this->findChildren<QPushButton *>();
@@ -3066,5 +3083,17 @@ void MainWindow::on_ajouter_image_clicked()
    // ui->image_pos->setPixmap(outPixmap);
 
     ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
+
+}
+
+void MainWindow::on_annuler_chan_mdp_clicked()
+{
+    ui->ancienMotDePasseLineEdit->clear();
+    ui->nouveauMotDePasseLineEdit->clear();
+    ui->confirmerNouveauMotDePasseLineEdit->clear();
+}
+
+void MainWindow::on_radioButton_toggled(bool checked)
+{
 
 }

@@ -53,6 +53,28 @@ QString login::fetch_email(QString uname)
 
 }
 
+QString login::fetch_preferences(QString uname)
+{
+    QSqlQuery qry;
+    QString pref;
+
+
+    qry.prepare("SELECT * FROM USERS WHERE username=:username");
+    qry.bindValue(":username",uname);
+
+    qry.first();
+    qry.exec();
+
+    while(qry.next())
+    {
+        pref=qry.value(5).toString();
+
+    }
+    return pref;
+
+
+}
+
 bool login::sign_up(QString uname,QString pwd,QString email)
 {
     QSqlQuery qry;
@@ -137,6 +159,8 @@ QByteArray login::fetch_image(QString uname)
 }
 
 
+
+
 bool login::ajouter_image(QString username)
 {
     QByteArray byte;
@@ -153,6 +177,26 @@ bool login::ajouter_image(QString username)
     qry.prepare("UPDATE users SET image=:image where username=:username");
     qry.bindValue(":image",byte,QSql::In | QSql::Binary);
     qry.bindValue(":username",username);
+
+    return qry.exec();
+}
+
+bool update_prefs(QString uname,QString pref)
+{
+    QSqlQuery qry;
+    qry.prepare("UPDATE USERS SET preferences=:pref WHERE (username=:username)");
+    qry.bindValue(":username",uname);
+    qry.bindValue(":pref",pref);
+
+    return qry.exec();
+}
+
+bool up_pref(QString uname,QString pref)
+{
+    QSqlQuery qry;
+    qry.prepare("UPDATE USERS SET preferences=:pref WHERE (username=:username)");
+    qry.bindValue(":username",uname);
+    qry.bindValue(":pref",pref);
 
     return qry.exec();
 }

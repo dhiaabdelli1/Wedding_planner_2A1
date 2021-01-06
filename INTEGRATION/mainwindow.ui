@@ -371,6 +371,20 @@
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_6">
                <item>
+                <widget class="QLabel" name="image_pos">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="uname_label">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <layout class="QVBoxLayout" name="verticalLayout_5">
                  <item>
                   <widget class="QPushButton" name="Dhia">
@@ -392,7 +406,7 @@
                  <item>
                   <widget class="QLabel" name="label_26">
                    <property name="text">
-                    <string>    Reception</string>
+                    <string>    Réception</string>
                    </property>
                   </widget>
                  </item>
@@ -597,20 +611,6 @@
                 </layout>
                </item>
                <item>
-                <widget class="QLabel" name="image_pos">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="uname_label">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item>
                 <widget class="QPushButton" name="logout_button">
                  <property name="text">
                   <string/>
@@ -633,7 +633,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>1</number>
+               <number>5</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -1065,6 +1065,19 @@
                            </item>
                            <item>
                             <layout class="QHBoxLayout" name="horizontalLayout_27">
+                             <item>
+                              <spacer name="horizontalSpacer_29">
+                               <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                               </property>
+                               <property name="sizeHint" stdset="0">
+                                <size>
+                                 <width>40</width>
+                                 <height>20</height>
+                                </size>
+                               </property>
+                              </spacer>
+                             </item>
                              <item>
                               <widget class="QPushButton" name="contract_table">
                                <property name="text">
@@ -4962,6 +4975,31 @@
                         </layout>
                        </item>
                        <item>
+                        <widget class="QLabel" name="label_53">
+                         <property name="text">
+                          <string>Notifications du personnel entrant</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_152">
+                         <item>
+                          <widget class="QRadioButton" name="radioButton_4">
+                           <property name="text">
+                            <string>Oui</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QRadioButton" name="radioButton_3">
+                           <property name="text">
+                            <string>Non</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
                         <spacer name="verticalSpacer_11">
                          <property name="orientation">
                           <enum>Qt::Vertical</enum>
@@ -5063,7 +5101,48 @@
                         </layout>
                        </item>
                        <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_151"/>
+                        <widget class="QLabel" name="label_52">
+                         <property name="text">
+                          <string>Changer photo de profil</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_151">
+                         <item>
+                          <spacer name="horizontalSpacer_30">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="ajouter_image">
+                           <property name="text">
+                            <string>Changer</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_5">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_17">
@@ -5086,13 +5165,6 @@
                             </size>
                            </property>
                           </spacer>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="ajouter_image">
-                           <property name="text">
-                            <string>ajouter image</string>
-                           </property>
-                          </widget>
                          </item>
                          <item>
                           <widget class="QPushButton" name="cant_touch_this">
@@ -5189,12 +5261,29 @@
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_153">
                        <item>
-                        <widget class="QDial" name="dial"/>
+                        <widget class="QLineEdit" name="lineEdit"/>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_157">
+                       <item>
+                        <spacer name="horizontalSpacer_31">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton">
                          <property name="text">
-                          <string>Evaluer</string>
+                          <string>Evaluez-nous!</string>
                          </property>
                         </widget>
                        </item>
@@ -5243,14 +5332,14 @@
   </widget>
  </widget>
  <resources>
-  <include location="staff.qrc"/>
-  <include location="login.qrc"/>
   <include location="reception.qrc"/>
-  <include location="colab.qrc"/>
+  <include location="staff.qrc"/>
   <include location="configuration.qrc"/>
-  <include location="stock.qrc"/>
   <include location="log.qrc"/>
   <include location="signin.qrc"/>
+  <include location="colab.qrc"/>
+  <include location="login.qrc"/>
+  <include location="stock.qrc"/>
   <include location="reservation.qrc"/>
  </resources>
  <connections/>

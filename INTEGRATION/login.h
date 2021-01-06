@@ -32,6 +32,10 @@ public:
     bool delete_account(QString);
     QByteArray fetch_image(QString);
     bool ajouter_image(QString);
+    QString fetch_preferences(QString);
+    bool update_prefs(QString,QString);
+
+    bool up_pref(QString,QString);
 };
 
 #endif // LOGIN_H

@@ -314,6 +314,10 @@ private slots:
 
     void on_ajouter_image_clicked();
 
+    void on_annuler_chan_mdp_clicked();
+
+    void on_radioButton_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
 
