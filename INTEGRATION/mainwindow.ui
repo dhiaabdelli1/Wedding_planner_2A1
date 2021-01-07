@@ -633,7 +633,7 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidget_2">
               <property name="currentIndex">
-               <number>5</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page_3">
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -1296,7 +1296,7 @@
                 <item>
                  <widget class="QTabWidget" name="tabWidget_CS">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="tab_C">
                    <attribute name="title">
@@ -1340,36 +1340,6 @@
                                <property name="styleSheet">
                                 <string notr="true"/>
                                </property>
-                               <item>
-                                <property name="text">
-                                 <string>Photographie</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>Patisserie</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>Cuisine</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>Decor</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>AgenceVoyage</string>
-                                </property>
-                               </item>
-                               <item>
-                                <property name="text">
-                                 <string>DJ &amp; sono</string>
-                                </property>
-                               </item>
                               </widget>
                              </item>
                              <item row="1" column="0">
@@ -1579,36 +1549,6 @@
                                  <property name="styleSheet">
                                   <string notr="true"/>
                                  </property>
-                                 <item>
-                                  <property name="text">
-                                   <string>Photographie</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>Patisserie</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>Cuisine</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>Decor</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>AgenceVoyage</string>
-                                  </property>
-                                 </item>
-                                 <item>
-                                  <property name="text">
-                                   <string>DJ &amp; sono</string>
-                                  </property>
-                                 </item>
                                 </widget>
                                </item>
                                <item row="2" column="0">
@@ -1881,6 +1821,13 @@
                                   </size>
                                  </property>
                                 </spacer>
+                               </item>
+                               <item>
+                                <widget class="QPushButton" name="web">
+                                 <property name="text">
+                                  <string>web</string>
+                                 </property>
+                                </widget>
                                </item>
                               </layout>
                              </item>
@@ -4852,7 +4799,7 @@
                        <item>
                         <layout class="QVBoxLayout" name="verticalLayout_47">
                          <item>
-                          <spacer name="verticalSpacer_9">
+                          <spacer name="verticalSpacer_7">
                            <property name="orientation">
                             <enum>Qt::Vertical</enum>
                            </property>
@@ -4890,7 +4837,7 @@
                           </layout>
                          </item>
                          <item>
-                          <spacer name="verticalSpacer_7">
+                          <spacer name="verticalSpacer_8">
                            <property name="orientation">
                             <enum>Qt::Vertical</enum>
                            </property>
@@ -4935,19 +4882,6 @@
                           </layout>
                          </item>
                          <item>
-                          <spacer name="verticalSpacer_8">
-                           <property name="orientation">
-                            <enum>Qt::Vertical</enum>
-                           </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>20</width>
-                             <height>40</height>
-                            </size>
-                           </property>
-                          </spacer>
-                         </item>
-                         <item>
                           <widget class="QLabel" name="label_32">
                            <property name="text">
                             <string>Notifications des invités entrants</string>
@@ -4973,6 +4907,19 @@
                           </layout>
                          </item>
                         </layout>
+                       </item>
+                       <item>
+                        <spacer name="verticalSpacer_9">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>20</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                        </spacer>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_53">
@@ -5011,6 +4958,78 @@
                           </size>
                          </property>
                         </spacer>
+                       </item>
+                       <item>
+                        <layout class="QVBoxLayout" name="verticalLayout_69">
+                         <item>
+                          <widget class="QLabel" name="label_54">
+                           <property name="text">
+                            <string>Son</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_159">
+                           <item>
+                            <widget class="QPushButton" name="ouvrir_media">
+                             <property name="text">
+                              <string>ouvrir</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="play_media">
+                             <property name="text">
+                              <string>play</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="pause_media">
+                             <property name="text">
+                              <string>pause</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QPushButton" name="stop_media">
+                             <property name="text">
+                              <string>stop</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_162">
+                           <item>
+                            <widget class="QProgressBar" name="avancement_media">
+                             <property name="value">
+                              <number>0</number>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_163">
+                           <item>
+                            <widget class="QPushButton" name="mute_media">
+                             <property name="text">
+                              <string>mute</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QSlider" name="volume_media">
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
                        </item>
                       </layout>
                      </widget>
@@ -5314,7 +5333,7 @@
      <x>0</x>
      <y>0</y>
      <width>1372</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -5332,15 +5351,15 @@
   </widget>
  </widget>
  <resources>
-  <include location="reception.qrc"/>
-  <include location="staff.qrc"/>
-  <include location="configuration.qrc"/>
-  <include location="log.qrc"/>
-  <include location="signin.qrc"/>
   <include location="colab.qrc"/>
+  <include location="log.qrc"/>
+  <include location="staff.qrc"/>
+  <include location="signin.qrc"/>
   <include location="login.qrc"/>
-  <include location="stock.qrc"/>
   <include location="reservation.qrc"/>
+  <include location="stock.qrc"/>
+  <include location="configuration.qrc"/>
+  <include location="reception.qrc"/>
  </resources>
  <connections/>
 </ui>

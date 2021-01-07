@@ -19,6 +19,7 @@ SOURCES += \
     dialog.cpp \
     excel.cpp \
     fournisseurs.cpp \
+    historique.cpp \
     invite.cpp \
     login.cpp \
     main.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     dialog.h \
     excel.h \
     fournisseurs.h \
+    historique.h \
     invite.h \
     login.h \
     mainwindow.h \
@@ -80,6 +82,7 @@ RESOURCES += \
     stock.qrc
 
 DISTFILES += \
+    historique.txt \
     ireception.png
 
 

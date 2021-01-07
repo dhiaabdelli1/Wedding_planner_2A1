@@ -18,6 +18,7 @@
 #include <QSystemTrayIcon>
 #include <QtConcurrent>
 #include <QFuture>
+#include <QUrl>
 
 #include <QPropertyAnimation>
 #include <QSound>
@@ -44,6 +45,7 @@
 #include "stats.h"
 #include "chat.h"
 #include "windows.h"
+#include "historique.h"
 #include <vector>
 //#include "stats.h"
 //#include "arduino.h"
@@ -316,7 +318,21 @@ private slots:
 
     void on_annuler_chan_mdp_clicked();
 
-    void on_radioButton_toggled(bool checked);
+
+
+    void on_ouvrir_media_clicked();
+
+    void on_play_media_clicked();
+
+    void on_pause_media_clicked();
+
+    void on_stop_media_clicked();
+
+    void on_mute_media_clicked();
+
+    void on_volume_media_valueChanged(int value);
+
+    void on_web_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -391,6 +407,8 @@ private:
     QSystemTrayIcon *mSystemTrayIcon;
     QMediaPlayer *mMediaPlayer;
     QSound *son;
+    historique historique;
+    QMediaPlayer musicAdd;
 
     QString tmp;
 

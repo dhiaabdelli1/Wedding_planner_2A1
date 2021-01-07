@@ -12,9 +12,9 @@ bool connexion::createConnexion()
 {
     bool test=false;
     QSqlDatabase db=QSqlDatabase::addDatabase("QODBC");
-    db.setDatabaseName("gestion_invites");
-    db.setUserName("dhia");
-    db.setPassword("dhia");
+    db.setDatabaseName("madness");
+    db.setUserName("mad");
+    db.setPassword("mad");
 
     if (db.open())
         test=true;
