@@ -5,7 +5,7 @@ historique::historique()
 
 }
 void historique::save(QString reference,QString nom)
-{    QFile file ("C:/Users/asus/Desktop/barkia/INTEGRATION/historique.txt");
+{    QFile file ("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATIONhistorique.txt");
      if (!file.open(QIODevice::WriteOnly|QIODevice::Append | QIODevice::Text))
       qDebug()<<"erreur";
      QTextStream out(&file);
@@ -15,7 +15,7 @@ void historique::save(QString reference,QString nom)
 }
 QString historique::load()
 {   tmp="";
-    QFile file("C:/Users/asus/Desktop/barkia/INTEGRATION/historique.txt");
+    QFile file("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATIONhistorique.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
       tmp="";
 

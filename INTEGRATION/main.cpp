@@ -8,6 +8,8 @@
 #include <qmovie.h>
 #include <QWidget>
 #include <QLayout>
+#include <QDesktopWidget>
+
 
 
 int main(int argc, char *argv[])
@@ -23,8 +25,11 @@ int main(int argc, char *argv[])
     processLabel->setMovie(movie);
     processLabel->setWindowFlag(Qt::FramelessWindowHint );
 
-    processLabel->setAlignment(Qt::AlignCenter);
+    //processLabel->setAlignment(Qt::AlignCenter);
     movie->start();
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    //processLabel->setAlignment(Qt::AlignCenter);
+    processLabel->move((screenGeometry.width()-processLabel->width() )/ 2,((screenGeometry.height()-processLabel->height()) / 2));
     processLabel->show();
 
 

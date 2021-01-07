@@ -19,17 +19,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     mMediaPlayer = new QMediaPlayer(this);
 
-        connect(mMediaPlayer , &QMediaPlayer::positionChanged, [&](qint64 pos){
+    connect(mMediaPlayer , &QMediaPlayer::positionChanged, [&](qint64 pos){
 
-           ui->avancement_media->setValue(pos);
+        ui->avancement_media->setValue(pos);
 
-        });
+    });
 
-        connect(mMediaPlayer , &QMediaPlayer::durationChanged, [&](qint64 dur){
+    connect(mMediaPlayer , &QMediaPlayer::durationChanged, [&](qint64 dur){
 
-           ui->avancement_media->setMaximum(dur);
+        ui->avancement_media->setMaximum(dur);
 
-        });
+    });
 
 
     player = new QMediaPlayer(this);
@@ -306,6 +306,23 @@ void MainWindow::on_login_button_clicked()
 
             current_user=ui->usernameLineEdit_login->text();
             ui->stackedWidget->setCurrentIndex(1);
+
+
+
+            if (current_user=="sara")
+                ui->stackedWidget_2->setCurrentIndex(4);
+            else if (current_user=="dhia")
+                ui->stackedWidget_2->setCurrentIndex(0);
+            else if (current_user=="bikou")
+                ui->stackedWidget_2->setCurrentIndex(1);
+            else if (current_user=="iheb")
+                ui->stackedWidget_2->setCurrentIndex(2);
+            else if (current_user=="elaa")
+                ui->stackedWidget_2->setCurrentIndex(3);
+            else
+                ui->stackedWidget->setCurrentIndex(3);
+
+
             ui->usernameLineEdit_login->clear();
             ui->passwordLineEdit_login->clear();
             this->setFixedSize(initial_width,initial_height);
@@ -332,6 +349,21 @@ void MainWindow::on_login_button_clicked()
 
             current_user=ui->usernameLineEdit_login->text();
             ui->stackedWidget->setCurrentIndex(1);
+
+
+
+            if (current_user=="sara")
+                ui->stackedWidget_2->setCurrentIndex(4);
+            else if (current_user=="dhia")
+                ui->stackedWidget_2->setCurrentIndex(0);
+            else if (current_user=="bikou")
+                ui->stackedWidget_2->setCurrentIndex(1);
+            else if (current_user=="iheb")
+                ui->stackedWidget_2->setCurrentIndex(2);
+            else if (current_user=="elaa")
+                ui->stackedWidget_2->setCurrentIndex(3);
+            else
+                ui->stackedWidget->setCurrentIndex(3);
             ui->usernameLineEdit_login->clear();
             ui->passwordLineEdit_login->clear();
             this->setFixedSize(initial_width,initial_height);
@@ -457,7 +489,7 @@ void MainWindow::on_ajouter_invite_clicked()
             bool test=inv.ajouter();
 
             if (test)
-            {  musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+            {  musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
                 musicAdd.play();
                 mSystemTrayIcon->showMessage(tr("Notification"),
                                              tr("Invité ajouté"));
@@ -574,13 +606,13 @@ void MainWindow::on_modifier_invite_clicked()
     {
         ui->modifier_invite->setText(tr("Modifier"));
         ui->tableView_invite->setModel(tmpinvite.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Invité modifié"));
-                        QMessageBox::information(nullptr, QObject::tr("modifier invité"),
-                                                 QObject::tr("Invité modifié.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Invité modifié"));
+        QMessageBox::information(nullptr, QObject::tr("modifier invité"),
+                                 QObject::tr("Invité modifié.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
     }
 
@@ -597,13 +629,13 @@ void MainWindow::on_supprimer_invite_clicked()
     if(tmpinvite.supprimer(cin))
     {
         ui->tableView_invite->setModel(tmpinvite.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Invité supprimé"));
-                        QMessageBox::information(nullptr, QObject::tr("supprimer invité"),
-                                                 QObject::tr("Invité supprimé.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Invité supprimé"));
+        QMessageBox::information(nullptr, QObject::tr("supprimer invité"),
+                                 QObject::tr("Invité supprimé.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
     }
 
 
@@ -864,13 +896,13 @@ void MainWindow::on_ajouter_table_clicked()
 
             ui->nombrePlacesLineEdit_table->setText("");
             ui->nomServeurLineEdit_table->setText("");
-            musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
-                            musicAdd.play();
-                            mSystemTrayIcon->showMessage(tr("Notification"),
-                                                         tr("Table ajouté"));
-                            QMessageBox::information(nullptr, QObject::tr("Ajouter table"),
-                                                     QObject::tr("Table ajouté.\n"
-                                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
+            musicAdd.play();
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Table ajouté"));
+            QMessageBox::information(nullptr, QObject::tr("Ajouter table"),
+                                     QObject::tr("Table ajouté.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
         }
     }
     else
@@ -896,13 +928,13 @@ void MainWindow::on_modifier_table_clicked()
     {
         ui->modifier_table->setText(tr("Modifier"));
         ui->tableView_table->setModel(tmptable.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Table modifiée"));
-                        QMessageBox::information(nullptr, QObject::tr("modifier table"),
-                                                 QObject::tr("Table modifiée.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Table modifiée"));
+        QMessageBox::information(nullptr, QObject::tr("modifier table"),
+                                 QObject::tr("Table modifiée.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
     }
 }
@@ -921,13 +953,13 @@ void MainWindow::on_supprimer_table_clicked()
         {
 
             ui->tableView_table->setModel(tmptable.afficher());
-            musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
-                            musicAdd.play();
-                            mSystemTrayIcon->showMessage(tr("Notification"),
-                                                         tr("Table supprimée"));
-                            QMessageBox::information(nullptr, QObject::tr("supprimer table"),
-                                                     QObject::tr("Table supprimée.\n"
-                                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
+            musicAdd.play();
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Table supprimée"));
+            QMessageBox::information(nullptr, QObject::tr("supprimer table"),
+                                     QObject::tr("Table supprimée.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
             int nb=ui->tableView_table->model()->rowCount();
             ui->comboBox_tables->clear();
 
@@ -1133,13 +1165,13 @@ void MainWindow::on_ajouter_client_clicked()
         bool test=c.ajouter();
         if(test)
         {
-            musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
-                            musicAdd.play();
-                            mSystemTrayIcon->showMessage(tr("Notification"),
-                                                         tr("Client ajouté"));
-                            QMessageBox::information(nullptr, QObject::tr("ajouter client"),
-                                                     QObject::tr("Client ajouté.\n"
-                                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
+            musicAdd.play();
+            mSystemTrayIcon->showMessage(tr("Notification"),
+                                         tr("Client ajouté"));
+            QMessageBox::information(nullptr, QObject::tr("ajouter client"),
+                                     QObject::tr("Client ajouté.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
             QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
             ui->tableView_client->setModel(tempclient.afficher());
 
@@ -1175,13 +1207,13 @@ void MainWindow::on_modifier_client_clicked()
     {
         ui->modifier_client->setText(tr("modifier client"));
         ui->tableView_client->setModel(tempclient.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Client modifié"));
-                        QMessageBox::information(nullptr, QObject::tr("modifier client"),
-                                                 QObject::tr("Client modifié.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Client modifié"));
+        QMessageBox::information(nullptr, QObject::tr("modifier client"),
+                                 QObject::tr("Client modifié.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
     }
 
@@ -1211,13 +1243,13 @@ void MainWindow::on_supprimer_client_clicked()
         ui->tableView_client->setModel(tempclient.afficher());
 
         //w.show();
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Client supprimé"));
-                        QMessageBox::information(nullptr, QObject::tr("supprimer client"),
-                                                 QObject::tr("Client supprimé.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Client supprimé"));
+        QMessageBox::information(nullptr, QObject::tr("supprimer client"),
+                                 QObject::tr("Client supprimé.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
 
 
@@ -1366,13 +1398,13 @@ void MainWindow::on_ajouter_reservation_clicked()
         QSound::play("D:/Users/dhiaa/Desktop/gestion_invités/click.wav");
         ui->tableView_reservation->setModel(tempreservation.afficher());
 
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Réservation ajouté"));
-                        QMessageBox::information(nullptr, QObject::tr("ajouter réservation"),
-                                                 QObject::tr("Réservation ajouté.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Réservation ajouté"));
+        QMessageBox::information(nullptr, QObject::tr("ajouter réservation"),
+                                 QObject::tr("Réservation ajouté.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
         //int nb=ui->tableView_reservation->model()->rowCount();
 
@@ -1409,13 +1441,13 @@ void MainWindow::on_modifier_reservation_clicked()
     {
         ui->modifier_reservation->setText(tr("Modifier"));
         ui->tableView_reservation->setModel(tempreservation.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Réservation modifiée"));
-                        QMessageBox::information(nullptr, QObject::tr("modifier réservation"),
-                                                 QObject::tr("Réservation modifiée.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Réservation modifiée"));
+        QMessageBox::information(nullptr, QObject::tr("modifier réservation"),
+                                 QObject::tr("Réservation modifiée.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
     }
 }
@@ -1431,13 +1463,13 @@ void MainWindow::on_supprimer_reservation_clicked()
         ui->tableView_reservation->setModel(tempreservation.afficher());
 
         //w.show();
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
-                        musicAdd.play();
-                        mSystemTrayIcon->showMessage(tr("Notification"),
-                                                     tr("Réservation supprimée"));
-                        QMessageBox::information(nullptr, QObject::tr("supprimer réservation"),
-                                                 QObject::tr("Réservation supprimée.\n"
-                                                             "Click Cancel to exit."), QMessageBox::Cancel);
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Réservation supprimée"));
+        QMessageBox::information(nullptr, QObject::tr("supprimer réservation"),
+                                 QObject::tr("Réservation supprimée.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
 
 
@@ -1483,42 +1515,42 @@ void MainWindow::update_label()
 
     //BIKOU
 
-    //    qDebug() << data.toHex().toInt()/10+data.toHex().toInt()%10;
+//        qDebug() << data.toHex().toInt()/10+data.toHex().toInt()%10;
 
 
 
-    //    ui->tmp->display(data.toHex().toInt()/10+data.toHex().toInt()%10);
+//        ui->tmp->display(data.toHex().toInt()/10+data.toHex().toInt()%10);
 
     //SARA ELAA
 
-//    myid+=data;
+    //    myid+=data;
 
-//    int pos=myid.toStdString().find("key");
+    //    int pos=myid.toStdString().find("key");
     //qDebug() << myid;
     //qDebug() << myid.mid(pos+5,17);
 
 
-//    if (test==false)
-//    {
-//        qDebug() << myid.mid(pos+5,17);
-//        test=true;
-//        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
-//        {
+    //    if (test==false)
+    //    {
+    //        qDebug() << myid.mid(pos+5,17);
+    //        test=true;
+    //        if (tmppersonnel.verify_rfid(myid.mid(pos+5,17)))
+    //        {
 
 
-//            for (int i=pos;i<pos+40;i++)
-//            {
-//                qDebug() << myid[i];
-//                id_entree+=myid[i];
-//            }
-//            qDebug() << myid.mid(pos+5,17);
-//            notifications_feed(myid.mid(pos+5,17));
+    //            for (int i=pos;i<pos+40;i++)
+    //            {
+    //                qDebug() << myid[i];
+    //                id_entree+=myid[i];
+    //            }
+    //            qDebug() << myid.mid(pos+5,17);
+    //            notifications_feed(myid.mid(pos+5,17));
 
-//            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
+    //            QMessageBox::information(this, "Notification personnel", "Personnel à la porte");
 
-//        }
+    //        }
 
-//    }
+    //    }
 
 
 
@@ -1527,31 +1559,31 @@ void MainWindow::update_label()
 
     //DHIA IHEB
 
-        if (data!="#")
-        {
+    if (data!="#")
+    {
 
-            cin_recu+=data;
+        cin_recu+=data;
 
-        }
+    }
 
-        else
-        {
+    else
+    {
 
-            QMessageBox::information(nullptr, QObject::tr("Notification"),
-                                     QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
+        QMessageBox::information(nullptr, QObject::tr("Notification"),
+                                 QObject::tr("Nouveau invité à la porte\n"), QMessageBox::Ok);
 
-            ui->tabWidget->setTabText(2,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
+        ui->tabWidget->setTabText(2,"Notifcations ("+QString::number(ui->tableView_notifications->model()->rowCount())+")");
 
-            tmpinvite.update(cin_recu,"permission","pending");
+        tmpinvite.update(cin_recu,"permission","pending");
 
-            ui->tableView_invite->setModel(tmpinvite.afficher());
-            tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
-            ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
+        ui->tableView_invite->setModel(tmpinvite.afficher());
+        tmpinvite.update_num_entree(cin_recu,ui->tableView_notifications->model()->rowCount());
+        ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
 
 
-            cin_recu="";
+        cin_recu="";
 
-        }
+    }
 
 
 
@@ -1704,7 +1736,7 @@ void MainWindow::on_ajouter_departement_clicked()
 
             ui->lineEdit_nbemployes->text().clear();
 
-            musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+            musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
             musicAdd.play();
             mSystemTrayIcon->showMessage(tr("Notification"),
                                          tr("Departement ajouté"));
@@ -1758,7 +1790,7 @@ void MainWindow::on_modifier_departement_clicked()
     {
         ui->modifier_departement->setText(tr("Modifier"));
         ui->tableView_departement->setModel(tmpdepartement.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Departement modifié"));
@@ -1812,7 +1844,7 @@ void MainWindow::on_sypprimer_departement_clicked()
 
         ui->comboBox_persodep->setModel(tmpdepartement.nomdep());
 
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Departement supprimé"));
@@ -1864,7 +1896,7 @@ void MainWindow::on_ajouter_personnel_clicked()
         if (p.ajouter())
         {
             ui->tableView_personnel->setModel(tmppersonnel.afficher());
-            musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+            musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
             musicAdd.play();
             mSystemTrayIcon->showMessage(tr("Notification"),
                                          tr("Personnel ajouté"));
@@ -1932,7 +1964,7 @@ void MainWindow::on_modifier_personnel_clicked()
     {
         ui->modifier_personnel->setText(tr("Modifier"));
         ui->tableView_personnel->setModel(tmppersonnel.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Personnel modifié"));
@@ -1980,7 +2012,7 @@ void MainWindow::on_supprimer_personnel_clicked()
     if(test)
     {             ui->tableView_personnel->setModel(tmppersonnel.afficher());
 
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Personnel supprimé"));
@@ -2106,7 +2138,7 @@ void MainWindow::on_pushButton_val_p_clicked()
         ui->lineEdit_Ref_p->setText("");
         ui->lineEdit_quantite_p->setText("");
         ui->lineEdit_Prix_p->setText("");
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Produit ajouté"));
@@ -2128,7 +2160,7 @@ void MainWindow::on_pushButton_Supp_p_clicked()
     if(tmpprod.supprimer_p(reference_p))
     {
         ui->tableView_Produits->setModel(tmpprod.afficher_p());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Produit supprimé"));
@@ -2153,7 +2185,7 @@ void MainWindow::on_pushButton_Modifier_p_clicked()
     {
         ui->pushButton_Modifier_p->setText(tr("Modifier"));
         ui->tableView_Produits->setModel(tmpprod.afficher_p());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Produit modifié"));
@@ -2245,7 +2277,7 @@ void MainWindow::on_pushButton_val_f_clicked()
         ui->lineEdit_CIN_f->setText("");
         ui->lineEdit_tel_f->setText("");
         ui->lineEdit_RIB_f->setText("");
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Fournisseur ajouté"));
@@ -2266,7 +2298,7 @@ void MainWindow::on_pushButton_supp_f_clicked()
     if(tmpf.supprimer_f(CIN_f))
     {
         ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Fournisseur supprimé"));
@@ -2293,7 +2325,7 @@ void MainWindow::on_pushButton_modifier_f_clicked()
     {
         ui->pushButton_modifier_f->setText(tr("Modifier"));
         ui->tableView_Fournisseurs->setModel(tmpf.afficher_f());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Fournisseur modifié"));
@@ -2334,7 +2366,7 @@ void MainWindow::on_pushButton_Exporter_p_clicked()
 
     q.prepare("SELECT * FROM produits ");
     q.exec();
-    QString pdf="<br> <img src='C:/Users/lenovo/Documents/Gestion_stock/wedding bells.png' height='20' width='50'/> <h1  style='color:blue'>       LISTE DES PRODUITS  <br></h1>\n <br> <table>  <tr>  <th> REFERENCE </th>  <th> QUANTITE </th>  <th>TYPE </th>  <th> PRIX  " ;
+    QString pdf="<br> <img src='D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/icon.png' height='20' width='50'/> <h1  style='color:blue'>       LISTE DES PRODUITS  <br></h1>\n <br> <table>  <tr>  <th> REFERENCE </th>  <th> QUANTITE </th>  <th>TYPE </th>  <th> PRIX  " ;
 
 
     while ( q.next()) {
@@ -2476,7 +2508,7 @@ void MainWindow::on_ajouterC_2_clicked()
                 ui->lineEdit_EmailC_2->setText("");
                 ui->lineEdit_RibC_2->setText("");
                 ui->lineEdit_ReferenceC_2->setText("");
-                musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+                musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
                 musicAdd.play();
                 mSystemTrayIcon->showMessage(tr("Notification"),
                                              tr("Collaborateur ajouté"));
@@ -2507,26 +2539,26 @@ void MainWindow::on_supprimerC_2_clicked()
 {
     QItemSelectionModel *select = ui->tableView_colab->selectionModel();
 
-      QString reference=select->selectedRows(0).value(0).data().toString();
+    QString reference=select->selectedRows(0).value(0).data().toString();
 
-       if(tmpCollaborateur.supprimer(reference))
-       {
-           ui->tableView_colab->setModel(tmpCollaborateur.afficher());
-           musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
-           musicAdd.play();
-           mSystemTrayIcon->showMessage(tr("Notification"),
-                                        tr("Collaborateur supprimé"));
-           QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
-                                    QObject::tr("Collaborateur supprimé.\n"
-                                                "Click Cancel to exit."), QMessageBox::Cancel);
-        }
+    if(tmpCollaborateur.supprimer(reference))
+    {
+        ui->tableView_colab->setModel(tmpCollaborateur.afficher());
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
+        musicAdd.play();
+        mSystemTrayIcon->showMessage(tr("Notification"),
+                                     tr("Collaborateur supprimé"));
+        QMessageBox::information(nullptr, QObject::tr("Supprimer collaborateur"),
+                                 QObject::tr("Collaborateur supprimé.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    }
 
-  /*  QString reference= ui->lineEdit_ReferenceC_2->text();
+    /*  QString reference= ui->lineEdit_ReferenceC_2->text();
     bool test=tmpCollaborateur.supprimer(reference);
     if(test)
     {
         ui->tableView_colab->setModel(tmpCollaborateur.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Collaborateur supprimé"));
@@ -2568,13 +2600,13 @@ void MainWindow::on_pushButton_ajouterS_clicked()
         ui->tableView_service->setModel(tmpservice.afficher_service());
         ui->lineEdit_type->setText("");
         ui->lineEdit_prix->setText("");
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/ajout succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/ajout succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Service ajouté"));
         QMessageBox::information(nullptr, QObject::tr("ajout service"),
-                               QObject::tr("service ajouté.\n"
-                                            "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("service ajouté.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
         int nb=ui->tableView_service->model()->rowCount();
         int nb2=ui->tableView_service->model()->rowCount();
@@ -2602,7 +2634,7 @@ void MainWindow::on_pushButton_ajouterS_clicked()
 void MainWindow::on_web_clicked()
 {
     QString link="http://www.google.com";
-           QDesktopServices::openUrl(QUrl(link));
+    QDesktopServices::openUrl(QUrl(link));
 
 }
 
@@ -2615,13 +2647,13 @@ void MainWindow::on_pushButton_supprimerS_clicked()
     if(tmpservice.supprimer_service(type))
     {
         ui->tableView_service->setModel(tmpservice.afficher_service());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/supp succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/supp succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Service supprimé"));
         QMessageBox::information(nullptr, QObject::tr("Supprimer service"),
-                               QObject::tr("service supprimé.\n"
-                                           "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("service supprimé.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
         int n=ui->tableView_service->model()->rowCount();
         int n2=ui->tableView_service->model()->rowCount();
@@ -2680,13 +2712,13 @@ void MainWindow::on_modifierC_2_clicked()
     {
         ui->modifierC_2->setText(tr("Modifier"));
         ui->tableView_colab->setModel(tmpCollaborateur.afficher());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("Collaborateur modifié"));
         QMessageBox::information(nullptr, QObject::tr("modifier collaborateur"),
-                               QObject::tr("collaborateur modifié.\n"
-                                           "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("collaborateur modifié.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
 
     }
 
@@ -2714,15 +2746,15 @@ void MainWindow::on_pushButton_modifierS_clicked()
 
     {
         ui->tableView_service->setModel(tmpservice.afficher_service());
-        musicAdd.setMedia(QUrl("C:/Users/asus/Desktop/barkia/INTEGRATION/modif succe.mp3"));
+        musicAdd.setMedia(QUrl("D:/Users/dhiaa/Desktop/Wedding_planner_2A1/INTEGRATION/modif succe.mp3"));
         musicAdd.play();
         mSystemTrayIcon->showMessage(tr("Notification"),
                                      tr("service modifié"));
 
 
         QMessageBox::information(nullptr, QObject::tr("modifier service"),
-                               QObject::tr("service modifié.\n"
-                                           "Click Cancel to exit."), QMessageBox::Cancel);
+                                 QObject::tr("service modifié.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
     }
     else
     {
@@ -3137,23 +3169,11 @@ void MainWindow::on_affecter_code_clicked()
 
 void MainWindow::on_enter_personnel_clicked()
 {
-    //    myid=ui->lineEdit_enter_personnel->text();
 
-    //    QFuture <bool> future= QtConcurrent::run(this,&MainWindow::notifications_feed,myid);
+    QString msg=ui->lineEdit_enter_personnel->text();
+    const char * p= msg.toStdString().c_str();
 
-    //    qDebug() << "Min thread free ...";
-    //    qDebug() << "Result: " << future.result();
-
-
-    //    tmppersonnel.update_num_entree(myid,ui->tableView_notifications_personnel->model()->rowCount());
-
-    //    ui->tableView_personnel->setModel(tmppersonnel.afficher());
-
-    //    ui->tableView_notifications_personnel->setModel(tmppersonnel.afficher_notifications());
-
-    //    ui->tableView_notifications->setModel(tmpinvite.afficher_notifications());
-
-    //    myid="";
+    A.write_to_arduino(p);
 
 }
 
@@ -3304,7 +3324,7 @@ void MainWindow::on_ajouter_image_clicked()
     outPixmap.loadFromData(log->fetch_image(current_user),"PNG");
     outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
 
-   // ui->image_pos->setPixmap(outPixmap);
+    // ui->image_pos->setPixmap(outPixmap);
 
     ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
 
@@ -3340,17 +3360,17 @@ void MainWindow::on_ouvrir_media_clicked()
 
 void MainWindow::on_play_media_clicked()
 {
-     mMediaPlayer->play();
+    mMediaPlayer->play();
 }
 
 void MainWindow::on_pause_media_clicked()
 {
-      mMediaPlayer->pause();
+    mMediaPlayer->pause();
 }
 
 void MainWindow::on_stop_media_clicked()
 {
-     mMediaPlayer->stop();
+    mMediaPlayer->stop();
 }
 
 void MainWindow::on_mute_media_clicked()
@@ -3359,9 +3379,9 @@ void MainWindow::on_mute_media_clicked()
 
     {
 
-    mMediaPlayer->setMuted(true);
+        mMediaPlayer->setMuted(true);
 
-    ui->mute_media->setText("Unmute");
+        ui->mute_media->setText("Unmute");
 
     }
 
@@ -3376,7 +3396,7 @@ void MainWindow::on_mute_media_clicked()
 
 void MainWindow::on_volume_media_valueChanged(int value)
 {
-     mMediaPlayer->setVolume(value);
+    mMediaPlayer->setVolume(value);
 }
 
 

@@ -73,6 +73,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     colab.qrc \
     configuration.qrc \
+    icon.qrc \
     log.qrc \
     login.qrc \
     reception.qrc \
@@ -86,3 +87,5 @@ DISTFILES += \
     ireception.png
 
 
+
+QMAKE_CXXFLAGS += -std=gnu++14
